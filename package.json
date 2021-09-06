@@ -1,0 +1,37 @@
+{
+  "name": "@ondewo/survey-client-angular",
+  "version": "0.4.1",
+  "description": "Ondewo survey client library for angular",
+  "keywords": [
+    "ondewo",
+    "survey",
+    "api",
+    "client",
+    "ngx-grpc",
+    "grpc"
+  ],
+  "author": "ONDEWO GmbH",
+  "homepage": "https://ondewo.com/",
+  "license": "Apache-2.0",
+  "peerDependencies": {
+    "@angular/common": ">=8.0.0",
+    "@angular/core": ">=8.0.0",
+    "@ngx-grpc/common": "^2.1.0",
+    "@ngx-grpc/core": "^2.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "directory": "https://github.com/ondewo/ondewo-survey-client-angular.git"
+  },
+  "main": "bundles/ondewo-survey-client-angular.umd.js",
+  "module": "fesm2015/ondewo-survey-client-angular.js",
+  "es2015": "fesm2015/ondewo-survey-client-angular.js",
+  "esm2015": "esm2015/ondewo-survey-client-angular.js",
+  "fesm2015": "fesm2015/ondewo-survey-client-angular.js",
+  "typings": "ondewo-survey-client-angular.d.ts",
+  "metadata": "ondewo-survey-client-angular.metadata.json",
+  "sideEffects": false,
+  "dependencies": {
+    "tslib": "^2.0.0"
+  }
+}
