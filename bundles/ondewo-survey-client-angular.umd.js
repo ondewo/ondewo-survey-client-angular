@@ -330,7 +330,7 @@
     /**
      * Message implementation for ondewo.survey.Survey
      */
-    var Survey = /** @class */ (function () {
+    exports.Survey = /** @class */ (function () {
         /**
          * Message constructor. Initializes the properties and applies default Protobuf values if necessary
          * @param _value initial values object or instance of Survey to deeply clone from
@@ -345,6 +345,7 @@
                 ? new SurveyInfo(_value.surveyInfo)
                 : undefined;
             this.excludeSubflows = (_value.excludeSubflows || []).slice();
+            this.status = _value.status;
             Survey.refineValues(this);
         }
         /**
@@ -367,6 +368,7 @@
             _instance.questions = _instance.questions || [];
             _instance.surveyInfo = _instance.surveyInfo || undefined;
             _instance.excludeSubflows = _instance.excludeSubflows || [];
+            _instance.status = _instance.status || 0;
         };
         /**
          * Deserializes / reads binary message into message instance using provided binary reader
@@ -374,7 +376,7 @@
          * @param _reader binary reader instance
          */
         Survey.deserializeBinaryFromReader = function (_instance, _reader) {
-            var _a;
+            var _b;
             while (_reader.nextField()) {
                 if (_reader.isEndGroup())
                     break;
@@ -398,7 +400,10 @@
                         _reader.readMessage(_instance.surveyInfo, SurveyInfo.deserializeBinaryFromReader);
                         break;
                     case 9:
-                        (_a = (_instance.excludeSubflows = _instance.excludeSubflows || [])).push.apply(_a, __spread((_reader.readPackedEnum() || [])));
+                        (_b = (_instance.excludeSubflows = _instance.excludeSubflows || [])).push.apply(_b, __spread((_reader.readPackedEnum() || [])));
+                        break;
+                    case 10:
+                        _instance.status = _reader.readEnum();
                         break;
                     default:
                         _reader.skipField();
@@ -429,6 +434,9 @@
             }
             if (_instance.excludeSubflows && _instance.excludeSubflows.length) {
                 _writer.writePackedEnum(9, _instance.excludeSubflows);
+            }
+            if (_instance.status) {
+                _writer.writeEnum(10, _instance.status);
             }
         };
         Object.defineProperty(Survey.prototype, "surveyId", {
@@ -491,6 +499,16 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(Survey.prototype, "status", {
+            get: function () {
+                return this._status;
+            },
+            set: function (value) {
+                this._status = value;
+            },
+            enumerable: false,
+            configurable: true
+        });
         /**
          * Serialize message to binary data
          * @param instance message instance
@@ -510,7 +528,8 @@
                 languageCode: this.languageCode,
                 questions: (this.questions || []).map(function (m) { return m.toObject(); }),
                 surveyInfo: this.surveyInfo ? this.surveyInfo.toObject() : undefined,
-                excludeSubflows: (this.excludeSubflows || []).slice()
+                excludeSubflows: (this.excludeSubflows || []).slice(),
+                status: this.status
             };
         };
         /**
@@ -527,6 +546,7 @@
         Survey.prototype.toProtobufJSON = function (
         // @ts-ignore
         options) {
+            var _a;
             return {
                 surveyId: this.surveyId,
                 displayName: this.displayName,
@@ -535,12 +555,22 @@
                 surveyInfo: this.surveyInfo
                     ? this.surveyInfo.toProtobufJSON(options)
                     : null,
-                excludeSubflows: (this.excludeSubflows || []).map(function (v) { return exports.SubFlow[v]; })
+                excludeSubflows: (this.excludeSubflows || []).map(function (v) { return exports.SubFlow[v]; }),
+                status: Survey.AgentStatus[(_a = this.status) !== null && _a !== void 0 ? _a : 0]
             };
         };
         return Survey;
     }());
-    Survey.id = 'ondewo.survey.Survey';
+    exports.Survey.id = 'ondewo.survey.Survey';
+    (function (Survey) {
+        var AgentStatus;
+        (function (AgentStatus) {
+            AgentStatus[AgentStatus["TO_BE_INITIALIZED"] = 0] = "TO_BE_INITIALIZED";
+            AgentStatus[AgentStatus["UPDATED"] = 1] = "UPDATED";
+            AgentStatus[AgentStatus["UPDATING"] = 2] = "UPDATING";
+            AgentStatus[AgentStatus["OUTDATED"] = 3] = "OUTDATED";
+        })(AgentStatus = Survey.AgentStatus || (Survey.AgentStatus = {}));
+    })(exports.Survey || (exports.Survey = {}));
     /**
      * Message implementation for ondewo.survey.SurveyInfo
      */
@@ -560,6 +590,7 @@
             this.purpose = _value.purpose;
             this.topic = _value.topic;
             this.legalDisclaimer = _value.legalDisclaimer;
+            this.anonymous = _value.anonymous;
             SurveyInfo.refineValues(this);
         }
         /**
@@ -585,6 +616,7 @@
             _instance.purpose = _instance.purpose || '';
             _instance.topic = _instance.topic || '';
             _instance.legalDisclaimer = _instance.legalDisclaimer || '';
+            _instance.anonymous = _instance.anonymous || false;
         };
         /**
          * Deserializes / reads binary message into message instance using provided binary reader
@@ -622,6 +654,9 @@
                         break;
                     case 9:
                         _instance.legalDisclaimer = _reader.readString();
+                        break;
+                    case 10:
+                        _instance.anonymous = _reader.readBool();
                         break;
                     default:
                         _reader.skipField();
@@ -661,6 +696,9 @@
             }
             if (_instance.legalDisclaimer) {
                 _writer.writeString(9, _instance.legalDisclaimer);
+            }
+            if (_instance.anonymous) {
+                _writer.writeBool(10, _instance.anonymous);
             }
         };
         Object.defineProperty(SurveyInfo.prototype, "legalEntity", {
@@ -753,6 +791,16 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(SurveyInfo.prototype, "anonymous", {
+            get: function () {
+                return this._anonymous;
+            },
+            set: function (value) {
+                this._anonymous = value;
+            },
+            enumerable: false,
+            configurable: true
+        });
         /**
          * Serialize message to binary data
          * @param instance message instance
@@ -775,7 +823,8 @@
                 expectedDuration: this.expectedDuration,
                 purpose: this.purpose,
                 topic: this.topic,
-                legalDisclaimer: this.legalDisclaimer
+                legalDisclaimer: this.legalDisclaimer,
+                anonymous: this.anonymous
             };
         };
         /**
@@ -801,7 +850,8 @@
                 expectedDuration: this.expectedDuration,
                 purpose: this.purpose,
                 topic: this.topic,
-                legalDisclaimer: this.legalDisclaimer
+                legalDisclaimer: this.legalDisclaimer,
+                anonymous: this.anonymous
             };
         };
         return SurveyInfo;
@@ -2143,18 +2193,23 @@
     /**
      * Message implementation for ondewo.survey.Answer
      */
-    var Answer = /** @class */ (function () {
+    exports.Answer = /** @class */ (function () {
         /**
          * Message constructor. Initializes the properties and applies default Protobuf values if necessary
          * @param _value initial values object or instance of Answer to deeply clone from
          */
         function Answer(_value) {
+            this._isAnonymous = Answer.IsAnonymousCase.none;
             _value = _value || {};
             this.questionNr = _value.questionNr;
             this.sessionId = _value.sessionId;
             this.answerText = _value.answerText;
             this.answerParameter = _value.answerParameter;
             this.answerParameterOriginal = _value.answerParameterOriginal;
+            this.anonymous = _value.anonymous;
+            this.userInformation = _value.userInformation
+                ? new Answer.UserInfo(_value.userInformation)
+                : undefined;
             Answer.refineValues(this);
         }
         /**
@@ -2202,6 +2257,13 @@
                     case 5:
                         _instance.answerParameterOriginal = _reader.readString();
                         break;
+                    case 7:
+                        _instance.anonymous = _reader.readBool();
+                        break;
+                    case 6:
+                        _instance.userInformation = new Answer.UserInfo();
+                        _reader.readMessage(_instance.userInformation, Answer.UserInfo.deserializeBinaryFromReader);
+                        break;
                     default:
                         _reader.skipField();
                 }
@@ -2228,6 +2290,12 @@
             }
             if (_instance.answerParameterOriginal) {
                 _writer.writeString(5, _instance.answerParameterOriginal);
+            }
+            if (_instance.anonymous || _instance.anonymous === false) {
+                _writer.writeBool(7, _instance.anonymous);
+            }
+            if (_instance.userInformation) {
+                _writer.writeMessage(6, _instance.userInformation, Answer.UserInfo.serializeBinaryToWriter);
             }
         };
         Object.defineProperty(Answer.prototype, "questionNr", {
@@ -2280,6 +2348,41 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(Answer.prototype, "anonymous", {
+            get: function () {
+                return this._anonymous;
+            },
+            set: function (value) {
+                if (value !== undefined && value !== null) {
+                    this._userInformation = undefined;
+                    this._isAnonymous = Answer.IsAnonymousCase.anonymous;
+                }
+                this._anonymous = value;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(Answer.prototype, "userInformation", {
+            get: function () {
+                return this._userInformation;
+            },
+            set: function (value) {
+                if (value !== undefined && value !== null) {
+                    this._anonymous = undefined;
+                    this._isAnonymous = Answer.IsAnonymousCase.userInformation;
+                }
+                this._userInformation = value;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(Answer.prototype, "isAnonymous", {
+            get: function () {
+                return this._isAnonymous;
+            },
+            enumerable: false,
+            configurable: true
+        });
         /**
          * Serialize message to binary data
          * @param instance message instance
@@ -2298,7 +2401,11 @@
                 sessionId: this.sessionId,
                 answerText: this.answerText,
                 answerParameter: this.answerParameter,
-                answerParameterOriginal: this.answerParameterOriginal
+                answerParameterOriginal: this.answerParameterOriginal,
+                anonymous: this.anonymous,
+                userInformation: this.userInformation
+                    ? this.userInformation.toObject()
+                    : undefined
             };
         };
         /**
@@ -2320,12 +2427,191 @@
                 sessionId: this.sessionId,
                 answerText: this.answerText,
                 answerParameter: this.answerParameter,
-                answerParameterOriginal: this.answerParameterOriginal
+                answerParameterOriginal: this.answerParameterOriginal,
+                anonymous: this.anonymous,
+                userInformation: this.userInformation
+                    ? this.userInformation.toProtobufJSON(options)
+                    : null
             };
         };
         return Answer;
     }());
-    Answer.id = 'ondewo.survey.Answer';
+    exports.Answer.id = 'ondewo.survey.Answer';
+    (function (Answer) {
+        var IsAnonymousCase;
+        (function (IsAnonymousCase) {
+            IsAnonymousCase[IsAnonymousCase["none"] = 0] = "none";
+            IsAnonymousCase[IsAnonymousCase["anonymous"] = 1] = "anonymous";
+            IsAnonymousCase[IsAnonymousCase["userInformation"] = 2] = "userInformation";
+        })(IsAnonymousCase = Answer.IsAnonymousCase || (Answer.IsAnonymousCase = {}));
+        /**
+         * Message implementation for ondewo.survey.UserInfo
+         */
+        var UserInfo = /** @class */ (function () {
+            /**
+             * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+             * @param _value initial values object or instance of UserInfo to deeply clone from
+             */
+            function UserInfo(_value) {
+                _value = _value || {};
+                this.firstName = _value.firstName;
+                this.lastName = _value.lastName;
+                this.phoneNumber = _value.phoneNumber;
+                this.sessionId = _value.sessionId;
+                UserInfo.refineValues(this);
+            }
+            /**
+             * Deserialize binary data to message
+             * @param instance message instance
+             */
+            UserInfo.deserializeBinary = function (bytes) {
+                var instance = new UserInfo();
+                UserInfo.deserializeBinaryFromReader(instance, new googleProtobuf.BinaryReader(bytes));
+                return instance;
+            };
+            /**
+             * Check all the properties and set default protobuf values if necessary
+             * @param _instance message instance
+             */
+            UserInfo.refineValues = function (_instance) {
+                _instance.firstName = _instance.firstName || '';
+                _instance.lastName = _instance.lastName || '';
+                _instance.phoneNumber = _instance.phoneNumber || '';
+                _instance.sessionId = _instance.sessionId || '';
+            };
+            /**
+             * Deserializes / reads binary message into message instance using provided binary reader
+             * @param _instance message instance
+             * @param _reader binary reader instance
+             */
+            UserInfo.deserializeBinaryFromReader = function (_instance, _reader) {
+                while (_reader.nextField()) {
+                    if (_reader.isEndGroup())
+                        break;
+                    switch (_reader.getFieldNumber()) {
+                        case 1:
+                            _instance.firstName = _reader.readString();
+                            break;
+                        case 2:
+                            _instance.lastName = _reader.readString();
+                            break;
+                        case 3:
+                            _instance.phoneNumber = _reader.readString();
+                            break;
+                        case 4:
+                            _instance.sessionId = _reader.readString();
+                            break;
+                        default:
+                            _reader.skipField();
+                    }
+                }
+                UserInfo.refineValues(_instance);
+            };
+            /**
+             * Serializes a message to binary format using provided binary reader
+             * @param _instance message instance
+             * @param _writer binary writer instance
+             */
+            UserInfo.serializeBinaryToWriter = function (_instance, _writer) {
+                if (_instance.firstName) {
+                    _writer.writeString(1, _instance.firstName);
+                }
+                if (_instance.lastName) {
+                    _writer.writeString(2, _instance.lastName);
+                }
+                if (_instance.phoneNumber) {
+                    _writer.writeString(3, _instance.phoneNumber);
+                }
+                if (_instance.sessionId) {
+                    _writer.writeString(4, _instance.sessionId);
+                }
+            };
+            Object.defineProperty(UserInfo.prototype, "firstName", {
+                get: function () {
+                    return this._firstName;
+                },
+                set: function (value) {
+                    this._firstName = value;
+                },
+                enumerable: false,
+                configurable: true
+            });
+            Object.defineProperty(UserInfo.prototype, "lastName", {
+                get: function () {
+                    return this._lastName;
+                },
+                set: function (value) {
+                    this._lastName = value;
+                },
+                enumerable: false,
+                configurable: true
+            });
+            Object.defineProperty(UserInfo.prototype, "phoneNumber", {
+                get: function () {
+                    return this._phoneNumber;
+                },
+                set: function (value) {
+                    this._phoneNumber = value;
+                },
+                enumerable: false,
+                configurable: true
+            });
+            Object.defineProperty(UserInfo.prototype, "sessionId", {
+                get: function () {
+                    return this._sessionId;
+                },
+                set: function (value) {
+                    this._sessionId = value;
+                },
+                enumerable: false,
+                configurable: true
+            });
+            /**
+             * Serialize message to binary data
+             * @param instance message instance
+             */
+            UserInfo.prototype.serializeBinary = function () {
+                var writer = new googleProtobuf.BinaryWriter();
+                UserInfo.serializeBinaryToWriter(this, writer);
+                return writer.getResultBuffer();
+            };
+            /**
+             * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+             */
+            UserInfo.prototype.toObject = function () {
+                return {
+                    firstName: this.firstName,
+                    lastName: this.lastName,
+                    phoneNumber: this.phoneNumber,
+                    sessionId: this.sessionId
+                };
+            };
+            /**
+             * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+             */
+            UserInfo.prototype.toJSON = function () {
+                return this.toObject();
+            };
+            /**
+             * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+             * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+             * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+             */
+            UserInfo.prototype.toProtobufJSON = function (
+            // @ts-ignore
+            options) {
+                return {
+                    firstName: this.firstName,
+                    lastName: this.lastName,
+                    phoneNumber: this.phoneNumber,
+                    sessionId: this.sessionId
+                };
+            };
+            return UserInfo;
+        }());
+        UserInfo.id = 'ondewo.survey.UserInfo';
+        Answer.UserInfo = UserInfo;
+    })(exports.Answer || (exports.Answer = {}));
     /**
      * Message implementation for ondewo.survey.CreateSurveyRequest
      */
@@ -2336,7 +2622,7 @@
          */
         function CreateSurveyRequest(_value) {
             _value = _value || {};
-            this.survey = _value.survey ? new Survey(_value.survey) : undefined;
+            this.survey = _value.survey ? new exports.Survey(_value.survey) : undefined;
             CreateSurveyRequest.refineValues(this);
         }
         /**
@@ -2366,8 +2652,8 @@
                     break;
                 switch (_reader.getFieldNumber()) {
                     case 1:
-                        _instance.survey = new Survey();
-                        _reader.readMessage(_instance.survey, Survey.deserializeBinaryFromReader);
+                        _instance.survey = new exports.Survey();
+                        _reader.readMessage(_instance.survey, exports.Survey.deserializeBinaryFromReader);
                         break;
                     default:
                         _reader.skipField();
@@ -2382,7 +2668,7 @@
          */
         CreateSurveyRequest.serializeBinaryToWriter = function (_instance, _writer) {
             if (_instance.survey) {
-                _writer.writeMessage(1, _instance.survey, Survey.serializeBinaryToWriter);
+                _writer.writeMessage(1, _instance.survey, exports.Survey.serializeBinaryToWriter);
             }
         };
         Object.defineProperty(CreateSurveyRequest.prototype, "survey", {
@@ -2549,7 +2835,7 @@
          */
         function UpdateSurveyRequest(_value) {
             _value = _value || {};
-            this.survey = _value.survey ? new Survey(_value.survey) : undefined;
+            this.survey = _value.survey ? new exports.Survey(_value.survey) : undefined;
             this.updateMask = _value.updateMask
                 ? new googleProtobuf004.FieldMask(_value.updateMask)
                 : undefined;
@@ -2583,8 +2869,8 @@
                     break;
                 switch (_reader.getFieldNumber()) {
                     case 1:
-                        _instance.survey = new Survey();
-                        _reader.readMessage(_instance.survey, Survey.deserializeBinaryFromReader);
+                        _instance.survey = new exports.Survey();
+                        _reader.readMessage(_instance.survey, exports.Survey.deserializeBinaryFromReader);
                         break;
                     case 2:
                         _instance.updateMask = new googleProtobuf004.FieldMask();
@@ -2603,7 +2889,7 @@
          */
         UpdateSurveyRequest.serializeBinaryToWriter = function (_instance, _writer) {
             if (_instance.survey) {
-                _writer.writeMessage(1, _instance.survey, Survey.serializeBinaryToWriter);
+                _writer.writeMessage(1, _instance.survey, exports.Survey.serializeBinaryToWriter);
             }
             if (_instance.updateMask) {
                 _writer.writeMessage(2, _instance.updateMask, googleProtobuf004.FieldMask.serializeBinaryToWriter);
@@ -3000,7 +3286,7 @@
         function SurveyAnswersResponse(_value) {
             _value = _value || {};
             this.surveyId = _value.surveyId;
-            this.answers = (_value.answers || []).map(function (m) { return new Answer(m); });
+            this.answers = (_value.answers || []).map(function (m) { return new exports.Answer(m); });
             SurveyAnswersResponse.refineValues(this);
         }
         /**
@@ -3034,8 +3320,8 @@
                         _instance.surveyId = _reader.readString();
                         break;
                     case 2:
-                        var messageInitializer2 = new Answer();
-                        _reader.readMessage(messageInitializer2, Answer.deserializeBinaryFromReader);
+                        var messageInitializer2 = new exports.Answer();
+                        _reader.readMessage(messageInitializer2, exports.Answer.deserializeBinaryFromReader);
                         (_instance.answers = _instance.answers || []).push(messageInitializer2);
                         break;
                     default:
@@ -3054,7 +3340,7 @@
                 _writer.writeString(1, _instance.surveyId);
             }
             if (_instance.answers && _instance.answers.length) {
-                _writer.writeRepeatedMessage(2, _instance.answers, Answer.serializeBinaryToWriter);
+                _writer.writeRepeatedMessage(2, _instance.answers, exports.Answer.serializeBinaryToWriter);
             }
         };
         Object.defineProperty(SurveyAnswersResponse.prototype, "surveyId", {
@@ -3233,7 +3519,7 @@
          */
         function ListSurveysResponse(_value) {
             _value = _value || {};
-            this.surveys = (_value.surveys || []).map(function (m) { return new Survey(m); });
+            this.surveys = (_value.surveys || []).map(function (m) { return new exports.Survey(m); });
             this.nextPageToken = _value.nextPageToken;
             ListSurveysResponse.refineValues(this);
         }
@@ -3265,8 +3551,8 @@
                     break;
                 switch (_reader.getFieldNumber()) {
                     case 1:
-                        var messageInitializer1 = new Survey();
-                        _reader.readMessage(messageInitializer1, Survey.deserializeBinaryFromReader);
+                        var messageInitializer1 = new exports.Survey();
+                        _reader.readMessage(messageInitializer1, exports.Survey.deserializeBinaryFromReader);
                         (_instance.surveys = _instance.surveys || []).push(messageInitializer1);
                         break;
                     case 2:
@@ -3285,7 +3571,7 @@
          */
         ListSurveysResponse.serializeBinaryToWriter = function (_instance, _writer) {
             if (_instance.surveys && _instance.surveys.length) {
-                _writer.writeRepeatedMessage(1, _instance.surveys, Survey.serializeBinaryToWriter);
+                _writer.writeRepeatedMessage(1, _instance.surveys, exports.Survey.serializeBinaryToWriter);
             }
             if (_instance.nextPageToken) {
                 _writer.writeString(2, _instance.nextPageToken);
@@ -3601,7 +3887,7 @@
                         requestData: requestData,
                         requestMetadata: requestMetadata,
                         requestClass: CreateSurveyRequest,
-                        responseClass: Survey
+                        responseClass: exports.Survey
                     });
                 },
                 /**
@@ -3620,7 +3906,7 @@
                         requestData: requestData,
                         requestMetadata: requestMetadata,
                         requestClass: GetSurveyRequest,
-                        responseClass: Survey
+                        responseClass: exports.Survey
                     });
                 },
                 /**
@@ -3639,7 +3925,7 @@
                         requestData: requestData,
                         requestMetadata: requestMetadata,
                         requestClass: UpdateSurveyRequest,
-                        responseClass: Survey
+                        responseClass: exports.Survey
                     });
                 },
                 /**
@@ -4513,7 +4799,6 @@
 
     exports.AgentSurveyRequest = AgentSurveyRequest;
     exports.AgentSurveyResponse = AgentSurveyResponse;
-    exports.Answer = Answer;
     exports.Choice = Choice;
     exports.CreateSurveyRequest = CreateSurveyRequest;
     exports.CustomHttpPattern = CustomHttpPattern;
@@ -4530,7 +4815,6 @@
     exports.OpenQuestion = OpenQuestion;
     exports.SingleChoiceQuestion = SingleChoiceQuestion;
     exports.SingleParameterQuestion = SingleParameterQuestion;
-    exports.Survey = Survey;
     exports.SurveyAnswersResponse = SurveyAnswersResponse;
     exports.SurveyInfo = SurveyInfo;
     exports.SurveysClient = SurveysClient;
