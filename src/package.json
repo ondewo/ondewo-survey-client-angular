@@ -1,6 +1,6 @@
 {
   "name": "@ondewo/survey-client-angular",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "Ondewo survey client library for angular",
   "keywords": ["ondewo", "survey", "api", "client", "ngx-grpc", "grpc"],
   "scripts": {
