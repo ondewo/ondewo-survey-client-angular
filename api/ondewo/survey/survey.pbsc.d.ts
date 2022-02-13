@@ -3,6 +3,7 @@ import { GrpcHandler } from '@ngx-grpc/core';
 import { Observable } from 'rxjs';
 import * as thisProto from './survey.pb';
 import * as googleProtobuf003 from '@ngx-grpc/well-known-types';
+import * as i0 from "@angular/core";
 /**
  * Service client implementation for ondewo.survey.Surveys
  */
@@ -177,4 +178,7 @@ export declare class SurveysClient {
      * @returns Observable<googleProtobuf003.Empty>
      */
     deleteAgentSurvey(requestData: thisProto.AgentSurveyRequest, requestMetadata?: GrpcMetadata): Observable<googleProtobuf003.Empty>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<SurveysClient, [{ optional: true; }, null, null]>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<SurveysClient>;
 }
+//# sourceMappingURL=survey.pbsc.d.ts.map
