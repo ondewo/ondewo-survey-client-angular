@@ -1,6 +1,9 @@
 # Release History
 *****************
+## Release ONDEWO Survey Angular Client 0.5.1
 
+### Improvements
+* Updated generation with of ONDEWO Survey API 0.5.*
 ## Release ONDEWO Survey Angular Client 0.5.0
 
 ### New Features

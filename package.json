@@ -1,6 +1,6 @@
 {
   "name": "@ondewo/survey-client-angular",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Ondewo survey client library for angular",
   "keywords": [
     "ondewo",
@@ -23,15 +23,27 @@
     "type": "git",
     "directory": "https://github.com/ondewo/ondewo-survey-client-angular.git"
   },
-  "main": "bundles/ondewo-survey-client-angular.umd.js",
-  "module": "fesm2015/ondewo-survey-client-angular.js",
-  "es2015": "fesm2015/ondewo-survey-client-angular.js",
-  "esm2015": "esm2015/ondewo-survey-client-angular.js",
-  "fesm2015": "fesm2015/ondewo-survey-client-angular.js",
+  "module": "fesm2015/ondewo-survey-client-angular.mjs",
+  "es2020": "fesm2020/ondewo-survey-client-angular.mjs",
+  "esm2020": "esm2020/ondewo-survey-client-angular.mjs",
+  "fesm2020": "fesm2020/ondewo-survey-client-angular.mjs",
+  "fesm2015": "fesm2015/ondewo-survey-client-angular.mjs",
   "typings": "ondewo-survey-client-angular.d.ts",
-  "metadata": "ondewo-survey-client-angular.metadata.json",
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "types": "./ondewo-survey-client-angular.d.ts",
+      "esm2020": "./esm2020/ondewo-survey-client-angular.mjs",
+      "es2020": "./fesm2020/ondewo-survey-client-angular.mjs",
+      "es2015": "./fesm2015/ondewo-survey-client-angular.mjs",
+      "node": "./fesm2015/ondewo-survey-client-angular.mjs",
+      "default": "./fesm2020/ondewo-survey-client-angular.mjs"
+    }
+  },
   "sideEffects": false,
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.3.0"
   }
 }
