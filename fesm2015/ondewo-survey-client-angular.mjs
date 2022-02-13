@@ -4,7 +4,7 @@ import { InjectionToken, Injectable, Optional, Inject } from '@angular/core';
 import { GrpcMetadata, GrpcCallType } from '@ngx-grpc/common';
 import * as i1 from '@ngx-grpc/core';
 import { throwStatusErrors, takeMessages, GRPC_CLIENT_FACTORY } from '@ngx-grpc/core';
-import * as googleProtobuf004 from '@ngx-grpc/well-known-types';
+import * as googleProtobuf006 from '@ngx-grpc/well-known-types';
 
 /**
  * Message implementation for google.api.Http
@@ -559,6 +559,7 @@ class Survey {
             ? new SurveyInfo(_value.surveyInfo)
             : undefined;
         this.excludeSubflows = (_value.excludeSubflows || []).slice();
+        this.status = _value.status;
         Survey.refineValues(this);
     }
     /**
@@ -581,6 +582,7 @@ class Survey {
         _instance.questions = _instance.questions || [];
         _instance.surveyInfo = _instance.surveyInfo || undefined;
         _instance.excludeSubflows = _instance.excludeSubflows || [];
+        _instance.status = _instance.status || 0;
     }
     /**
      * Deserializes / reads binary message into message instance using provided binary reader
@@ -613,6 +615,9 @@ class Survey {
                 case 9:
                     (_instance.excludeSubflows = _instance.excludeSubflows || []).push(...(_reader.readPackedEnum() || []));
                     break;
+                case 10:
+                    _instance.status = _reader.readEnum();
+                    break;
                 default:
                     _reader.skipField();
             }
@@ -642,6 +647,9 @@ class Survey {
         }
         if (_instance.excludeSubflows && _instance.excludeSubflows.length) {
             _writer.writePackedEnum(9, _instance.excludeSubflows);
+        }
+        if (_instance.status) {
+            _writer.writeEnum(10, _instance.status);
         }
     }
     get surveyId() {
@@ -680,6 +688,12 @@ class Survey {
     set excludeSubflows(value) {
         this._excludeSubflows = value;
     }
+    get status() {
+        return this._status;
+    }
+    set status(value) {
+        this._status = value;
+    }
     /**
      * Serialize message to binary data
      * @param instance message instance
@@ -699,7 +713,8 @@ class Survey {
             languageCode: this.languageCode,
             questions: (this.questions || []).map(m => m.toObject()),
             surveyInfo: this.surveyInfo ? this.surveyInfo.toObject() : undefined,
-            excludeSubflows: (this.excludeSubflows || []).slice()
+            excludeSubflows: (this.excludeSubflows || []).slice(),
+            status: this.status
         };
     }
     /**
@@ -724,11 +739,21 @@ class Survey {
             surveyInfo: this.surveyInfo
                 ? this.surveyInfo.toProtobufJSON(options)
                 : null,
-            excludeSubflows: (this.excludeSubflows || []).map(v => SubFlow[v])
+            excludeSubflows: (this.excludeSubflows || []).map(v => SubFlow[v]),
+            status: Survey.AgentStatus[this.status === null || this.status === undefined ? 0 : this.status]
         };
     }
 }
 Survey.id = 'ondewo.survey.Survey';
+(function (Survey) {
+    let AgentStatus;
+    (function (AgentStatus) {
+        AgentStatus[AgentStatus["TO_BE_INITIALIZED"] = 0] = "TO_BE_INITIALIZED";
+        AgentStatus[AgentStatus["UPDATED"] = 1] = "UPDATED";
+        AgentStatus[AgentStatus["UPDATING"] = 2] = "UPDATING";
+        AgentStatus[AgentStatus["OUTDATED"] = 3] = "OUTDATED";
+    })(AgentStatus = Survey.AgentStatus || (Survey.AgentStatus = {}));
+})(Survey || (Survey = {}));
 /**
  * Message implementation for ondewo.survey.SurveyInfo
  */
@@ -748,6 +773,7 @@ class SurveyInfo {
         this.purpose = _value.purpose;
         this.topic = _value.topic;
         this.legalDisclaimer = _value.legalDisclaimer;
+        this.anonymous = _value.anonymous;
         SurveyInfo.refineValues(this);
     }
     /**
@@ -773,6 +799,7 @@ class SurveyInfo {
         _instance.purpose = _instance.purpose || '';
         _instance.topic = _instance.topic || '';
         _instance.legalDisclaimer = _instance.legalDisclaimer || '';
+        _instance.anonymous = _instance.anonymous || false;
     }
     /**
      * Deserializes / reads binary message into message instance using provided binary reader
@@ -810,6 +837,9 @@ class SurveyInfo {
                     break;
                 case 9:
                     _instance.legalDisclaimer = _reader.readString();
+                    break;
+                case 10:
+                    _instance.anonymous = _reader.readBool();
                     break;
                 default:
                     _reader.skipField();
@@ -849,6 +879,9 @@ class SurveyInfo {
         }
         if (_instance.legalDisclaimer) {
             _writer.writeString(9, _instance.legalDisclaimer);
+        }
+        if (_instance.anonymous) {
+            _writer.writeBool(10, _instance.anonymous);
         }
     }
     get legalEntity() {
@@ -905,6 +938,12 @@ class SurveyInfo {
     set legalDisclaimer(value) {
         this._legalDisclaimer = value;
     }
+    get anonymous() {
+        return this._anonymous;
+    }
+    set anonymous(value) {
+        this._anonymous = value;
+    }
     /**
      * Serialize message to binary data
      * @param instance message instance
@@ -927,7 +966,8 @@ class SurveyInfo {
             expectedDuration: this.expectedDuration,
             purpose: this.purpose,
             topic: this.topic,
-            legalDisclaimer: this.legalDisclaimer
+            legalDisclaimer: this.legalDisclaimer,
+            anonymous: this.anonymous
         };
     }
     /**
@@ -953,7 +993,8 @@ class SurveyInfo {
             expectedDuration: this.expectedDuration,
             purpose: this.purpose,
             topic: this.topic,
-            legalDisclaimer: this.legalDisclaimer
+            legalDisclaimer: this.legalDisclaimer,
+            anonymous: this.anonymous
         };
     }
 }
@@ -2195,12 +2236,17 @@ class Answer {
      * @param _value initial values object or instance of Answer to deeply clone from
      */
     constructor(_value) {
+        this._isAnonymous = Answer.IsAnonymousCase.none;
         _value = _value || {};
         this.questionNr = _value.questionNr;
         this.sessionId = _value.sessionId;
         this.answerText = _value.answerText;
         this.answerParameter = _value.answerParameter;
         this.answerParameterOriginal = _value.answerParameterOriginal;
+        this.anonymous = _value.anonymous;
+        this.userInformation = _value.userInformation
+            ? new Answer.UserInfo(_value.userInformation)
+            : undefined;
         Answer.refineValues(this);
     }
     /**
@@ -2248,6 +2294,13 @@ class Answer {
                 case 5:
                     _instance.answerParameterOriginal = _reader.readString();
                     break;
+                case 7:
+                    _instance.anonymous = _reader.readBool();
+                    break;
+                case 6:
+                    _instance.userInformation = new Answer.UserInfo();
+                    _reader.readMessage(_instance.userInformation, Answer.UserInfo.deserializeBinaryFromReader);
+                    break;
                 default:
                     _reader.skipField();
             }
@@ -2274,6 +2327,12 @@ class Answer {
         }
         if (_instance.answerParameterOriginal) {
             _writer.writeString(5, _instance.answerParameterOriginal);
+        }
+        if (_instance.anonymous || _instance.anonymous === false) {
+            _writer.writeBool(7, _instance.anonymous);
+        }
+        if (_instance.userInformation) {
+            _writer.writeMessage(6, _instance.userInformation, Answer.UserInfo.serializeBinaryToWriter);
         }
     }
     get questionNr() {
@@ -2306,6 +2365,29 @@ class Answer {
     set answerParameterOriginal(value) {
         this._answerParameterOriginal = value;
     }
+    get anonymous() {
+        return this._anonymous;
+    }
+    set anonymous(value) {
+        if (value !== undefined && value !== null) {
+            this._userInformation = undefined;
+            this._isAnonymous = Answer.IsAnonymousCase.anonymous;
+        }
+        this._anonymous = value;
+    }
+    get userInformation() {
+        return this._userInformation;
+    }
+    set userInformation(value) {
+        if (value !== undefined && value !== null) {
+            this._anonymous = undefined;
+            this._isAnonymous = Answer.IsAnonymousCase.userInformation;
+        }
+        this._userInformation = value;
+    }
+    get isAnonymous() {
+        return this._isAnonymous;
+    }
     /**
      * Serialize message to binary data
      * @param instance message instance
@@ -2324,7 +2406,11 @@ class Answer {
             sessionId: this.sessionId,
             answerText: this.answerText,
             answerParameter: this.answerParameter,
-            answerParameterOriginal: this.answerParameterOriginal
+            answerParameterOriginal: this.answerParameterOriginal,
+            anonymous: this.anonymous,
+            userInformation: this.userInformation
+                ? this.userInformation.toObject()
+                : undefined
         };
     }
     /**
@@ -2346,11 +2432,189 @@ class Answer {
             sessionId: this.sessionId,
             answerText: this.answerText,
             answerParameter: this.answerParameter,
-            answerParameterOriginal: this.answerParameterOriginal
+            answerParameterOriginal: this.answerParameterOriginal,
+            anonymous: this.anonymous,
+            userInformation: this.userInformation
+                ? this.userInformation.toProtobufJSON(options)
+                : null
         };
     }
 }
 Answer.id = 'ondewo.survey.Answer';
+(function (Answer) {
+    let IsAnonymousCase;
+    (function (IsAnonymousCase) {
+        IsAnonymousCase[IsAnonymousCase["none"] = 0] = "none";
+        IsAnonymousCase[IsAnonymousCase["anonymous"] = 1] = "anonymous";
+        IsAnonymousCase[IsAnonymousCase["userInformation"] = 2] = "userInformation";
+    })(IsAnonymousCase = Answer.IsAnonymousCase || (Answer.IsAnonymousCase = {}));
+    /**
+     * Message implementation for ondewo.survey.UserInfo
+     */
+    class UserInfo {
+        /**
+         * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+         * @param _value initial values object or instance of UserInfo to deeply clone from
+         */
+        constructor(_value) {
+            _value = _value || {};
+            this.firstName = _value.firstName;
+            this.lastName = _value.lastName;
+            this.phoneNumber = _value.phoneNumber;
+            this.sessionId = _value.sessionId;
+            this.userId = _value.userId;
+            UserInfo.refineValues(this);
+        }
+        /**
+         * Deserialize binary data to message
+         * @param instance message instance
+         */
+        static deserializeBinary(bytes) {
+            const instance = new UserInfo();
+            UserInfo.deserializeBinaryFromReader(instance, new BinaryReader(bytes));
+            return instance;
+        }
+        /**
+         * Check all the properties and set default protobuf values if necessary
+         * @param _instance message instance
+         */
+        static refineValues(_instance) {
+            _instance.firstName = _instance.firstName || '';
+            _instance.lastName = _instance.lastName || '';
+            _instance.phoneNumber = _instance.phoneNumber || '';
+            _instance.sessionId = _instance.sessionId || '';
+            _instance.userId = _instance.userId || '';
+        }
+        /**
+         * Deserializes / reads binary message into message instance using provided binary reader
+         * @param _instance message instance
+         * @param _reader binary reader instance
+         */
+        static deserializeBinaryFromReader(_instance, _reader) {
+            while (_reader.nextField()) {
+                if (_reader.isEndGroup())
+                    break;
+                switch (_reader.getFieldNumber()) {
+                    case 1:
+                        _instance.firstName = _reader.readString();
+                        break;
+                    case 2:
+                        _instance.lastName = _reader.readString();
+                        break;
+                    case 3:
+                        _instance.phoneNumber = _reader.readString();
+                        break;
+                    case 4:
+                        _instance.sessionId = _reader.readString();
+                        break;
+                    case 5:
+                        _instance.userId = _reader.readString();
+                        break;
+                    default:
+                        _reader.skipField();
+                }
+            }
+            UserInfo.refineValues(_instance);
+        }
+        /**
+         * Serializes a message to binary format using provided binary reader
+         * @param _instance message instance
+         * @param _writer binary writer instance
+         */
+        static serializeBinaryToWriter(_instance, _writer) {
+            if (_instance.firstName) {
+                _writer.writeString(1, _instance.firstName);
+            }
+            if (_instance.lastName) {
+                _writer.writeString(2, _instance.lastName);
+            }
+            if (_instance.phoneNumber) {
+                _writer.writeString(3, _instance.phoneNumber);
+            }
+            if (_instance.sessionId) {
+                _writer.writeString(4, _instance.sessionId);
+            }
+            if (_instance.userId) {
+                _writer.writeString(5, _instance.userId);
+            }
+        }
+        get firstName() {
+            return this._firstName;
+        }
+        set firstName(value) {
+            this._firstName = value;
+        }
+        get lastName() {
+            return this._lastName;
+        }
+        set lastName(value) {
+            this._lastName = value;
+        }
+        get phoneNumber() {
+            return this._phoneNumber;
+        }
+        set phoneNumber(value) {
+            this._phoneNumber = value;
+        }
+        get sessionId() {
+            return this._sessionId;
+        }
+        set sessionId(value) {
+            this._sessionId = value;
+        }
+        get userId() {
+            return this._userId;
+        }
+        set userId(value) {
+            this._userId = value;
+        }
+        /**
+         * Serialize message to binary data
+         * @param instance message instance
+         */
+        serializeBinary() {
+            const writer = new BinaryWriter();
+            UserInfo.serializeBinaryToWriter(this, writer);
+            return writer.getResultBuffer();
+        }
+        /**
+         * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+         */
+        toObject() {
+            return {
+                firstName: this.firstName,
+                lastName: this.lastName,
+                phoneNumber: this.phoneNumber,
+                sessionId: this.sessionId,
+                userId: this.userId
+            };
+        }
+        /**
+         * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+         */
+        toJSON() {
+            return this.toObject();
+        }
+        /**
+         * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+         * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+         * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+         */
+        toProtobufJSON(
+        // @ts-ignore
+        options) {
+            return {
+                firstName: this.firstName,
+                lastName: this.lastName,
+                phoneNumber: this.phoneNumber,
+                sessionId: this.sessionId,
+                userId: this.userId
+            };
+        }
+    }
+    UserInfo.id = 'ondewo.survey.UserInfo';
+    Answer.UserInfo = UserInfo;
+})(Answer || (Answer = {}));
 /**
  * Message implementation for ondewo.survey.CreateSurveyRequest
  */
@@ -2566,7 +2830,7 @@ class UpdateSurveyRequest {
         _value = _value || {};
         this.survey = _value.survey ? new Survey(_value.survey) : undefined;
         this.updateMask = _value.updateMask
-            ? new googleProtobuf004.FieldMask(_value.updateMask)
+            ? new googleProtobuf006.FieldMask(_value.updateMask)
             : undefined;
         UpdateSurveyRequest.refineValues(this);
     }
@@ -2602,8 +2866,8 @@ class UpdateSurveyRequest {
                     _reader.readMessage(_instance.survey, Survey.deserializeBinaryFromReader);
                     break;
                 case 2:
-                    _instance.updateMask = new googleProtobuf004.FieldMask();
-                    _reader.readMessage(_instance.updateMask, googleProtobuf004.FieldMask.deserializeBinaryFromReader);
+                    _instance.updateMask = new googleProtobuf006.FieldMask();
+                    _reader.readMessage(_instance.updateMask, googleProtobuf006.FieldMask.deserializeBinaryFromReader);
                     break;
                 default:
                     _reader.skipField();
@@ -2621,7 +2885,7 @@ class UpdateSurveyRequest {
             _writer.writeMessage(1, _instance.survey, Survey.serializeBinaryToWriter);
         }
         if (_instance.updateMask) {
-            _writer.writeMessage(2, _instance.updateMask, googleProtobuf004.FieldMask.serializeBinaryToWriter);
+            _writer.writeMessage(2, _instance.updateMask, googleProtobuf006.FieldMask.serializeBinaryToWriter);
         }
     }
     get survey() {
@@ -2787,8 +3051,12 @@ class GetSurveyAnswersRequest {
      * @param _value initial values object or instance of GetSurveyAnswersRequest to deeply clone from
      */
     constructor(_value) {
+        this._identifier = GetSurveyAnswersRequest.IdentifierCase.none;
         _value = _value || {};
+        this.surveyId = _value.surveyId;
         this.sessionId = _value.sessionId;
+        this.userId = _value.userId;
+        this.userPhoneNumber = _value.userPhoneNumber;
         GetSurveyAnswersRequest.refineValues(this);
     }
     /**
@@ -2805,7 +3073,7 @@ class GetSurveyAnswersRequest {
      * @param _instance message instance
      */
     static refineValues(_instance) {
-        _instance.sessionId = _instance.sessionId || '';
+        _instance.surveyId = _instance.surveyId || '';
     }
     /**
      * Deserializes / reads binary message into message instance using provided binary reader
@@ -2818,7 +3086,16 @@ class GetSurveyAnswersRequest {
                 break;
             switch (_reader.getFieldNumber()) {
                 case 1:
+                    _instance.surveyId = _reader.readString();
+                    break;
+                case 2:
                     _instance.sessionId = _reader.readString();
+                    break;
+                case 3:
+                    _instance.userId = _reader.readString();
+                    break;
+                case 4:
+                    _instance.userPhoneNumber = _reader.readString();
                     break;
                 default:
                     _reader.skipField();
@@ -2832,15 +3109,57 @@ class GetSurveyAnswersRequest {
      * @param _writer binary writer instance
      */
     static serializeBinaryToWriter(_instance, _writer) {
-        if (_instance.sessionId) {
-            _writer.writeString(1, _instance.sessionId);
+        if (_instance.surveyId) {
+            _writer.writeString(1, _instance.surveyId);
         }
+        if (_instance.sessionId || _instance.sessionId === '') {
+            _writer.writeString(2, _instance.sessionId);
+        }
+        if (_instance.userId || _instance.userId === '') {
+            _writer.writeString(3, _instance.userId);
+        }
+        if (_instance.userPhoneNumber || _instance.userPhoneNumber === '') {
+            _writer.writeString(4, _instance.userPhoneNumber);
+        }
+    }
+    get surveyId() {
+        return this._surveyId;
+    }
+    set surveyId(value) {
+        this._surveyId = value;
     }
     get sessionId() {
         return this._sessionId;
     }
     set sessionId(value) {
+        if (value !== undefined && value !== null) {
+            this._userId = this._userPhoneNumber = undefined;
+            this._identifier = GetSurveyAnswersRequest.IdentifierCase.sessionId;
+        }
         this._sessionId = value;
+    }
+    get userId() {
+        return this._userId;
+    }
+    set userId(value) {
+        if (value !== undefined && value !== null) {
+            this._sessionId = this._userPhoneNumber = undefined;
+            this._identifier = GetSurveyAnswersRequest.IdentifierCase.userId;
+        }
+        this._userId = value;
+    }
+    get userPhoneNumber() {
+        return this._userPhoneNumber;
+    }
+    set userPhoneNumber(value) {
+        if (value !== undefined && value !== null) {
+            this._sessionId = this._userId = undefined;
+            this._identifier = GetSurveyAnswersRequest.IdentifierCase.userPhoneNumber;
+        }
+        this._userPhoneNumber = value;
+    }
+    get identifier() {
+        return this._identifier;
     }
     /**
      * Serialize message to binary data
@@ -2856,7 +3175,10 @@ class GetSurveyAnswersRequest {
      */
     toObject() {
         return {
-            sessionId: this.sessionId
+            surveyId: this.surveyId,
+            sessionId: this.sessionId,
+            userId: this.userId,
+            userPhoneNumber: this.userPhoneNumber
         };
     }
     /**
@@ -2874,11 +3196,27 @@ class GetSurveyAnswersRequest {
     // @ts-ignore
     options) {
         return {
-            sessionId: this.sessionId
+            surveyId: this.surveyId,
+            sessionId: this.sessionId === null || this.sessionId === undefined
+                ? null
+                : this.sessionId,
+            userId: this.userId === null || this.userId === undefined ? null : this.userId,
+            userPhoneNumber: this.userPhoneNumber === null || this.userPhoneNumber === undefined
+                ? null
+                : this.userPhoneNumber
         };
     }
 }
 GetSurveyAnswersRequest.id = 'ondewo.survey.GetSurveyAnswersRequest';
+(function (GetSurveyAnswersRequest) {
+    let IdentifierCase;
+    (function (IdentifierCase) {
+        IdentifierCase[IdentifierCase["none"] = 0] = "none";
+        IdentifierCase[IdentifierCase["sessionId"] = 1] = "sessionId";
+        IdentifierCase[IdentifierCase["userId"] = 2] = "userId";
+        IdentifierCase[IdentifierCase["userPhoneNumber"] = 3] = "userPhoneNumber";
+    })(IdentifierCase = GetSurveyAnswersRequest.IdentifierCase || (GetSurveyAnswersRequest.IdentifierCase = {}));
+})(GetSurveyAnswersRequest || (GetSurveyAnswersRequest = {}));
 /**
  * Message implementation for ondewo.survey.GetAllSurveyAnswersRequest
  */
@@ -3611,7 +3949,7 @@ class SurveysClient {
                     requestData,
                     requestMetadata,
                     requestClass: DeleteSurveyRequest,
-                    responseClass: googleProtobuf004.Empty
+                    responseClass: googleProtobuf006.Empty
                 });
             },
             /**
@@ -3719,7 +4057,7 @@ class SurveysClient {
                     requestData,
                     requestMetadata,
                     requestClass: AgentSurveyRequest,
-                    responseClass: googleProtobuf004.Empty
+                    responseClass: googleProtobuf006.Empty
                 });
             }
         };
@@ -3864,8 +4202,370 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.2", ngImpor
     } });
 
 /**
+ * Message implementation for ondewo.survey.CreateFHIRSurveyRequest
+ */
+class CreateFHIRSurveyRequest {
+    /**
+     * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+     * @param _value initial values object or instance of CreateFHIRSurveyRequest to deeply clone from
+     */
+    constructor(_value) {
+        _value = _value || {};
+        this.fhirQuestionnaire = _value.fhirQuestionnaire
+            ? new googleProtobuf006.Struct(_value.fhirQuestionnaire)
+            : undefined;
+        CreateFHIRSurveyRequest.refineValues(this);
+    }
+    /**
+     * Deserialize binary data to message
+     * @param instance message instance
+     */
+    static deserializeBinary(bytes) {
+        const instance = new CreateFHIRSurveyRequest();
+        CreateFHIRSurveyRequest.deserializeBinaryFromReader(instance, new BinaryReader(bytes));
+        return instance;
+    }
+    /**
+     * Check all the properties and set default protobuf values if necessary
+     * @param _instance message instance
+     */
+    static refineValues(_instance) {
+        _instance.fhirQuestionnaire = _instance.fhirQuestionnaire || undefined;
+    }
+    /**
+     * Deserializes / reads binary message into message instance using provided binary reader
+     * @param _instance message instance
+     * @param _reader binary reader instance
+     */
+    static deserializeBinaryFromReader(_instance, _reader) {
+        while (_reader.nextField()) {
+            if (_reader.isEndGroup())
+                break;
+            switch (_reader.getFieldNumber()) {
+                case 1:
+                    _instance.fhirQuestionnaire = new googleProtobuf006.Struct();
+                    _reader.readMessage(_instance.fhirQuestionnaire, googleProtobuf006.Struct.deserializeBinaryFromReader);
+                    break;
+                default:
+                    _reader.skipField();
+            }
+        }
+        CreateFHIRSurveyRequest.refineValues(_instance);
+    }
+    /**
+     * Serializes a message to binary format using provided binary reader
+     * @param _instance message instance
+     * @param _writer binary writer instance
+     */
+    static serializeBinaryToWriter(_instance, _writer) {
+        if (_instance.fhirQuestionnaire) {
+            _writer.writeMessage(1, _instance.fhirQuestionnaire, googleProtobuf006.Struct.serializeBinaryToWriter);
+        }
+    }
+    get fhirQuestionnaire() {
+        return this._fhirQuestionnaire;
+    }
+    set fhirQuestionnaire(value) {
+        this._fhirQuestionnaire = value;
+    }
+    /**
+     * Serialize message to binary data
+     * @param instance message instance
+     */
+    serializeBinary() {
+        const writer = new BinaryWriter();
+        CreateFHIRSurveyRequest.serializeBinaryToWriter(this, writer);
+        return writer.getResultBuffer();
+    }
+    /**
+     * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+     */
+    toObject() {
+        return {
+            fhirQuestionnaire: this.fhirQuestionnaire
+                ? this.fhirQuestionnaire.toObject()
+                : undefined
+        };
+    }
+    /**
+     * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+     */
+    toJSON() {
+        return this.toObject();
+    }
+    /**
+     * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+     * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+     * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+     */
+    toProtobufJSON(
+    // @ts-ignore
+    options) {
+        return {
+            fhirQuestionnaire: this.fhirQuestionnaire
+                ? this.fhirQuestionnaire.toProtobufJSON(options)
+                : null
+        };
+    }
+}
+CreateFHIRSurveyRequest.id = 'ondewo.survey.CreateFHIRSurveyRequest';
+/**
+ * Message implementation for ondewo.survey.SurveyFHIRAnswersResponse
+ */
+class SurveyFHIRAnswersResponse {
+    /**
+     * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+     * @param _value initial values object or instance of SurveyFHIRAnswersResponse to deeply clone from
+     */
+    constructor(_value) {
+        _value = _value || {};
+        this.surveyId = _value.surveyId;
+        this.fhirQuestionnaireResponses = (_value.fhirQuestionnaireResponses || []).map(m => new googleProtobuf006.Struct(m));
+        SurveyFHIRAnswersResponse.refineValues(this);
+    }
+    /**
+     * Deserialize binary data to message
+     * @param instance message instance
+     */
+    static deserializeBinary(bytes) {
+        const instance = new SurveyFHIRAnswersResponse();
+        SurveyFHIRAnswersResponse.deserializeBinaryFromReader(instance, new BinaryReader(bytes));
+        return instance;
+    }
+    /**
+     * Check all the properties and set default protobuf values if necessary
+     * @param _instance message instance
+     */
+    static refineValues(_instance) {
+        _instance.surveyId = _instance.surveyId || '';
+        _instance.fhirQuestionnaireResponses =
+            _instance.fhirQuestionnaireResponses || [];
+    }
+    /**
+     * Deserializes / reads binary message into message instance using provided binary reader
+     * @param _instance message instance
+     * @param _reader binary reader instance
+     */
+    static deserializeBinaryFromReader(_instance, _reader) {
+        while (_reader.nextField()) {
+            if (_reader.isEndGroup())
+                break;
+            switch (_reader.getFieldNumber()) {
+                case 1:
+                    _instance.surveyId = _reader.readString();
+                    break;
+                case 2:
+                    const messageInitializer2 = new googleProtobuf006.Struct();
+                    _reader.readMessage(messageInitializer2, googleProtobuf006.Struct.deserializeBinaryFromReader);
+                    (_instance.fhirQuestionnaireResponses =
+                        _instance.fhirQuestionnaireResponses || []).push(messageInitializer2);
+                    break;
+                default:
+                    _reader.skipField();
+            }
+        }
+        SurveyFHIRAnswersResponse.refineValues(_instance);
+    }
+    /**
+     * Serializes a message to binary format using provided binary reader
+     * @param _instance message instance
+     * @param _writer binary writer instance
+     */
+    static serializeBinaryToWriter(_instance, _writer) {
+        if (_instance.surveyId) {
+            _writer.writeString(1, _instance.surveyId);
+        }
+        if (_instance.fhirQuestionnaireResponses &&
+            _instance.fhirQuestionnaireResponses.length) {
+            _writer.writeRepeatedMessage(2, _instance.fhirQuestionnaireResponses, googleProtobuf006.Struct.serializeBinaryToWriter);
+        }
+    }
+    get surveyId() {
+        return this._surveyId;
+    }
+    set surveyId(value) {
+        this._surveyId = value;
+    }
+    get fhirQuestionnaireResponses() {
+        return this._fhirQuestionnaireResponses;
+    }
+    set fhirQuestionnaireResponses(value) {
+        this._fhirQuestionnaireResponses = value;
+    }
+    /**
+     * Serialize message to binary data
+     * @param instance message instance
+     */
+    serializeBinary() {
+        const writer = new BinaryWriter();
+        SurveyFHIRAnswersResponse.serializeBinaryToWriter(this, writer);
+        return writer.getResultBuffer();
+    }
+    /**
+     * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+     */
+    toObject() {
+        return {
+            surveyId: this.surveyId,
+            fhirQuestionnaireResponses: (this.fhirQuestionnaireResponses || []).map(m => m.toObject())
+        };
+    }
+    /**
+     * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+     */
+    toJSON() {
+        return this.toObject();
+    }
+    /**
+     * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+     * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+     * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+     */
+    toProtobufJSON(
+    // @ts-ignore
+    options) {
+        return {
+            surveyId: this.surveyId,
+            fhirQuestionnaireResponses: (this.fhirQuestionnaireResponses || []).map(m => m.toProtobufJSON(options))
+        };
+    }
+}
+SurveyFHIRAnswersResponse.id = 'ondewo.survey.SurveyFHIRAnswersResponse';
+
+/* tslint:disable */
+/**
+ * Specific GrpcClientSettings for Fhir.
+ * Use it only if your default settings are not set or the service requires other settings.
+ */
+const GRPC_FHIR_CLIENT_SETTINGS = new InjectionToken('GRPC_FHIR_CLIENT_SETTINGS');
+
+/* tslint:disable */
+/**
+ * Service client implementation for ondewo.survey.FHIR
+ */
+class FHIRClient {
+    constructor(settings, clientFactory, handler) {
+        this.handler = handler;
+        /**
+         * Raw RPC implementation for each service client method.
+         * The raw methods provide more control on the incoming data and events. E.g. they can be useful to read status `OK` metadata.
+         * Attention: these methods do not throw errors when non-zero status codes are received.
+         */
+        this.$raw = {
+            /**
+             * Unary RPC for /ondewo.survey.FHIR/CreateFHIRSurvey
+             *
+             * @param requestMessage Request message
+             * @param requestMetadata Request metadata
+             * @returns Observable<GrpcEvent<ondewoSurvey005.Survey>>
+             */
+            createFHIRSurvey: (requestData, requestMetadata = new GrpcMetadata()) => {
+                return this.handler.handle({
+                    type: GrpcCallType.unary,
+                    client: this.client,
+                    path: '/ondewo.survey.FHIR/CreateFHIRSurvey',
+                    requestData,
+                    requestMetadata,
+                    requestClass: CreateFHIRSurveyRequest,
+                    responseClass: Survey
+                });
+            },
+            /**
+             * Unary RPC for /ondewo.survey.FHIR/GetFHIRSurveyAnswers
+             *
+             * @param requestMessage Request message
+             * @param requestMetadata Request metadata
+             * @returns Observable<GrpcEvent<thisProto.SurveyFHIRAnswersResponse>>
+             */
+            getFHIRSurveyAnswers: (requestData, requestMetadata = new GrpcMetadata()) => {
+                return this.handler.handle({
+                    type: GrpcCallType.unary,
+                    client: this.client,
+                    path: '/ondewo.survey.FHIR/GetFHIRSurveyAnswers',
+                    requestData,
+                    requestMetadata,
+                    requestClass: GetSurveyAnswersRequest,
+                    responseClass: SurveyFHIRAnswersResponse
+                });
+            },
+            /**
+             * Unary RPC for /ondewo.survey.FHIR/GetAllFHIRSurveyAnswers
+             *
+             * @param requestMessage Request message
+             * @param requestMetadata Request metadata
+             * @returns Observable<GrpcEvent<thisProto.SurveyFHIRAnswersResponse>>
+             */
+            getAllFHIRSurveyAnswers: (requestData, requestMetadata = new GrpcMetadata()) => {
+                return this.handler.handle({
+                    type: GrpcCallType.unary,
+                    client: this.client,
+                    path: '/ondewo.survey.FHIR/GetAllFHIRSurveyAnswers',
+                    requestData,
+                    requestMetadata,
+                    requestClass: GetAllSurveyAnswersRequest,
+                    responseClass: SurveyFHIRAnswersResponse
+                });
+            }
+        };
+        this.client = clientFactory.createClient('ondewo.survey.FHIR', settings);
+    }
+    /**
+     * Unary RPC for /ondewo.survey.FHIR/CreateFHIRSurvey
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<ondewoSurvey005.Survey>
+     */
+    createFHIRSurvey(requestData, requestMetadata = new GrpcMetadata()) {
+        return this.$raw
+            .createFHIRSurvey(requestData, requestMetadata)
+            .pipe(throwStatusErrors(), takeMessages());
+    }
+    /**
+     * Unary RPC for /ondewo.survey.FHIR/GetFHIRSurveyAnswers
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<thisProto.SurveyFHIRAnswersResponse>
+     */
+    getFHIRSurveyAnswers(requestData, requestMetadata = new GrpcMetadata()) {
+        return this.$raw
+            .getFHIRSurveyAnswers(requestData, requestMetadata)
+            .pipe(throwStatusErrors(), takeMessages());
+    }
+    /**
+     * Unary RPC for /ondewo.survey.FHIR/GetAllFHIRSurveyAnswers
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<thisProto.SurveyFHIRAnswersResponse>
+     */
+    getAllFHIRSurveyAnswers(requestData, requestMetadata = new GrpcMetadata()) {
+        return this.$raw
+            .getAllFHIRSurveyAnswers(requestData, requestMetadata)
+            .pipe(throwStatusErrors(), takeMessages());
+    }
+}
+FHIRClient.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.2", ngImport: i0, type: FHIRClient, deps: [{ token: GRPC_FHIR_CLIENT_SETTINGS, optional: true }, { token: GRPC_CLIENT_FACTORY }, { token: i1.GrpcHandler }], target: i0.ɵɵFactoryTarget.Injectable });
+FHIRClient.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.2.2", ngImport: i0, type: FHIRClient, providedIn: 'any' });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.2", ngImport: i0, type: FHIRClient, decorators: [{
+            type: Injectable,
+            args: [{ providedIn: 'any' }]
+        }], ctorParameters: function () {
+        return [{ type: undefined, decorators: [{
+                        type: Optional
+                    }, {
+                        type: Inject,
+                        args: [GRPC_FHIR_CLIENT_SETTINGS]
+                    }] }, { type: undefined, decorators: [{
+                        type: Inject,
+                        args: [GRPC_CLIENT_FACTORY]
+                    }] }, { type: i1.GrpcHandler }];
+    } });
+
+/**
  * Generated bundle index. Do not edit.
  */
 
-export { AgentSurveyRequest, AgentSurveyResponse, Answer, Choice, CreateSurveyRequest, CustomHttpPattern, DeleteSurveyRequest, GRPC_SURVEYS_CLIENT_SETTINGS, GetAllSurveyAnswersRequest, GetSurveyAnswersRequest, GetSurveyRequest, Http, HttpRule, ListSurveysRequest, ListSurveysResponse, MultipleChoiceQuestion, MultipleParameterQuestion, OpenQuestion, Question, ScaleQuestion, SingleChoiceQuestion, SingleParameterQuestion, SubFlow, Survey, SurveyAnswersResponse, SurveyInfo, SurveysClient, UpdateSurveyRequest };
+export { AgentSurveyRequest, AgentSurveyResponse, Answer, Choice, CreateFHIRSurveyRequest, CreateSurveyRequest, CustomHttpPattern, DeleteSurveyRequest, FHIRClient, GRPC_FHIR_CLIENT_SETTINGS, GRPC_SURVEYS_CLIENT_SETTINGS, GetAllSurveyAnswersRequest, GetSurveyAnswersRequest, GetSurveyRequest, Http, HttpRule, ListSurveysRequest, ListSurveysResponse, MultipleChoiceQuestion, MultipleParameterQuestion, OpenQuestion, Question, ScaleQuestion, SingleChoiceQuestion, SingleParameterQuestion, SubFlow, Survey, SurveyAnswersResponse, SurveyFHIRAnswersResponse, SurveyInfo, SurveysClient, UpdateSurveyRequest };
 //# sourceMappingURL=ondewo-survey-client-angular.mjs.map

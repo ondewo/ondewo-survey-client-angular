@@ -1,7 +1,7 @@
 {
   "name": "@ondewo/survey-client-angular",
-  "version": "0.5.1",
-  "description": "Ondewo survey client library for angular",
+  "version": "0.6.0",
+  "description": "ONDEWO Survey client library for angular",
   "keywords": [
     "ondewo",
     "survey",
@@ -11,7 +11,7 @@
     "grpc"
   ],
   "author": "ONDEWO GmbH",
-  "homepage": "https://ondewo.com/",
+  "homepage": "https://ondewo.com",
   "license": "Apache-2.0",
   "peerDependencies": {
     "@angular/common": ">=8.0.0",
@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "directory": "https://github.com/ondewo/ondewo-survey-client-angular.git"
+    "directory": "https://github.com/ondewo/ondewo-survey-client-angular"
   },
   "module": "fesm2015/ondewo-survey-client-angular.mjs",
   "es2020": "fesm2020/ondewo-survey-client-angular.mjs",

@@ -45,6 +45,7 @@ export declare class Survey implements GrpcMessage {
     private _questions?;
     private _surveyInfo?;
     private _excludeSubflows?;
+    private _status?;
     /**
      * Message constructor. Initializes the properties and applies default Protobuf values if necessary
      * @param _value initial values object or instance of Survey to deeply clone from
@@ -62,6 +63,8 @@ export declare class Survey implements GrpcMessage {
     set surveyInfo(value: SurveyInfo | undefined);
     get excludeSubflows(): SubFlow[] | undefined;
     set excludeSubflows(value: SubFlow[] | undefined);
+    get status(): Survey.AgentStatus | undefined;
+    set status(value: Survey.AgentStatus | undefined);
     /**
      * Serialize message to binary data
      * @param instance message instance
@@ -93,6 +96,7 @@ export declare module Survey {
         questions?: Question.AsObject[];
         surveyInfo?: SurveyInfo.AsObject;
         excludeSubflows?: SubFlow[];
+        status?: Survey.AgentStatus;
     }
     /**
      * Protobuf JSON representation for Survey
@@ -104,6 +108,13 @@ export declare module Survey {
         questions?: Question.AsProtobufJSON[] | null;
         surveyInfo?: SurveyInfo.AsProtobufJSON | null;
         excludeSubflows?: string[];
+        status?: string;
+    }
+    enum AgentStatus {
+        TO_BE_INITIALIZED = 0,
+        UPDATED = 1,
+        UPDATING = 2,
+        OUTDATED = 3
     }
 }
 /**
@@ -142,6 +153,7 @@ export declare class SurveyInfo implements GrpcMessage {
     private _purpose?;
     private _topic?;
     private _legalDisclaimer?;
+    private _anonymous?;
     /**
      * Message constructor. Initializes the properties and applies default Protobuf values if necessary
      * @param _value initial values object or instance of SurveyInfo to deeply clone from
@@ -165,6 +177,8 @@ export declare class SurveyInfo implements GrpcMessage {
     set topic(value: string | undefined);
     get legalDisclaimer(): string | undefined;
     set legalDisclaimer(value: string | undefined);
+    get anonymous(): boolean | undefined;
+    set anonymous(value: boolean | undefined);
     /**
      * Serialize message to binary data
      * @param instance message instance
@@ -199,6 +213,7 @@ export declare module SurveyInfo {
         purpose?: string;
         topic?: string;
         legalDisclaimer?: string;
+        anonymous?: boolean;
     }
     /**
      * Protobuf JSON representation for SurveyInfo
@@ -213,6 +228,7 @@ export declare module SurveyInfo {
         purpose?: string;
         topic?: string;
         legalDisclaimer?: string;
+        anonymous?: boolean;
     }
 }
 /**
@@ -949,6 +965,9 @@ export declare class Answer implements GrpcMessage {
     private _answerText?;
     private _answerParameter?;
     private _answerParameterOriginal?;
+    private _anonymous?;
+    private _userInformation?;
+    private _isAnonymous;
     /**
      * Message constructor. Initializes the properties and applies default Protobuf values if necessary
      * @param _value initial values object or instance of Answer to deeply clone from
@@ -964,6 +983,11 @@ export declare class Answer implements GrpcMessage {
     set answerParameter(value: string | undefined);
     get answerParameterOriginal(): string | undefined;
     set answerParameterOriginal(value: string | undefined);
+    get anonymous(): boolean | undefined;
+    set anonymous(value: boolean | undefined);
+    get userInformation(): Answer.UserInfo | undefined;
+    set userInformation(value: Answer.UserInfo | undefined);
+    get isAnonymous(): Answer.IsAnonymousCase;
     /**
      * Serialize message to binary data
      * @param instance message instance
@@ -994,6 +1018,8 @@ export declare module Answer {
         answerText?: string;
         answerParameter?: string;
         answerParameterOriginal?: string;
+        anonymous?: boolean;
+        userInformation?: Answer.UserInfo.AsObject;
     }
     /**
      * Protobuf JSON representation for Answer
@@ -1004,6 +1030,102 @@ export declare module Answer {
         answerText?: string;
         answerParameter?: string;
         answerParameterOriginal?: string;
+        anonymous?: boolean;
+        userInformation?: Answer.UserInfo.AsProtobufJSON | null;
+    }
+    enum IsAnonymousCase {
+        none = 0,
+        anonymous = 1,
+        userInformation = 2
+    }
+    /**
+     * Message implementation for ondewo.survey.UserInfo
+     */
+    class UserInfo implements GrpcMessage {
+        static id: string;
+        /**
+         * Deserialize binary data to message
+         * @param instance message instance
+         */
+        static deserializeBinary(bytes: ByteSource): UserInfo;
+        /**
+         * Check all the properties and set default protobuf values if necessary
+         * @param _instance message instance
+         */
+        static refineValues(_instance: UserInfo): void;
+        /**
+         * Deserializes / reads binary message into message instance using provided binary reader
+         * @param _instance message instance
+         * @param _reader binary reader instance
+         */
+        static deserializeBinaryFromReader(_instance: UserInfo, _reader: BinaryReader): void;
+        /**
+         * Serializes a message to binary format using provided binary reader
+         * @param _instance message instance
+         * @param _writer binary writer instance
+         */
+        static serializeBinaryToWriter(_instance: UserInfo, _writer: BinaryWriter): void;
+        private _firstName?;
+        private _lastName?;
+        private _phoneNumber?;
+        private _sessionId?;
+        private _userId?;
+        /**
+         * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+         * @param _value initial values object or instance of UserInfo to deeply clone from
+         */
+        constructor(_value?: RecursivePartial<UserInfo.AsObject>);
+        get firstName(): string | undefined;
+        set firstName(value: string | undefined);
+        get lastName(): string | undefined;
+        set lastName(value: string | undefined);
+        get phoneNumber(): string | undefined;
+        set phoneNumber(value: string | undefined);
+        get sessionId(): string | undefined;
+        set sessionId(value: string | undefined);
+        get userId(): string | undefined;
+        set userId(value: string | undefined);
+        /**
+         * Serialize message to binary data
+         * @param instance message instance
+         */
+        serializeBinary(): any;
+        /**
+         * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+         */
+        toObject(): UserInfo.AsObject;
+        /**
+         * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+         */
+        toJSON(): UserInfo.AsObject;
+        /**
+         * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+         * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+         * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+         */
+        toProtobufJSON(options?: ToProtobufJSONOptions): UserInfo.AsProtobufJSON;
+    }
+    module UserInfo {
+        /**
+         * Standard JavaScript object representation for UserInfo
+         */
+        interface AsObject {
+            firstName?: string;
+            lastName?: string;
+            phoneNumber?: string;
+            sessionId?: string;
+            userId?: string;
+        }
+        /**
+         * Protobuf JSON representation for UserInfo
+         */
+        interface AsProtobufJSON {
+            firstName?: string;
+            lastName?: string;
+            phoneNumber?: string;
+            sessionId?: string;
+            userId?: string;
+        }
     }
 }
 /**
@@ -1314,14 +1436,25 @@ export declare class GetSurveyAnswersRequest implements GrpcMessage {
      * @param _writer binary writer instance
      */
     static serializeBinaryToWriter(_instance: GetSurveyAnswersRequest, _writer: BinaryWriter): void;
+    private _surveyId?;
     private _sessionId?;
+    private _userId?;
+    private _userPhoneNumber?;
+    private _identifier;
     /**
      * Message constructor. Initializes the properties and applies default Protobuf values if necessary
      * @param _value initial values object or instance of GetSurveyAnswersRequest to deeply clone from
      */
     constructor(_value?: RecursivePartial<GetSurveyAnswersRequest.AsObject>);
+    get surveyId(): string | undefined;
+    set surveyId(value: string | undefined);
     get sessionId(): string | undefined;
     set sessionId(value: string | undefined);
+    get userId(): string | undefined;
+    set userId(value: string | undefined);
+    get userPhoneNumber(): string | undefined;
+    set userPhoneNumber(value: string | undefined);
+    get identifier(): GetSurveyAnswersRequest.IdentifierCase;
     /**
      * Serialize message to binary data
      * @param instance message instance
@@ -1347,13 +1480,25 @@ export declare module GetSurveyAnswersRequest {
      * Standard JavaScript object representation for GetSurveyAnswersRequest
      */
     interface AsObject {
+        surveyId?: string;
         sessionId?: string;
+        userId?: string;
+        userPhoneNumber?: string;
     }
     /**
      * Protobuf JSON representation for GetSurveyAnswersRequest
      */
     interface AsProtobufJSON {
-        sessionId?: string;
+        surveyId?: string;
+        sessionId?: string | null;
+        userId?: string | null;
+        userPhoneNumber?: string | null;
+    }
+    enum IdentifierCase {
+        none = 0,
+        sessionId = 1,
+        userId = 2,
+        userPhoneNumber = 3
     }
 }
 /**
