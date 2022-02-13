@@ -6,9 +6,10 @@
 * Updated generation with of ONDEWO Survey API 0.6.*
 * Improved build scripts
 
-*** 
+***
 
 ## Release ONDEWO Survey Angular Client 0.5.0
+
 ### New Features
 * Keeps track of ONDEWO Survey API 0.5.*
 * Status for agent related to survey
