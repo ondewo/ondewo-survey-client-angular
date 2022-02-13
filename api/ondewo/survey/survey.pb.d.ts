@@ -1069,6 +1069,7 @@ export declare module Answer {
         private _lastName?;
         private _phoneNumber?;
         private _sessionId?;
+        private _userId?;
         /**
          * Message constructor. Initializes the properties and applies default Protobuf values if necessary
          * @param _value initial values object or instance of UserInfo to deeply clone from
@@ -1082,6 +1083,8 @@ export declare module Answer {
         set phoneNumber(value: string | undefined);
         get sessionId(): string | undefined;
         set sessionId(value: string | undefined);
+        get userId(): string | undefined;
+        set userId(value: string | undefined);
         /**
          * Serialize message to binary data
          * @param instance message instance
@@ -1111,6 +1114,7 @@ export declare module Answer {
             lastName?: string;
             phoneNumber?: string;
             sessionId?: string;
+            userId?: string;
         }
         /**
          * Protobuf JSON representation for UserInfo
@@ -1120,6 +1124,7 @@ export declare module Answer {
             lastName?: string;
             phoneNumber?: string;
             sessionId?: string;
+            userId?: string;
         }
     }
 }
@@ -1431,14 +1436,25 @@ export declare class GetSurveyAnswersRequest implements GrpcMessage {
      * @param _writer binary writer instance
      */
     static serializeBinaryToWriter(_instance: GetSurveyAnswersRequest, _writer: BinaryWriter): void;
+    private _surveyId?;
     private _sessionId?;
+    private _userId?;
+    private _userPhoneNumber?;
+    private _identifier;
     /**
      * Message constructor. Initializes the properties and applies default Protobuf values if necessary
      * @param _value initial values object or instance of GetSurveyAnswersRequest to deeply clone from
      */
     constructor(_value?: RecursivePartial<GetSurveyAnswersRequest.AsObject>);
+    get surveyId(): string | undefined;
+    set surveyId(value: string | undefined);
     get sessionId(): string | undefined;
     set sessionId(value: string | undefined);
+    get userId(): string | undefined;
+    set userId(value: string | undefined);
+    get userPhoneNumber(): string | undefined;
+    set userPhoneNumber(value: string | undefined);
+    get identifier(): GetSurveyAnswersRequest.IdentifierCase;
     /**
      * Serialize message to binary data
      * @param instance message instance
@@ -1464,13 +1480,25 @@ export declare module GetSurveyAnswersRequest {
      * Standard JavaScript object representation for GetSurveyAnswersRequest
      */
     interface AsObject {
+        surveyId?: string;
         sessionId?: string;
+        userId?: string;
+        userPhoneNumber?: string;
     }
     /**
      * Protobuf JSON representation for GetSurveyAnswersRequest
      */
     interface AsProtobufJSON {
-        sessionId?: string;
+        surveyId?: string;
+        sessionId?: string | null;
+        userId?: string | null;
+        userPhoneNumber?: string | null;
+    }
+    enum IdentifierCase {
+        none = 0,
+        sessionId = 1,
+        userId = 2,
+        userPhoneNumber = 3
     }
 }
 /**
@@ -1897,3 +1925,4 @@ export declare module AgentSurveyResponse {
         parent?: string;
     }
 }
+//# sourceMappingURL=survey.pb.d.ts.map

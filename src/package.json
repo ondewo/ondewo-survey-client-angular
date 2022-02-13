@@ -1,16 +1,28 @@
 {
   "name": "@ondewo/survey-client-angular",
-  "version": "0.5.0",
-  "description": "Ondewo survey client library for angular",
-  "keywords": ["ondewo", "survey", "api", "client", "ngx-grpc", "grpc"],
+  "version": "0.6.0",
+  "description": "ONDEWO Survey client library for angular",
+  "keywords": [
+    "ondewo",
+    "survey",
+    "api",
+    "client",
+    "ngx-grpc",
+    "grpc"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "git submodule update --init --recursive --remote && docker run -it -v ${PWD}:/input-volume -v ${PWD}/..:/output-volume ondewo-angular-proto-compiler ondewo-survey-api ondewo",
+    "build": "npm run prebuild && npm run generate && npm run postbuild",
+    "prebuild": "npm run submodule_update && cp ondewo-survey-api/googleapis/google ondewo-survey-api/ -R",
+    "postbuild": "rm -rf ondewo-survey-api/google && cp README.md ../. && cp RELEASE.md ../.",
+    "submodule_update": "git submodule update --init --recursive",
+    "generate": "docker run -it -v ${PWD}:/input-volume -v ${PWD}/..:/output-volume ondewo-angular-proto-compiler ondewo-survey-api ondewo",
     "debug": "docker run -it --entrypoint /bin/bash -v ${PWD}:/input-volume -v ${PWD}/..:/output-volume ondewo-angular-proto-compiler",
-    "publish-npm": "npm publish ../npm --access public"
+    "publish-npm": "npm publish ../npm --access public",
+    "test-in-ondewo-aim": "npm run build && rm -rf ../../ondewo-aim/node_modules/@ondewo/survey-client-angular/* && cp ../npm/* ../../ondewo-aim/node_modules/@ondewo/survey-client-angular/. -R"
   },
   "author": "ONDEWO GmbH",
-  "homepage": "https://ondewo.com/",
+  "homepage": "https://ondewo.com",
   "license": "Apache-2.0",
   "peerDependencies": {
     "@angular/common": ">=8.0.0",
@@ -20,6 +32,6 @@
   },
   "repository": {
     "type": "git",
-    "directory": "https://github.com/ondewo/ondewo-survey-client-angular.git"
+    "directory": "https://github.com/ondewo/ondewo-survey-client-angular"
   }
 }
