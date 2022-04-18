@@ -17,7 +17,7 @@ export declare class SurveysClient {
      */
     $raw: {
         /**
-         * Unary RPC for /ondewo.survey.Surveys/CreateSurvey
+         * Unary call: /ondewo.survey.Surveys/CreateSurvey
          *
          * @param requestMessage Request message
          * @param requestMetadata Request metadata
@@ -25,7 +25,7 @@ export declare class SurveysClient {
          */
         createSurvey: (requestData: thisProto.CreateSurveyRequest, requestMetadata?: GrpcMetadata) => Observable<GrpcEvent<thisProto.Survey>>;
         /**
-         * Unary RPC for /ondewo.survey.Surveys/GetSurvey
+         * Unary call: /ondewo.survey.Surveys/GetSurvey
          *
          * @param requestMessage Request message
          * @param requestMetadata Request metadata
@@ -33,7 +33,7 @@ export declare class SurveysClient {
          */
         getSurvey: (requestData: thisProto.GetSurveyRequest, requestMetadata?: GrpcMetadata) => Observable<GrpcEvent<thisProto.Survey>>;
         /**
-         * Unary RPC for /ondewo.survey.Surveys/UpdateSurvey
+         * Unary call: /ondewo.survey.Surveys/UpdateSurvey
          *
          * @param requestMessage Request message
          * @param requestMetadata Request metadata
@@ -41,7 +41,7 @@ export declare class SurveysClient {
          */
         updateSurvey: (requestData: thisProto.UpdateSurveyRequest, requestMetadata?: GrpcMetadata) => Observable<GrpcEvent<thisProto.Survey>>;
         /**
-         * Unary RPC for /ondewo.survey.Surveys/DeleteSurvey
+         * Unary call: /ondewo.survey.Surveys/DeleteSurvey
          *
          * @param requestMessage Request message
          * @param requestMetadata Request metadata
@@ -49,7 +49,7 @@ export declare class SurveysClient {
          */
         deleteSurvey: (requestData: thisProto.DeleteSurveyRequest, requestMetadata?: GrpcMetadata) => Observable<GrpcEvent<googleProtobuf003.Empty>>;
         /**
-         * Unary RPC for /ondewo.survey.Surveys/ListSurveys
+         * Unary call: /ondewo.survey.Surveys/ListSurveys
          *
          * @param requestMessage Request message
          * @param requestMetadata Request metadata
@@ -57,7 +57,7 @@ export declare class SurveysClient {
          */
         listSurveys: (requestData: thisProto.ListSurveysRequest, requestMetadata?: GrpcMetadata) => Observable<GrpcEvent<thisProto.ListSurveysResponse>>;
         /**
-         * Unary RPC for /ondewo.survey.Surveys/GetSurveyAnswers
+         * Unary call: /ondewo.survey.Surveys/GetSurveyAnswers
          *
          * @param requestMessage Request message
          * @param requestMetadata Request metadata
@@ -65,7 +65,7 @@ export declare class SurveysClient {
          */
         getSurveyAnswers: (requestData: thisProto.GetSurveyAnswersRequest, requestMetadata?: GrpcMetadata) => Observable<GrpcEvent<thisProto.SurveyAnswersResponse>>;
         /**
-         * Unary RPC for /ondewo.survey.Surveys/GetAllSurveyAnswers
+         * Unary call: /ondewo.survey.Surveys/GetAllSurveyAnswers
          *
          * @param requestMessage Request message
          * @param requestMetadata Request metadata
@@ -73,7 +73,7 @@ export declare class SurveysClient {
          */
         getAllSurveyAnswers: (requestData: thisProto.GetAllSurveyAnswersRequest, requestMetadata?: GrpcMetadata) => Observable<GrpcEvent<thisProto.SurveyAnswersResponse>>;
         /**
-         * Unary RPC for /ondewo.survey.Surveys/CreateAgentSurvey
+         * Unary call: /ondewo.survey.Surveys/CreateAgentSurvey
          *
          * @param requestMessage Request message
          * @param requestMetadata Request metadata
@@ -81,7 +81,7 @@ export declare class SurveysClient {
          */
         createAgentSurvey: (requestData: thisProto.AgentSurveyRequest, requestMetadata?: GrpcMetadata) => Observable<GrpcEvent<thisProto.AgentSurveyResponse>>;
         /**
-         * Unary RPC for /ondewo.survey.Surveys/UpdateAgentSurvey
+         * Unary call: /ondewo.survey.Surveys/UpdateAgentSurvey
          *
          * @param requestMessage Request message
          * @param requestMetadata Request metadata
@@ -89,7 +89,7 @@ export declare class SurveysClient {
          */
         updateAgentSurvey: (requestData: thisProto.AgentSurveyRequest, requestMetadata?: GrpcMetadata) => Observable<GrpcEvent<thisProto.AgentSurveyResponse>>;
         /**
-         * Unary RPC for /ondewo.survey.Surveys/DeleteAgentSurvey
+         * Unary call: /ondewo.survey.Surveys/DeleteAgentSurvey
          *
          * @param requestMessage Request message
          * @param requestMetadata Request metadata
@@ -99,7 +99,7 @@ export declare class SurveysClient {
     };
     constructor(settings: any, clientFactory: GrpcClientFactory<any>, handler: GrpcHandler);
     /**
-     * Unary RPC for /ondewo.survey.Surveys/CreateSurvey
+     * Unary call @/ondewo.survey.Surveys/CreateSurvey
      *
      * @param requestMessage Request message
      * @param requestMetadata Request metadata
@@ -107,7 +107,7 @@ export declare class SurveysClient {
      */
     createSurvey(requestData: thisProto.CreateSurveyRequest, requestMetadata?: GrpcMetadata): Observable<thisProto.Survey>;
     /**
-     * Unary RPC for /ondewo.survey.Surveys/GetSurvey
+     * Unary call @/ondewo.survey.Surveys/GetSurvey
      *
      * @param requestMessage Request message
      * @param requestMetadata Request metadata
@@ -115,7 +115,7 @@ export declare class SurveysClient {
      */
     getSurvey(requestData: thisProto.GetSurveyRequest, requestMetadata?: GrpcMetadata): Observable<thisProto.Survey>;
     /**
-     * Unary RPC for /ondewo.survey.Surveys/UpdateSurvey
+     * Unary call @/ondewo.survey.Surveys/UpdateSurvey
      *
      * @param requestMessage Request message
      * @param requestMetadata Request metadata
@@ -123,7 +123,7 @@ export declare class SurveysClient {
      */
     updateSurvey(requestData: thisProto.UpdateSurveyRequest, requestMetadata?: GrpcMetadata): Observable<thisProto.Survey>;
     /**
-     * Unary RPC for /ondewo.survey.Surveys/DeleteSurvey
+     * Unary call @/ondewo.survey.Surveys/DeleteSurvey
      *
      * @param requestMessage Request message
      * @param requestMetadata Request metadata
@@ -131,7 +131,7 @@ export declare class SurveysClient {
      */
     deleteSurvey(requestData: thisProto.DeleteSurveyRequest, requestMetadata?: GrpcMetadata): Observable<googleProtobuf003.Empty>;
     /**
-     * Unary RPC for /ondewo.survey.Surveys/ListSurveys
+     * Unary call @/ondewo.survey.Surveys/ListSurveys
      *
      * @param requestMessage Request message
      * @param requestMetadata Request metadata
@@ -139,7 +139,7 @@ export declare class SurveysClient {
      */
     listSurveys(requestData: thisProto.ListSurveysRequest, requestMetadata?: GrpcMetadata): Observable<thisProto.ListSurveysResponse>;
     /**
-     * Unary RPC for /ondewo.survey.Surveys/GetSurveyAnswers
+     * Unary call @/ondewo.survey.Surveys/GetSurveyAnswers
      *
      * @param requestMessage Request message
      * @param requestMetadata Request metadata
@@ -147,7 +147,7 @@ export declare class SurveysClient {
      */
     getSurveyAnswers(requestData: thisProto.GetSurveyAnswersRequest, requestMetadata?: GrpcMetadata): Observable<thisProto.SurveyAnswersResponse>;
     /**
-     * Unary RPC for /ondewo.survey.Surveys/GetAllSurveyAnswers
+     * Unary call @/ondewo.survey.Surveys/GetAllSurveyAnswers
      *
      * @param requestMessage Request message
      * @param requestMetadata Request metadata
@@ -155,7 +155,7 @@ export declare class SurveysClient {
      */
     getAllSurveyAnswers(requestData: thisProto.GetAllSurveyAnswersRequest, requestMetadata?: GrpcMetadata): Observable<thisProto.SurveyAnswersResponse>;
     /**
-     * Unary RPC for /ondewo.survey.Surveys/CreateAgentSurvey
+     * Unary call @/ondewo.survey.Surveys/CreateAgentSurvey
      *
      * @param requestMessage Request message
      * @param requestMetadata Request metadata
@@ -163,7 +163,7 @@ export declare class SurveysClient {
      */
     createAgentSurvey(requestData: thisProto.AgentSurveyRequest, requestMetadata?: GrpcMetadata): Observable<thisProto.AgentSurveyResponse>;
     /**
-     * Unary RPC for /ondewo.survey.Surveys/UpdateAgentSurvey
+     * Unary call @/ondewo.survey.Surveys/UpdateAgentSurvey
      *
      * @param requestMessage Request message
      * @param requestMetadata Request metadata
@@ -171,7 +171,7 @@ export declare class SurveysClient {
      */
     updateAgentSurvey(requestData: thisProto.AgentSurveyRequest, requestMetadata?: GrpcMetadata): Observable<thisProto.AgentSurveyResponse>;
     /**
-     * Unary RPC for /ondewo.survey.Surveys/DeleteAgentSurvey
+     * Unary call @/ondewo.survey.Surveys/DeleteAgentSurvey
      *
      * @param requestMessage Request message
      * @param requestMetadata Request metadata
@@ -181,4 +181,3 @@ export declare class SurveysClient {
     static ɵfac: i0.ɵɵFactoryDeclaration<SurveysClient, [{ optional: true; }, null, null]>;
     static ɵprov: i0.ɵɵInjectableDeclaration<SurveysClient>;
 }
-//# sourceMappingURL=survey.pbsc.d.ts.map

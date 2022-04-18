@@ -1,34 +1,26 @@
 # Release History
+
 *****************
+
+## Release ONDEWO Survey Angular Client 0.6.1
+
+* Track version 0.6.1 of [ONDEWO Survey API](https://github.com/ondewo/ondewo-nlu-api/releases/0.6.1)
+* Upgraded to Angular >= 13.x.x and ngx-grpc >=3.0.0
+
+*****************
+
 ## Release ONDEWO Survey Angular Client 0.6.0
-### Improvements
-* Keeps track of ONDEWO Survey API 0.6.*
-* Updated generation with of ONDEWO Survey API 0.6.*
-* Improved build scripts
 
-***
+* Track version 0.6.0 of [ONDEWO Survey API](https://github.com/ondewo/ondewo-nlu-api/releases/0.6.0)
+
+*****************
 
 ## Release ONDEWO Survey Angular Client 0.5.0
 
-### New Features
-* Keeps track of ONDEWO Survey API 0.5.*
-* Status for agent related to survey
-* User information for answers of the survey (anonymous surveys are also possible)
+* Track version 0.5.0 of [ONDEWO Survey API](https://github.com/ondewo/ondewo-nlu-api/releases/0.5.0)
 
-***
-
-## Release ONDEWO Survey Angular Client 0.5.0
-
-### New Features
-* Keeps track of ONDEWO Survey API 0.5.*
-* Status for agent related to survey
-* User information for answers of the survey (anonymous surveys are also possible)
-
-***
+*****************
 
 ## Release ONDEWO Survey Angular Client 0.4.1
 
-### New Features
-* First Release
-* Release on [NPM](https://www.npmjs.com/package/@ondewo/survey-client-angular)
-* Keeps track of ONDEWO Survey API 0.4.*
+* Track version 0.4.1 of [ONDEWO Survey API](https://github.com/ondewo/ondewo-nlu-api/releases/0.4.1)
