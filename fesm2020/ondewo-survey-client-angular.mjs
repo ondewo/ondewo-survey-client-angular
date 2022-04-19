@@ -4184,20 +4184,20 @@ class SurveysClient {
             .pipe(throwStatusErrors(), takeMessages());
     }
 }
-SurveysClient.ɵfac = function SurveysClient_Factory(t) { return new (t || SurveysClient)(i0.ɵɵinject(GRPC_SURVEYS_CLIENT_SETTINGS, 8), i0.ɵɵinject(GRPC_CLIENT_FACTORY), i0.ɵɵinject(i1.GrpcHandler)); };
-SurveysClient.ɵprov = /*@__PURE__*/ i0.ɵɵdefineInjectable({ token: SurveysClient, factory: SurveysClient.ɵfac, providedIn: 'any' });
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(SurveysClient, [{
-        type: Injectable,
-        args: [{ providedIn: 'any' }]
-    }], function () { return [{ type: undefined, decorators: [{
-                type: Optional
-            }, {
-                type: Inject,
-                args: [GRPC_SURVEYS_CLIENT_SETTINGS]
-            }] }, { type: undefined, decorators: [{
-                type: Inject,
-                args: [GRPC_CLIENT_FACTORY]
-            }] }, { type: i1.GrpcHandler }]; }, null); })();
+SurveysClient.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.3", ngImport: i0, type: SurveysClient, deps: [{ token: GRPC_SURVEYS_CLIENT_SETTINGS, optional: true }, { token: GRPC_CLIENT_FACTORY }, { token: i1.GrpcHandler }], target: i0.ɵɵFactoryTarget.Injectable });
+SurveysClient.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.3.3", ngImport: i0, type: SurveysClient, providedIn: 'any' });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.3", ngImport: i0, type: SurveysClient, decorators: [{
+            type: Injectable,
+            args: [{ providedIn: 'any' }]
+        }], ctorParameters: function () { return [{ type: undefined, decorators: [{
+                    type: Optional
+                }, {
+                    type: Inject,
+                    args: [GRPC_SURVEYS_CLIENT_SETTINGS]
+                }] }, { type: undefined, decorators: [{
+                    type: Inject,
+                    args: [GRPC_CLIENT_FACTORY]
+                }] }, { type: i1.GrpcHandler }]; } });
 
 /**
  * Message implementation for ondewo.survey.CreateFHIRSurveyRequest
@@ -4544,20 +4544,20 @@ class FHIRClient {
             .pipe(throwStatusErrors(), takeMessages());
     }
 }
-FHIRClient.ɵfac = function FHIRClient_Factory(t) { return new (t || FHIRClient)(i0.ɵɵinject(GRPC_FHIR_CLIENT_SETTINGS, 8), i0.ɵɵinject(GRPC_CLIENT_FACTORY), i0.ɵɵinject(i1.GrpcHandler)); };
-FHIRClient.ɵprov = /*@__PURE__*/ i0.ɵɵdefineInjectable({ token: FHIRClient, factory: FHIRClient.ɵfac, providedIn: 'any' });
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(FHIRClient, [{
-        type: Injectable,
-        args: [{ providedIn: 'any' }]
-    }], function () { return [{ type: undefined, decorators: [{
-                type: Optional
-            }, {
-                type: Inject,
-                args: [GRPC_FHIR_CLIENT_SETTINGS]
-            }] }, { type: undefined, decorators: [{
-                type: Inject,
-                args: [GRPC_CLIENT_FACTORY]
-            }] }, { type: i1.GrpcHandler }]; }, null); })();
+FHIRClient.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.3", ngImport: i0, type: FHIRClient, deps: [{ token: GRPC_FHIR_CLIENT_SETTINGS, optional: true }, { token: GRPC_CLIENT_FACTORY }, { token: i1.GrpcHandler }], target: i0.ɵɵFactoryTarget.Injectable });
+FHIRClient.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.3.3", ngImport: i0, type: FHIRClient, providedIn: 'any' });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.3", ngImport: i0, type: FHIRClient, decorators: [{
+            type: Injectable,
+            args: [{ providedIn: 'any' }]
+        }], ctorParameters: function () { return [{ type: undefined, decorators: [{
+                    type: Optional
+                }, {
+                    type: Inject,
+                    args: [GRPC_FHIR_CLIENT_SETTINGS]
+                }] }, { type: undefined, decorators: [{
+                    type: Inject,
+                    args: [GRPC_CLIENT_FACTORY]
+                }] }, { type: i1.GrpcHandler }]; } });
 
 /**
  * Generated bundle index. Do not edit.
