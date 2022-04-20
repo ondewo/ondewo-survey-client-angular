@@ -3881,7 +3881,7 @@ class SurveysClient {
          */
         this.$raw = {
             /**
-             * Unary RPC for /ondewo.survey.Surveys/CreateSurvey
+             * Unary call: /ondewo.survey.Surveys/CreateSurvey
              *
              * @param requestMessage Request message
              * @param requestMetadata Request metadata
@@ -3899,7 +3899,7 @@ class SurveysClient {
                 });
             },
             /**
-             * Unary RPC for /ondewo.survey.Surveys/GetSurvey
+             * Unary call: /ondewo.survey.Surveys/GetSurvey
              *
              * @param requestMessage Request message
              * @param requestMetadata Request metadata
@@ -3917,7 +3917,7 @@ class SurveysClient {
                 });
             },
             /**
-             * Unary RPC for /ondewo.survey.Surveys/UpdateSurvey
+             * Unary call: /ondewo.survey.Surveys/UpdateSurvey
              *
              * @param requestMessage Request message
              * @param requestMetadata Request metadata
@@ -3935,7 +3935,7 @@ class SurveysClient {
                 });
             },
             /**
-             * Unary RPC for /ondewo.survey.Surveys/DeleteSurvey
+             * Unary call: /ondewo.survey.Surveys/DeleteSurvey
              *
              * @param requestMessage Request message
              * @param requestMetadata Request metadata
@@ -3953,7 +3953,7 @@ class SurveysClient {
                 });
             },
             /**
-             * Unary RPC for /ondewo.survey.Surveys/ListSurveys
+             * Unary call: /ondewo.survey.Surveys/ListSurveys
              *
              * @param requestMessage Request message
              * @param requestMetadata Request metadata
@@ -3971,7 +3971,7 @@ class SurveysClient {
                 });
             },
             /**
-             * Unary RPC for /ondewo.survey.Surveys/GetSurveyAnswers
+             * Unary call: /ondewo.survey.Surveys/GetSurveyAnswers
              *
              * @param requestMessage Request message
              * @param requestMetadata Request metadata
@@ -3989,7 +3989,7 @@ class SurveysClient {
                 });
             },
             /**
-             * Unary RPC for /ondewo.survey.Surveys/GetAllSurveyAnswers
+             * Unary call: /ondewo.survey.Surveys/GetAllSurveyAnswers
              *
              * @param requestMessage Request message
              * @param requestMetadata Request metadata
@@ -4007,7 +4007,7 @@ class SurveysClient {
                 });
             },
             /**
-             * Unary RPC for /ondewo.survey.Surveys/CreateAgentSurvey
+             * Unary call: /ondewo.survey.Surveys/CreateAgentSurvey
              *
              * @param requestMessage Request message
              * @param requestMetadata Request metadata
@@ -4025,7 +4025,7 @@ class SurveysClient {
                 });
             },
             /**
-             * Unary RPC for /ondewo.survey.Surveys/UpdateAgentSurvey
+             * Unary call: /ondewo.survey.Surveys/UpdateAgentSurvey
              *
              * @param requestMessage Request message
              * @param requestMetadata Request metadata
@@ -4043,7 +4043,7 @@ class SurveysClient {
                 });
             },
             /**
-             * Unary RPC for /ondewo.survey.Surveys/DeleteAgentSurvey
+             * Unary call: /ondewo.survey.Surveys/DeleteAgentSurvey
              *
              * @param requestMessage Request message
              * @param requestMetadata Request metadata
@@ -4064,7 +4064,7 @@ class SurveysClient {
         this.client = clientFactory.createClient('ondewo.survey.Surveys', settings);
     }
     /**
-     * Unary RPC for /ondewo.survey.Surveys/CreateSurvey
+     * Unary call @/ondewo.survey.Surveys/CreateSurvey
      *
      * @param requestMessage Request message
      * @param requestMetadata Request metadata
@@ -4076,7 +4076,7 @@ class SurveysClient {
             .pipe(throwStatusErrors(), takeMessages());
     }
     /**
-     * Unary RPC for /ondewo.survey.Surveys/GetSurvey
+     * Unary call @/ondewo.survey.Surveys/GetSurvey
      *
      * @param requestMessage Request message
      * @param requestMetadata Request metadata
@@ -4088,7 +4088,7 @@ class SurveysClient {
             .pipe(throwStatusErrors(), takeMessages());
     }
     /**
-     * Unary RPC for /ondewo.survey.Surveys/UpdateSurvey
+     * Unary call @/ondewo.survey.Surveys/UpdateSurvey
      *
      * @param requestMessage Request message
      * @param requestMetadata Request metadata
@@ -4100,7 +4100,7 @@ class SurveysClient {
             .pipe(throwStatusErrors(), takeMessages());
     }
     /**
-     * Unary RPC for /ondewo.survey.Surveys/DeleteSurvey
+     * Unary call @/ondewo.survey.Surveys/DeleteSurvey
      *
      * @param requestMessage Request message
      * @param requestMetadata Request metadata
@@ -4112,7 +4112,7 @@ class SurveysClient {
             .pipe(throwStatusErrors(), takeMessages());
     }
     /**
-     * Unary RPC for /ondewo.survey.Surveys/ListSurveys
+     * Unary call @/ondewo.survey.Surveys/ListSurveys
      *
      * @param requestMessage Request message
      * @param requestMetadata Request metadata
@@ -4124,7 +4124,7 @@ class SurveysClient {
             .pipe(throwStatusErrors(), takeMessages());
     }
     /**
-     * Unary RPC for /ondewo.survey.Surveys/GetSurveyAnswers
+     * Unary call @/ondewo.survey.Surveys/GetSurveyAnswers
      *
      * @param requestMessage Request message
      * @param requestMetadata Request metadata
@@ -4136,7 +4136,7 @@ class SurveysClient {
             .pipe(throwStatusErrors(), takeMessages());
     }
     /**
-     * Unary RPC for /ondewo.survey.Surveys/GetAllSurveyAnswers
+     * Unary call @/ondewo.survey.Surveys/GetAllSurveyAnswers
      *
      * @param requestMessage Request message
      * @param requestMetadata Request metadata
@@ -4148,7 +4148,7 @@ class SurveysClient {
             .pipe(throwStatusErrors(), takeMessages());
     }
     /**
-     * Unary RPC for /ondewo.survey.Surveys/CreateAgentSurvey
+     * Unary call @/ondewo.survey.Surveys/CreateAgentSurvey
      *
      * @param requestMessage Request message
      * @param requestMetadata Request metadata
@@ -4160,7 +4160,7 @@ class SurveysClient {
             .pipe(throwStatusErrors(), takeMessages());
     }
     /**
-     * Unary RPC for /ondewo.survey.Surveys/UpdateAgentSurvey
+     * Unary call @/ondewo.survey.Surveys/UpdateAgentSurvey
      *
      * @param requestMessage Request message
      * @param requestMetadata Request metadata
@@ -4172,7 +4172,7 @@ class SurveysClient {
             .pipe(throwStatusErrors(), takeMessages());
     }
     /**
-     * Unary RPC for /ondewo.survey.Surveys/DeleteAgentSurvey
+     * Unary call @/ondewo.survey.Surveys/DeleteAgentSurvey
      *
      * @param requestMessage Request message
      * @param requestMetadata Request metadata
@@ -4184,9 +4184,9 @@ class SurveysClient {
             .pipe(throwStatusErrors(), takeMessages());
     }
 }
-SurveysClient.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.2", ngImport: i0, type: SurveysClient, deps: [{ token: GRPC_SURVEYS_CLIENT_SETTINGS, optional: true }, { token: GRPC_CLIENT_FACTORY }, { token: i1.GrpcHandler }], target: i0.ɵɵFactoryTarget.Injectable });
-SurveysClient.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.2.2", ngImport: i0, type: SurveysClient, providedIn: 'any' });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.2", ngImport: i0, type: SurveysClient, decorators: [{
+SurveysClient.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.3", ngImport: i0, type: SurveysClient, deps: [{ token: GRPC_SURVEYS_CLIENT_SETTINGS, optional: true }, { token: GRPC_CLIENT_FACTORY }, { token: i1.GrpcHandler }], target: i0.ɵɵFactoryTarget.Injectable });
+SurveysClient.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.3.3", ngImport: i0, type: SurveysClient, providedIn: 'any' });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.3", ngImport: i0, type: SurveysClient, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'any' }]
         }], ctorParameters: function () {
@@ -4453,7 +4453,7 @@ class FHIRClient {
          */
         this.$raw = {
             /**
-             * Unary RPC for /ondewo.survey.FHIR/CreateFHIRSurvey
+             * Unary call: /ondewo.survey.FHIR/CreateFHIRSurvey
              *
              * @param requestMessage Request message
              * @param requestMetadata Request metadata
@@ -4471,7 +4471,7 @@ class FHIRClient {
                 });
             },
             /**
-             * Unary RPC for /ondewo.survey.FHIR/GetFHIRSurveyAnswers
+             * Unary call: /ondewo.survey.FHIR/GetFHIRSurveyAnswers
              *
              * @param requestMessage Request message
              * @param requestMetadata Request metadata
@@ -4489,7 +4489,7 @@ class FHIRClient {
                 });
             },
             /**
-             * Unary RPC for /ondewo.survey.FHIR/GetAllFHIRSurveyAnswers
+             * Unary call: /ondewo.survey.FHIR/GetAllFHIRSurveyAnswers
              *
              * @param requestMessage Request message
              * @param requestMetadata Request metadata
@@ -4510,7 +4510,7 @@ class FHIRClient {
         this.client = clientFactory.createClient('ondewo.survey.FHIR', settings);
     }
     /**
-     * Unary RPC for /ondewo.survey.FHIR/CreateFHIRSurvey
+     * Unary call @/ondewo.survey.FHIR/CreateFHIRSurvey
      *
      * @param requestMessage Request message
      * @param requestMetadata Request metadata
@@ -4522,7 +4522,7 @@ class FHIRClient {
             .pipe(throwStatusErrors(), takeMessages());
     }
     /**
-     * Unary RPC for /ondewo.survey.FHIR/GetFHIRSurveyAnswers
+     * Unary call @/ondewo.survey.FHIR/GetFHIRSurveyAnswers
      *
      * @param requestMessage Request message
      * @param requestMetadata Request metadata
@@ -4534,7 +4534,7 @@ class FHIRClient {
             .pipe(throwStatusErrors(), takeMessages());
     }
     /**
-     * Unary RPC for /ondewo.survey.FHIR/GetAllFHIRSurveyAnswers
+     * Unary call @/ondewo.survey.FHIR/GetAllFHIRSurveyAnswers
      *
      * @param requestMessage Request message
      * @param requestMetadata Request metadata
@@ -4546,9 +4546,9 @@ class FHIRClient {
             .pipe(throwStatusErrors(), takeMessages());
     }
 }
-FHIRClient.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.2", ngImport: i0, type: FHIRClient, deps: [{ token: GRPC_FHIR_CLIENT_SETTINGS, optional: true }, { token: GRPC_CLIENT_FACTORY }, { token: i1.GrpcHandler }], target: i0.ɵɵFactoryTarget.Injectable });
-FHIRClient.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.2.2", ngImport: i0, type: FHIRClient, providedIn: 'any' });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.2", ngImport: i0, type: FHIRClient, decorators: [{
+FHIRClient.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.3", ngImport: i0, type: FHIRClient, deps: [{ token: GRPC_FHIR_CLIENT_SETTINGS, optional: true }, { token: GRPC_CLIENT_FACTORY }, { token: i1.GrpcHandler }], target: i0.ɵɵFactoryTarget.Injectable });
+FHIRClient.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.3.3", ngImport: i0, type: FHIRClient, providedIn: 'any' });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.3", ngImport: i0, type: FHIRClient, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'any' }]
         }], ctorParameters: function () {

@@ -144,4 +144,3 @@ export declare module SurveyFHIRAnswersResponse {
         fhirQuestionnaireResponses?: googleProtobuf006.Struct.AsProtobufJSON[] | null;
     }
 }
-//# sourceMappingURL=fhir.pb.d.ts.map

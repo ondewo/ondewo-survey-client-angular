@@ -17,7 +17,7 @@ export declare class FHIRClient {
      */
     $raw: {
         /**
-         * Unary RPC for /ondewo.survey.FHIR/CreateFHIRSurvey
+         * Unary call: /ondewo.survey.FHIR/CreateFHIRSurvey
          *
          * @param requestMessage Request message
          * @param requestMetadata Request metadata
@@ -25,7 +25,7 @@ export declare class FHIRClient {
          */
         createFHIRSurvey: (requestData: thisProto.CreateFHIRSurveyRequest, requestMetadata?: GrpcMetadata) => Observable<GrpcEvent<ondewoSurvey005.Survey>>;
         /**
-         * Unary RPC for /ondewo.survey.FHIR/GetFHIRSurveyAnswers
+         * Unary call: /ondewo.survey.FHIR/GetFHIRSurveyAnswers
          *
          * @param requestMessage Request message
          * @param requestMetadata Request metadata
@@ -33,7 +33,7 @@ export declare class FHIRClient {
          */
         getFHIRSurveyAnswers: (requestData: ondewoSurvey005.GetSurveyAnswersRequest, requestMetadata?: GrpcMetadata) => Observable<GrpcEvent<thisProto.SurveyFHIRAnswersResponse>>;
         /**
-         * Unary RPC for /ondewo.survey.FHIR/GetAllFHIRSurveyAnswers
+         * Unary call: /ondewo.survey.FHIR/GetAllFHIRSurveyAnswers
          *
          * @param requestMessage Request message
          * @param requestMetadata Request metadata
@@ -43,7 +43,7 @@ export declare class FHIRClient {
     };
     constructor(settings: any, clientFactory: GrpcClientFactory<any>, handler: GrpcHandler);
     /**
-     * Unary RPC for /ondewo.survey.FHIR/CreateFHIRSurvey
+     * Unary call @/ondewo.survey.FHIR/CreateFHIRSurvey
      *
      * @param requestMessage Request message
      * @param requestMetadata Request metadata
@@ -51,7 +51,7 @@ export declare class FHIRClient {
      */
     createFHIRSurvey(requestData: thisProto.CreateFHIRSurveyRequest, requestMetadata?: GrpcMetadata): Observable<ondewoSurvey005.Survey>;
     /**
-     * Unary RPC for /ondewo.survey.FHIR/GetFHIRSurveyAnswers
+     * Unary call @/ondewo.survey.FHIR/GetFHIRSurveyAnswers
      *
      * @param requestMessage Request message
      * @param requestMetadata Request metadata
@@ -59,7 +59,7 @@ export declare class FHIRClient {
      */
     getFHIRSurveyAnswers(requestData: ondewoSurvey005.GetSurveyAnswersRequest, requestMetadata?: GrpcMetadata): Observable<thisProto.SurveyFHIRAnswersResponse>;
     /**
-     * Unary RPC for /ondewo.survey.FHIR/GetAllFHIRSurveyAnswers
+     * Unary call @/ondewo.survey.FHIR/GetAllFHIRSurveyAnswers
      *
      * @param requestMessage Request message
      * @param requestMetadata Request metadata
@@ -69,4 +69,3 @@ export declare class FHIRClient {
     static ɵfac: i0.ɵɵFactoryDeclaration<FHIRClient, [{ optional: true; }, null, null]>;
     static ɵprov: i0.ɵɵInjectableDeclaration<FHIRClient>;
 }
-//# sourceMappingURL=fhir.pbsc.d.ts.map
