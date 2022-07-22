@@ -1,4 +1,9 @@
 # Release History
+*****************
+
+## Release ONDEWO Survey Angular Client 1.0.0
+
+* Track version 1.0.0 of [ONDEWO Survey API](https://github.com/ondewo/ondewo-nlu-api/releases/1.0.0)
 
 *****************
 

@@ -1,533 +1,10 @@
 import { BinaryReader, BinaryWriter } from 'google-protobuf';
+import * as googleProtobuf006 from '@ngx-grpc/well-known-types';
 import * as i0 from '@angular/core';
 import { InjectionToken, Injectable, Optional, Inject } from '@angular/core';
-import { GrpcMetadata, GrpcCallType } from '@ngx-grpc/common';
+import { GrpcCallType, GrpcMetadata } from '@ngx-grpc/common';
 import * as i1 from '@ngx-grpc/core';
 import { throwStatusErrors, takeMessages, GRPC_CLIENT_FACTORY } from '@ngx-grpc/core';
-import * as googleProtobuf006 from '@ngx-grpc/well-known-types';
-
-/**
- * Message implementation for google.api.Http
- */
-class Http {
-    /**
-     * Message constructor. Initializes the properties and applies default Protobuf values if necessary
-     * @param _value initial values object or instance of Http to deeply clone from
-     */
-    constructor(_value) {
-        _value = _value || {};
-        this.rules = (_value.rules || []).map(m => new HttpRule(m));
-        this.fullyDecodeReservedExpansion = _value.fullyDecodeReservedExpansion;
-        Http.refineValues(this);
-    }
-    /**
-     * Deserialize binary data to message
-     * @param instance message instance
-     */
-    static deserializeBinary(bytes) {
-        const instance = new Http();
-        Http.deserializeBinaryFromReader(instance, new BinaryReader(bytes));
-        return instance;
-    }
-    /**
-     * Check all the properties and set default protobuf values if necessary
-     * @param _instance message instance
-     */
-    static refineValues(_instance) {
-        _instance.rules = _instance.rules || [];
-        _instance.fullyDecodeReservedExpansion =
-            _instance.fullyDecodeReservedExpansion || false;
-    }
-    /**
-     * Deserializes / reads binary message into message instance using provided binary reader
-     * @param _instance message instance
-     * @param _reader binary reader instance
-     */
-    static deserializeBinaryFromReader(_instance, _reader) {
-        while (_reader.nextField()) {
-            if (_reader.isEndGroup())
-                break;
-            switch (_reader.getFieldNumber()) {
-                case 1:
-                    const messageInitializer1 = new HttpRule();
-                    _reader.readMessage(messageInitializer1, HttpRule.deserializeBinaryFromReader);
-                    (_instance.rules = _instance.rules || []).push(messageInitializer1);
-                    break;
-                case 2:
-                    _instance.fullyDecodeReservedExpansion = _reader.readBool();
-                    break;
-                default:
-                    _reader.skipField();
-            }
-        }
-        Http.refineValues(_instance);
-    }
-    /**
-     * Serializes a message to binary format using provided binary reader
-     * @param _instance message instance
-     * @param _writer binary writer instance
-     */
-    static serializeBinaryToWriter(_instance, _writer) {
-        if (_instance.rules && _instance.rules.length) {
-            _writer.writeRepeatedMessage(1, _instance.rules, HttpRule.serializeBinaryToWriter);
-        }
-        if (_instance.fullyDecodeReservedExpansion) {
-            _writer.writeBool(2, _instance.fullyDecodeReservedExpansion);
-        }
-    }
-    get rules() {
-        return this._rules;
-    }
-    set rules(value) {
-        this._rules = value;
-    }
-    get fullyDecodeReservedExpansion() {
-        return this._fullyDecodeReservedExpansion;
-    }
-    set fullyDecodeReservedExpansion(value) {
-        this._fullyDecodeReservedExpansion = value;
-    }
-    /**
-     * Serialize message to binary data
-     * @param instance message instance
-     */
-    serializeBinary() {
-        const writer = new BinaryWriter();
-        Http.serializeBinaryToWriter(this, writer);
-        return writer.getResultBuffer();
-    }
-    /**
-     * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
-     */
-    toObject() {
-        return {
-            rules: (this.rules || []).map(m => m.toObject()),
-            fullyDecodeReservedExpansion: this.fullyDecodeReservedExpansion
-        };
-    }
-    /**
-     * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
-     */
-    toJSON() {
-        return this.toObject();
-    }
-    /**
-     * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
-     * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
-     * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
-     */
-    toProtobufJSON(
-    // @ts-ignore
-    options) {
-        return {
-            rules: (this.rules || []).map(m => m.toProtobufJSON(options)),
-            fullyDecodeReservedExpansion: this.fullyDecodeReservedExpansion
-        };
-    }
-}
-Http.id = 'google.api.Http';
-/**
- * Message implementation for google.api.HttpRule
- */
-class HttpRule {
-    /**
-     * Message constructor. Initializes the properties and applies default Protobuf values if necessary
-     * @param _value initial values object or instance of HttpRule to deeply clone from
-     */
-    constructor(_value) {
-        this._pattern = HttpRule.PatternCase.none;
-        _value = _value || {};
-        this.selector = _value.selector;
-        this.get = _value.get;
-        this.put = _value.put;
-        this.post = _value.post;
-        this.delete = _value.delete;
-        this.patch = _value.patch;
-        this.custom = _value.custom
-            ? new CustomHttpPattern(_value.custom)
-            : undefined;
-        this.body = _value.body;
-        this.responseBody = _value.responseBody;
-        this.additionalBindings = (_value.additionalBindings || []).map(m => new HttpRule(m));
-        HttpRule.refineValues(this);
-    }
-    /**
-     * Deserialize binary data to message
-     * @param instance message instance
-     */
-    static deserializeBinary(bytes) {
-        const instance = new HttpRule();
-        HttpRule.deserializeBinaryFromReader(instance, new BinaryReader(bytes));
-        return instance;
-    }
-    /**
-     * Check all the properties and set default protobuf values if necessary
-     * @param _instance message instance
-     */
-    static refineValues(_instance) {
-        _instance.selector = _instance.selector || '';
-        _instance.body = _instance.body || '';
-        _instance.responseBody = _instance.responseBody || '';
-        _instance.additionalBindings = _instance.additionalBindings || [];
-    }
-    /**
-     * Deserializes / reads binary message into message instance using provided binary reader
-     * @param _instance message instance
-     * @param _reader binary reader instance
-     */
-    static deserializeBinaryFromReader(_instance, _reader) {
-        while (_reader.nextField()) {
-            if (_reader.isEndGroup())
-                break;
-            switch (_reader.getFieldNumber()) {
-                case 1:
-                    _instance.selector = _reader.readString();
-                    break;
-                case 2:
-                    _instance.get = _reader.readString();
-                    break;
-                case 3:
-                    _instance.put = _reader.readString();
-                    break;
-                case 4:
-                    _instance.post = _reader.readString();
-                    break;
-                case 5:
-                    _instance.delete = _reader.readString();
-                    break;
-                case 6:
-                    _instance.patch = _reader.readString();
-                    break;
-                case 8:
-                    _instance.custom = new CustomHttpPattern();
-                    _reader.readMessage(_instance.custom, CustomHttpPattern.deserializeBinaryFromReader);
-                    break;
-                case 7:
-                    _instance.body = _reader.readString();
-                    break;
-                case 12:
-                    _instance.responseBody = _reader.readString();
-                    break;
-                case 11:
-                    const messageInitializer11 = new HttpRule();
-                    _reader.readMessage(messageInitializer11, HttpRule.deserializeBinaryFromReader);
-                    (_instance.additionalBindings =
-                        _instance.additionalBindings || []).push(messageInitializer11);
-                    break;
-                default:
-                    _reader.skipField();
-            }
-        }
-        HttpRule.refineValues(_instance);
-    }
-    /**
-     * Serializes a message to binary format using provided binary reader
-     * @param _instance message instance
-     * @param _writer binary writer instance
-     */
-    static serializeBinaryToWriter(_instance, _writer) {
-        if (_instance.selector) {
-            _writer.writeString(1, _instance.selector);
-        }
-        if (_instance.get || _instance.get === '') {
-            _writer.writeString(2, _instance.get);
-        }
-        if (_instance.put || _instance.put === '') {
-            _writer.writeString(3, _instance.put);
-        }
-        if (_instance.post || _instance.post === '') {
-            _writer.writeString(4, _instance.post);
-        }
-        if (_instance.delete || _instance.delete === '') {
-            _writer.writeString(5, _instance.delete);
-        }
-        if (_instance.patch || _instance.patch === '') {
-            _writer.writeString(6, _instance.patch);
-        }
-        if (_instance.custom) {
-            _writer.writeMessage(8, _instance.custom, CustomHttpPattern.serializeBinaryToWriter);
-        }
-        if (_instance.body) {
-            _writer.writeString(7, _instance.body);
-        }
-        if (_instance.responseBody) {
-            _writer.writeString(12, _instance.responseBody);
-        }
-        if (_instance.additionalBindings && _instance.additionalBindings.length) {
-            _writer.writeRepeatedMessage(11, _instance.additionalBindings, HttpRule.serializeBinaryToWriter);
-        }
-    }
-    get selector() {
-        return this._selector;
-    }
-    set selector(value) {
-        this._selector = value;
-    }
-    get get() {
-        return this._get;
-    }
-    set get(value) {
-        if (value !== undefined && value !== null) {
-            this._put = this._post = this._delete = this._patch = this._custom = undefined;
-            this._pattern = HttpRule.PatternCase.get;
-        }
-        this._get = value;
-    }
-    get put() {
-        return this._put;
-    }
-    set put(value) {
-        if (value !== undefined && value !== null) {
-            this._get = this._post = this._delete = this._patch = this._custom = undefined;
-            this._pattern = HttpRule.PatternCase.put;
-        }
-        this._put = value;
-    }
-    get post() {
-        return this._post;
-    }
-    set post(value) {
-        if (value !== undefined && value !== null) {
-            this._get = this._put = this._delete = this._patch = this._custom = undefined;
-            this._pattern = HttpRule.PatternCase.post;
-        }
-        this._post = value;
-    }
-    get delete() {
-        return this._delete;
-    }
-    set delete(value) {
-        if (value !== undefined && value !== null) {
-            this._get = this._put = this._post = this._patch = this._custom = undefined;
-            this._pattern = HttpRule.PatternCase.delete;
-        }
-        this._delete = value;
-    }
-    get patch() {
-        return this._patch;
-    }
-    set patch(value) {
-        if (value !== undefined && value !== null) {
-            this._get = this._put = this._post = this._delete = this._custom = undefined;
-            this._pattern = HttpRule.PatternCase.patch;
-        }
-        this._patch = value;
-    }
-    get custom() {
-        return this._custom;
-    }
-    set custom(value) {
-        if (value !== undefined && value !== null) {
-            this._get = this._put = this._post = this._delete = this._patch = undefined;
-            this._pattern = HttpRule.PatternCase.custom;
-        }
-        this._custom = value;
-    }
-    get body() {
-        return this._body;
-    }
-    set body(value) {
-        this._body = value;
-    }
-    get responseBody() {
-        return this._responseBody;
-    }
-    set responseBody(value) {
-        this._responseBody = value;
-    }
-    get additionalBindings() {
-        return this._additionalBindings;
-    }
-    set additionalBindings(value) {
-        this._additionalBindings = value;
-    }
-    get pattern() {
-        return this._pattern;
-    }
-    /**
-     * Serialize message to binary data
-     * @param instance message instance
-     */
-    serializeBinary() {
-        const writer = new BinaryWriter();
-        HttpRule.serializeBinaryToWriter(this, writer);
-        return writer.getResultBuffer();
-    }
-    /**
-     * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
-     */
-    toObject() {
-        return {
-            selector: this.selector,
-            get: this.get,
-            put: this.put,
-            post: this.post,
-            delete: this.delete,
-            patch: this.patch,
-            custom: this.custom ? this.custom.toObject() : undefined,
-            body: this.body,
-            responseBody: this.responseBody,
-            additionalBindings: (this.additionalBindings || []).map(m => m.toObject())
-        };
-    }
-    /**
-     * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
-     */
-    toJSON() {
-        return this.toObject();
-    }
-    /**
-     * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
-     * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
-     * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
-     */
-    toProtobufJSON(
-    // @ts-ignore
-    options) {
-        return {
-            selector: this.selector,
-            get: this.get === null || this.get === undefined ? null : this.get,
-            put: this.put === null || this.put === undefined ? null : this.put,
-            post: this.post === null || this.post === undefined ? null : this.post,
-            delete: this.delete === null || this.delete === undefined ? null : this.delete,
-            patch: this.patch === null || this.patch === undefined ? null : this.patch,
-            custom: this.custom ? this.custom.toProtobufJSON(options) : null,
-            body: this.body,
-            responseBody: this.responseBody,
-            additionalBindings: (this.additionalBindings || []).map(m => m.toProtobufJSON(options))
-        };
-    }
-}
-HttpRule.id = 'google.api.HttpRule';
-(function (HttpRule) {
-    let PatternCase;
-    (function (PatternCase) {
-        PatternCase[PatternCase["none"] = 0] = "none";
-        PatternCase[PatternCase["get"] = 1] = "get";
-        PatternCase[PatternCase["put"] = 2] = "put";
-        PatternCase[PatternCase["post"] = 3] = "post";
-        PatternCase[PatternCase["delete"] = 4] = "delete";
-        PatternCase[PatternCase["patch"] = 5] = "patch";
-        PatternCase[PatternCase["custom"] = 6] = "custom";
-    })(PatternCase = HttpRule.PatternCase || (HttpRule.PatternCase = {}));
-})(HttpRule || (HttpRule = {}));
-/**
- * Message implementation for google.api.CustomHttpPattern
- */
-class CustomHttpPattern {
-    /**
-     * Message constructor. Initializes the properties and applies default Protobuf values if necessary
-     * @param _value initial values object or instance of CustomHttpPattern to deeply clone from
-     */
-    constructor(_value) {
-        _value = _value || {};
-        this.kind = _value.kind;
-        this.path = _value.path;
-        CustomHttpPattern.refineValues(this);
-    }
-    /**
-     * Deserialize binary data to message
-     * @param instance message instance
-     */
-    static deserializeBinary(bytes) {
-        const instance = new CustomHttpPattern();
-        CustomHttpPattern.deserializeBinaryFromReader(instance, new BinaryReader(bytes));
-        return instance;
-    }
-    /**
-     * Check all the properties and set default protobuf values if necessary
-     * @param _instance message instance
-     */
-    static refineValues(_instance) {
-        _instance.kind = _instance.kind || '';
-        _instance.path = _instance.path || '';
-    }
-    /**
-     * Deserializes / reads binary message into message instance using provided binary reader
-     * @param _instance message instance
-     * @param _reader binary reader instance
-     */
-    static deserializeBinaryFromReader(_instance, _reader) {
-        while (_reader.nextField()) {
-            if (_reader.isEndGroup())
-                break;
-            switch (_reader.getFieldNumber()) {
-                case 1:
-                    _instance.kind = _reader.readString();
-                    break;
-                case 2:
-                    _instance.path = _reader.readString();
-                    break;
-                default:
-                    _reader.skipField();
-            }
-        }
-        CustomHttpPattern.refineValues(_instance);
-    }
-    /**
-     * Serializes a message to binary format using provided binary reader
-     * @param _instance message instance
-     * @param _writer binary writer instance
-     */
-    static serializeBinaryToWriter(_instance, _writer) {
-        if (_instance.kind) {
-            _writer.writeString(1, _instance.kind);
-        }
-        if (_instance.path) {
-            _writer.writeString(2, _instance.path);
-        }
-    }
-    get kind() {
-        return this._kind;
-    }
-    set kind(value) {
-        this._kind = value;
-    }
-    get path() {
-        return this._path;
-    }
-    set path(value) {
-        this._path = value;
-    }
-    /**
-     * Serialize message to binary data
-     * @param instance message instance
-     */
-    serializeBinary() {
-        const writer = new BinaryWriter();
-        CustomHttpPattern.serializeBinaryToWriter(this, writer);
-        return writer.getResultBuffer();
-    }
-    /**
-     * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
-     */
-    toObject() {
-        return {
-            kind: this.kind,
-            path: this.path
-        };
-    }
-    /**
-     * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
-     */
-    toJSON() {
-        return this.toObject();
-    }
-    /**
-     * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
-     * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
-     * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
-     */
-    toProtobufJSON(
-    // @ts-ignore
-    options) {
-        return {
-            kind: this.kind,
-            path: this.path
-        };
-    }
-}
-CustomHttpPattern.id = 'google.api.CustomHttpPattern';
 
 var SubFlow;
 (function (SubFlow) {
@@ -4184,9 +3661,9 @@ class SurveysClient {
             .pipe(throwStatusErrors(), takeMessages());
     }
 }
-SurveysClient.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.3", ngImport: i0, type: SurveysClient, deps: [{ token: GRPC_SURVEYS_CLIENT_SETTINGS, optional: true }, { token: GRPC_CLIENT_FACTORY }, { token: i1.GrpcHandler }], target: i0.ɵɵFactoryTarget.Injectable });
-SurveysClient.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.3.3", ngImport: i0, type: SurveysClient, providedIn: 'any' });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.3", ngImport: i0, type: SurveysClient, decorators: [{
+SurveysClient.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.1.0", ngImport: i0, type: SurveysClient, deps: [{ token: GRPC_SURVEYS_CLIENT_SETTINGS, optional: true }, { token: GRPC_CLIENT_FACTORY }, { token: i1.GrpcHandler }], target: i0.ɵɵFactoryTarget.Injectable });
+SurveysClient.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "14.1.0", ngImport: i0, type: SurveysClient, providedIn: 'any' });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.1.0", ngImport: i0, type: SurveysClient, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'any' }]
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
@@ -4544,9 +4021,9 @@ class FHIRClient {
             .pipe(throwStatusErrors(), takeMessages());
     }
 }
-FHIRClient.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.3", ngImport: i0, type: FHIRClient, deps: [{ token: GRPC_FHIR_CLIENT_SETTINGS, optional: true }, { token: GRPC_CLIENT_FACTORY }, { token: i1.GrpcHandler }], target: i0.ɵɵFactoryTarget.Injectable });
-FHIRClient.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.3.3", ngImport: i0, type: FHIRClient, providedIn: 'any' });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.3", ngImport: i0, type: FHIRClient, decorators: [{
+FHIRClient.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.1.0", ngImport: i0, type: FHIRClient, deps: [{ token: GRPC_FHIR_CLIENT_SETTINGS, optional: true }, { token: GRPC_CLIENT_FACTORY }, { token: i1.GrpcHandler }], target: i0.ɵɵFactoryTarget.Injectable });
+FHIRClient.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "14.1.0", ngImport: i0, type: FHIRClient, providedIn: 'any' });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.1.0", ngImport: i0, type: FHIRClient, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'any' }]
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
@@ -4558,6 +4035,529 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.3", ngImpor
                     type: Inject,
                     args: [GRPC_CLIENT_FACTORY]
                 }] }, { type: i1.GrpcHandler }]; } });
+
+/**
+ * Message implementation for google.api.Http
+ */
+class Http {
+    /**
+     * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+     * @param _value initial values object or instance of Http to deeply clone from
+     */
+    constructor(_value) {
+        _value = _value || {};
+        this.rules = (_value.rules || []).map(m => new HttpRule(m));
+        this.fullyDecodeReservedExpansion = _value.fullyDecodeReservedExpansion;
+        Http.refineValues(this);
+    }
+    /**
+     * Deserialize binary data to message
+     * @param instance message instance
+     */
+    static deserializeBinary(bytes) {
+        const instance = new Http();
+        Http.deserializeBinaryFromReader(instance, new BinaryReader(bytes));
+        return instance;
+    }
+    /**
+     * Check all the properties and set default protobuf values if necessary
+     * @param _instance message instance
+     */
+    static refineValues(_instance) {
+        _instance.rules = _instance.rules || [];
+        _instance.fullyDecodeReservedExpansion =
+            _instance.fullyDecodeReservedExpansion || false;
+    }
+    /**
+     * Deserializes / reads binary message into message instance using provided binary reader
+     * @param _instance message instance
+     * @param _reader binary reader instance
+     */
+    static deserializeBinaryFromReader(_instance, _reader) {
+        while (_reader.nextField()) {
+            if (_reader.isEndGroup())
+                break;
+            switch (_reader.getFieldNumber()) {
+                case 1:
+                    const messageInitializer1 = new HttpRule();
+                    _reader.readMessage(messageInitializer1, HttpRule.deserializeBinaryFromReader);
+                    (_instance.rules = _instance.rules || []).push(messageInitializer1);
+                    break;
+                case 2:
+                    _instance.fullyDecodeReservedExpansion = _reader.readBool();
+                    break;
+                default:
+                    _reader.skipField();
+            }
+        }
+        Http.refineValues(_instance);
+    }
+    /**
+     * Serializes a message to binary format using provided binary reader
+     * @param _instance message instance
+     * @param _writer binary writer instance
+     */
+    static serializeBinaryToWriter(_instance, _writer) {
+        if (_instance.rules && _instance.rules.length) {
+            _writer.writeRepeatedMessage(1, _instance.rules, HttpRule.serializeBinaryToWriter);
+        }
+        if (_instance.fullyDecodeReservedExpansion) {
+            _writer.writeBool(2, _instance.fullyDecodeReservedExpansion);
+        }
+    }
+    get rules() {
+        return this._rules;
+    }
+    set rules(value) {
+        this._rules = value;
+    }
+    get fullyDecodeReservedExpansion() {
+        return this._fullyDecodeReservedExpansion;
+    }
+    set fullyDecodeReservedExpansion(value) {
+        this._fullyDecodeReservedExpansion = value;
+    }
+    /**
+     * Serialize message to binary data
+     * @param instance message instance
+     */
+    serializeBinary() {
+        const writer = new BinaryWriter();
+        Http.serializeBinaryToWriter(this, writer);
+        return writer.getResultBuffer();
+    }
+    /**
+     * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+     */
+    toObject() {
+        return {
+            rules: (this.rules || []).map(m => m.toObject()),
+            fullyDecodeReservedExpansion: this.fullyDecodeReservedExpansion
+        };
+    }
+    /**
+     * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+     */
+    toJSON() {
+        return this.toObject();
+    }
+    /**
+     * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+     * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+     * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+     */
+    toProtobufJSON(
+    // @ts-ignore
+    options) {
+        return {
+            rules: (this.rules || []).map(m => m.toProtobufJSON(options)),
+            fullyDecodeReservedExpansion: this.fullyDecodeReservedExpansion
+        };
+    }
+}
+Http.id = 'google.api.Http';
+/**
+ * Message implementation for google.api.HttpRule
+ */
+class HttpRule {
+    /**
+     * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+     * @param _value initial values object or instance of HttpRule to deeply clone from
+     */
+    constructor(_value) {
+        this._pattern = HttpRule.PatternCase.none;
+        _value = _value || {};
+        this.selector = _value.selector;
+        this.get = _value.get;
+        this.put = _value.put;
+        this.post = _value.post;
+        this.delete = _value.delete;
+        this.patch = _value.patch;
+        this.custom = _value.custom
+            ? new CustomHttpPattern(_value.custom)
+            : undefined;
+        this.body = _value.body;
+        this.responseBody = _value.responseBody;
+        this.additionalBindings = (_value.additionalBindings || []).map(m => new HttpRule(m));
+        HttpRule.refineValues(this);
+    }
+    /**
+     * Deserialize binary data to message
+     * @param instance message instance
+     */
+    static deserializeBinary(bytes) {
+        const instance = new HttpRule();
+        HttpRule.deserializeBinaryFromReader(instance, new BinaryReader(bytes));
+        return instance;
+    }
+    /**
+     * Check all the properties and set default protobuf values if necessary
+     * @param _instance message instance
+     */
+    static refineValues(_instance) {
+        _instance.selector = _instance.selector || '';
+        _instance.body = _instance.body || '';
+        _instance.responseBody = _instance.responseBody || '';
+        _instance.additionalBindings = _instance.additionalBindings || [];
+    }
+    /**
+     * Deserializes / reads binary message into message instance using provided binary reader
+     * @param _instance message instance
+     * @param _reader binary reader instance
+     */
+    static deserializeBinaryFromReader(_instance, _reader) {
+        while (_reader.nextField()) {
+            if (_reader.isEndGroup())
+                break;
+            switch (_reader.getFieldNumber()) {
+                case 1:
+                    _instance.selector = _reader.readString();
+                    break;
+                case 2:
+                    _instance.get = _reader.readString();
+                    break;
+                case 3:
+                    _instance.put = _reader.readString();
+                    break;
+                case 4:
+                    _instance.post = _reader.readString();
+                    break;
+                case 5:
+                    _instance.delete = _reader.readString();
+                    break;
+                case 6:
+                    _instance.patch = _reader.readString();
+                    break;
+                case 8:
+                    _instance.custom = new CustomHttpPattern();
+                    _reader.readMessage(_instance.custom, CustomHttpPattern.deserializeBinaryFromReader);
+                    break;
+                case 7:
+                    _instance.body = _reader.readString();
+                    break;
+                case 12:
+                    _instance.responseBody = _reader.readString();
+                    break;
+                case 11:
+                    const messageInitializer11 = new HttpRule();
+                    _reader.readMessage(messageInitializer11, HttpRule.deserializeBinaryFromReader);
+                    (_instance.additionalBindings =
+                        _instance.additionalBindings || []).push(messageInitializer11);
+                    break;
+                default:
+                    _reader.skipField();
+            }
+        }
+        HttpRule.refineValues(_instance);
+    }
+    /**
+     * Serializes a message to binary format using provided binary reader
+     * @param _instance message instance
+     * @param _writer binary writer instance
+     */
+    static serializeBinaryToWriter(_instance, _writer) {
+        if (_instance.selector) {
+            _writer.writeString(1, _instance.selector);
+        }
+        if (_instance.get || _instance.get === '') {
+            _writer.writeString(2, _instance.get);
+        }
+        if (_instance.put || _instance.put === '') {
+            _writer.writeString(3, _instance.put);
+        }
+        if (_instance.post || _instance.post === '') {
+            _writer.writeString(4, _instance.post);
+        }
+        if (_instance.delete || _instance.delete === '') {
+            _writer.writeString(5, _instance.delete);
+        }
+        if (_instance.patch || _instance.patch === '') {
+            _writer.writeString(6, _instance.patch);
+        }
+        if (_instance.custom) {
+            _writer.writeMessage(8, _instance.custom, CustomHttpPattern.serializeBinaryToWriter);
+        }
+        if (_instance.body) {
+            _writer.writeString(7, _instance.body);
+        }
+        if (_instance.responseBody) {
+            _writer.writeString(12, _instance.responseBody);
+        }
+        if (_instance.additionalBindings && _instance.additionalBindings.length) {
+            _writer.writeRepeatedMessage(11, _instance.additionalBindings, HttpRule.serializeBinaryToWriter);
+        }
+    }
+    get selector() {
+        return this._selector;
+    }
+    set selector(value) {
+        this._selector = value;
+    }
+    get get() {
+        return this._get;
+    }
+    set get(value) {
+        if (value !== undefined && value !== null) {
+            this._put = this._post = this._delete = this._patch = this._custom = undefined;
+            this._pattern = HttpRule.PatternCase.get;
+        }
+        this._get = value;
+    }
+    get put() {
+        return this._put;
+    }
+    set put(value) {
+        if (value !== undefined && value !== null) {
+            this._get = this._post = this._delete = this._patch = this._custom = undefined;
+            this._pattern = HttpRule.PatternCase.put;
+        }
+        this._put = value;
+    }
+    get post() {
+        return this._post;
+    }
+    set post(value) {
+        if (value !== undefined && value !== null) {
+            this._get = this._put = this._delete = this._patch = this._custom = undefined;
+            this._pattern = HttpRule.PatternCase.post;
+        }
+        this._post = value;
+    }
+    get delete() {
+        return this._delete;
+    }
+    set delete(value) {
+        if (value !== undefined && value !== null) {
+            this._get = this._put = this._post = this._patch = this._custom = undefined;
+            this._pattern = HttpRule.PatternCase.delete;
+        }
+        this._delete = value;
+    }
+    get patch() {
+        return this._patch;
+    }
+    set patch(value) {
+        if (value !== undefined && value !== null) {
+            this._get = this._put = this._post = this._delete = this._custom = undefined;
+            this._pattern = HttpRule.PatternCase.patch;
+        }
+        this._patch = value;
+    }
+    get custom() {
+        return this._custom;
+    }
+    set custom(value) {
+        if (value !== undefined && value !== null) {
+            this._get = this._put = this._post = this._delete = this._patch = undefined;
+            this._pattern = HttpRule.PatternCase.custom;
+        }
+        this._custom = value;
+    }
+    get body() {
+        return this._body;
+    }
+    set body(value) {
+        this._body = value;
+    }
+    get responseBody() {
+        return this._responseBody;
+    }
+    set responseBody(value) {
+        this._responseBody = value;
+    }
+    get additionalBindings() {
+        return this._additionalBindings;
+    }
+    set additionalBindings(value) {
+        this._additionalBindings = value;
+    }
+    get pattern() {
+        return this._pattern;
+    }
+    /**
+     * Serialize message to binary data
+     * @param instance message instance
+     */
+    serializeBinary() {
+        const writer = new BinaryWriter();
+        HttpRule.serializeBinaryToWriter(this, writer);
+        return writer.getResultBuffer();
+    }
+    /**
+     * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+     */
+    toObject() {
+        return {
+            selector: this.selector,
+            get: this.get,
+            put: this.put,
+            post: this.post,
+            delete: this.delete,
+            patch: this.patch,
+            custom: this.custom ? this.custom.toObject() : undefined,
+            body: this.body,
+            responseBody: this.responseBody,
+            additionalBindings: (this.additionalBindings || []).map(m => m.toObject())
+        };
+    }
+    /**
+     * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+     */
+    toJSON() {
+        return this.toObject();
+    }
+    /**
+     * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+     * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+     * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+     */
+    toProtobufJSON(
+    // @ts-ignore
+    options) {
+        return {
+            selector: this.selector,
+            get: this.get === null || this.get === undefined ? null : this.get,
+            put: this.put === null || this.put === undefined ? null : this.put,
+            post: this.post === null || this.post === undefined ? null : this.post,
+            delete: this.delete === null || this.delete === undefined ? null : this.delete,
+            patch: this.patch === null || this.patch === undefined ? null : this.patch,
+            custom: this.custom ? this.custom.toProtobufJSON(options) : null,
+            body: this.body,
+            responseBody: this.responseBody,
+            additionalBindings: (this.additionalBindings || []).map(m => m.toProtobufJSON(options))
+        };
+    }
+}
+HttpRule.id = 'google.api.HttpRule';
+(function (HttpRule) {
+    let PatternCase;
+    (function (PatternCase) {
+        PatternCase[PatternCase["none"] = 0] = "none";
+        PatternCase[PatternCase["get"] = 1] = "get";
+        PatternCase[PatternCase["put"] = 2] = "put";
+        PatternCase[PatternCase["post"] = 3] = "post";
+        PatternCase[PatternCase["delete"] = 4] = "delete";
+        PatternCase[PatternCase["patch"] = 5] = "patch";
+        PatternCase[PatternCase["custom"] = 6] = "custom";
+    })(PatternCase = HttpRule.PatternCase || (HttpRule.PatternCase = {}));
+})(HttpRule || (HttpRule = {}));
+/**
+ * Message implementation for google.api.CustomHttpPattern
+ */
+class CustomHttpPattern {
+    /**
+     * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+     * @param _value initial values object or instance of CustomHttpPattern to deeply clone from
+     */
+    constructor(_value) {
+        _value = _value || {};
+        this.kind = _value.kind;
+        this.path = _value.path;
+        CustomHttpPattern.refineValues(this);
+    }
+    /**
+     * Deserialize binary data to message
+     * @param instance message instance
+     */
+    static deserializeBinary(bytes) {
+        const instance = new CustomHttpPattern();
+        CustomHttpPattern.deserializeBinaryFromReader(instance, new BinaryReader(bytes));
+        return instance;
+    }
+    /**
+     * Check all the properties and set default protobuf values if necessary
+     * @param _instance message instance
+     */
+    static refineValues(_instance) {
+        _instance.kind = _instance.kind || '';
+        _instance.path = _instance.path || '';
+    }
+    /**
+     * Deserializes / reads binary message into message instance using provided binary reader
+     * @param _instance message instance
+     * @param _reader binary reader instance
+     */
+    static deserializeBinaryFromReader(_instance, _reader) {
+        while (_reader.nextField()) {
+            if (_reader.isEndGroup())
+                break;
+            switch (_reader.getFieldNumber()) {
+                case 1:
+                    _instance.kind = _reader.readString();
+                    break;
+                case 2:
+                    _instance.path = _reader.readString();
+                    break;
+                default:
+                    _reader.skipField();
+            }
+        }
+        CustomHttpPattern.refineValues(_instance);
+    }
+    /**
+     * Serializes a message to binary format using provided binary reader
+     * @param _instance message instance
+     * @param _writer binary writer instance
+     */
+    static serializeBinaryToWriter(_instance, _writer) {
+        if (_instance.kind) {
+            _writer.writeString(1, _instance.kind);
+        }
+        if (_instance.path) {
+            _writer.writeString(2, _instance.path);
+        }
+    }
+    get kind() {
+        return this._kind;
+    }
+    set kind(value) {
+        this._kind = value;
+    }
+    get path() {
+        return this._path;
+    }
+    set path(value) {
+        this._path = value;
+    }
+    /**
+     * Serialize message to binary data
+     * @param instance message instance
+     */
+    serializeBinary() {
+        const writer = new BinaryWriter();
+        CustomHttpPattern.serializeBinaryToWriter(this, writer);
+        return writer.getResultBuffer();
+    }
+    /**
+     * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+     */
+    toObject() {
+        return {
+            kind: this.kind,
+            path: this.path
+        };
+    }
+    /**
+     * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+     */
+    toJSON() {
+        return this.toObject();
+    }
+    /**
+     * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+     * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+     * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+     */
+    toProtobufJSON(
+    // @ts-ignore
+    options) {
+        return {
+            kind: this.kind,
+            path: this.path
+        };
+    }
+}
+CustomHttpPattern.id = 'google.api.CustomHttpPattern';
 
 /**
  * Generated bundle index. Do not edit.
