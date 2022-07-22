@@ -1,5 +1,5 @@
 # which branches to use for the build of the client sdk
-SURVEY_API_GIT_BRANCH=tags/0.6.0
+SURVEY_API_GIT_BRANCH=tags/1.0.0
 
 SURVEY_APIS_DIR=src/ondewo-survey-api
 SURVEY_PROTOS_DIR=${SURVEY_APIS_DIR}/ondewo
