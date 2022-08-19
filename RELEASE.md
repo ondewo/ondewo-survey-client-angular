@@ -1,6 +1,14 @@
 # Release History
 *****************
 
+## Release ONDEWO Survey Angular Client 1.1.0
+
+* Track version 1.1.0 of [ONDEWO Survey API](https://github.com/ondewo/ondewo-nlu-api/releases/1.1.0)
+* [[OND211-2039]](https://ondewo.atlassian.net/browse/OND211-2039) - Implemented automated release for GitHub and NPM
+* [[OND211-2039]](https://ondewo.atlassian.net/browse/OND211-2039) - Added pre-commit hooks and adjusted files to them
+
+*****************
+
 ## Release ONDEWO Survey Angular Client 1.0.0
 
 * Track version 1.0.0 of [ONDEWO Survey API](https://github.com/ondewo/ondewo-nlu-api/releases/1.0.0)

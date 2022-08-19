@@ -1,3 +1,5 @@
 .idea
 npm
 ondewo-survey-api/*
+node_modules
+.vscode
