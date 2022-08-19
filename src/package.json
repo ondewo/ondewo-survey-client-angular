@@ -16,7 +16,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run prebuild && npm run generate && npm run postbuild",
-    "prebuild": "npm run submodule_update && cp ondewo-survey-api/googleapis/google ondewo-survey-api/ -R",
+    "prebuild": "cp ondewo-survey-api/googleapis/google ondewo-survey-api/ -R",
     "postbuild": "rm -rf ondewo-survey-api/google && cp README.md ../. && cp RELEASE.md ../.",
     "submodule_update": "git submodule update --init --recursive",
     "generate": "docker run -it -v ${PWD}:/input-volume -v ${PWD}/..:/output-volume ondewo-angular-proto-compiler ondewo-survey-api ondewo",
