@@ -1,1 +1,0 @@
-{"buildTargets":["build","check_out_correct_submodule_versions","copy_proto_files_all_submodules","copy_proto_files_for_google_api","generate_protos","npm_run_build","publish-npm","submodule_update","test-in-ondewo-aim"],"launchTargets":[],"customConfigurationProvider":{"workspaceBrowse":{"browsePath":[],"compilerArgs":[]},"fileIndex":[]}}
