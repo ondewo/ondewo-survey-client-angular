@@ -125,7 +125,7 @@ build_utils_docker_image:  ## Build utils docker image
 build_and_publish_npm_via_docker: build build_utils_docker_image ## Builds Code, Docker-Image and Releases to NPM
 	docker run --rm \
 		-e NPM_AUTOMATION_TOKEN=${NPM_AUTOMATION_TOKEN} \
-		${IMAGE_UTILS_NAME} make docker_npm_test
+		${IMAGE_UTILS_NAME} make docker_npm_release
 
 docker_npm_release: ## Release to npm with docker image
 	node --version
@@ -133,13 +133,6 @@ docker_npm_release: ## Release to npm with docker image
 	@npm config set //registry.npmjs.org/:_authToken=${NPM_AUTOMATION_TOKEN}
 	npm whoami
 	make npm_release
-
-docker_npm_test:
-	node --version
-	npm --version
-	@npm config set //registry.npmjs.org/:_authToken=${NPM_AUTOMATION_TOKEN}
-	npm whoami
-	npm publish ./npm --access public --dry-run
 
 ########################################################
 #		DEVOPS-ACCOUNTS
