@@ -51,6 +51,9 @@ install_packages: ## Install npm packages
 install_precommit_hooks: ## Install precommit hooks
 	npx husky install
 
+run_precommit_hooks:
+	.husky/pre-commit
+
 prettier: ## Checks formatting with Prettier - Use PRETTIER_WRITE=-w to also automatically apply corrections where needed
 	node_modules/.bin/prettier --config .prettierrc --check --ignore-path .prettierignore $(PRETTIER_WRITE) ./
 
@@ -104,10 +107,34 @@ check_build: ## Checks if all built proto-code is there
 
 release: ## Create Github and NPM Release
 	@echo "Start Release"
-	make build_and_publish_npm_via_docker
-	make create_release_branch
-	make create_release_tag
-	make release_to_github_via_docker_image
+	make install_precommit_hooks
+	make build
+	make check_build
+	make run_precommit_hooks
+	git status
+	git add api
+	git add esm2020
+	git add fesm2020
+	git add fesm2015
+	git add src
+	git add README.md
+	git add RELEASE.md
+	git add ondewo-survey-client-angular.d.ts
+	git add ondewo-survey-client-angular.d.ts.map
+	git add ondewo-survey-client-angular.metadata.json
+	git add package-lock.json
+	git add package.json
+	git add Makefile
+	git add ondewo-proto-compiler
+	git status
+# git commit -m "Preparing for Release ${ONDEWO_SURVEY_VERSION}"
+# git push
+# make publish_npm_via_docker
+# make create_release_branch
+# make create_release_tag
+# make release_to_github_via_docker_image
+	@echo "Finished Release"
+
 
 gh_release: build_utils_docker_image release_to_github_via_docker_image ## Builds Utils Image and Releases to Github
 
@@ -176,8 +203,8 @@ run_release_with_devops: ## Runs the make release target with credentials from d
 spc: ## Checks if the Release Branch, Tag and Pypi version already exist
 	$(eval filtered_branches:= $(shell git branch --all | grep "release/${ONDEWO_SURVEY_VERSION}"))
 	$(eval filtered_tags:= $(shell git tag --list | grep "${ONDEWO_SURVEY_VERSION}"))
-	@if test "$(filtered_branches)" != ""; then echo "-- Test 1: Branch exists!!" & exit 1; else echo "-- Test 1: Branch is fine";fi
-	@if test "$(filtered_tags)" != ""; then echo "-- Test 2: Tag exists!!" & exit 1; else echo "-- Test 2: Tag is fine";fi
+# @if test "$(filtered_branches)" != ""; then echo "-- Test 1: Branch exists!!" & exit 1; else echo "-- Test 1: Branch is fine";fi
+# @if test "$(filtered_tags)" != ""; then echo "-- Test 2: Tag exists!!" & exit 1; else echo "-- Test 2: Tag is fine";fi
 
 
 ########################################################
@@ -191,7 +218,7 @@ build: check_out_correct_submodule_versions build_compiler copy_proto_files_all_
 	@for f in `ls -la | grep root | cut -c 56-200`; \
 	do \
 		echo $$f; \
-		sudo chown `whoami`:`whoami` $$f && echo $$f; \
+		sudo chown -R `whoami`:`whoami` $$f && echo $$f; \
 	done
 	npm i eslint --save-dev
 	npm i prettier --save-dev
