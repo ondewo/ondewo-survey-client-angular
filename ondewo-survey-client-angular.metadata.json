@@ -1,1 +1,882 @@
-{"__symbolic":"module","version":4,"exports":[{"from":"./api/google/api/annotations.pb"}],"metadata":{"SubFlow":{"SUBFLOW_UNSPECIFIED":0,"BOT":1,"LEGAL_ENTITY":2,"POSTAL_ADDRESS":3,"EMAIL_ADDRESS":4,"PHONE_NUMBER":5,"PHONE_HOURS":6,"EXPECTED_DURATION":7,"PURPOSE":8},"Survey":{"__symbolic":"class","members":{"__ctor__":[{"__symbolic":"constructor","parameters":[{"__symbolic":"reference","name":"RecursivePartial","module":"@ngx-grpc/common","arguments":[{"__symbolic":"select","expression":{"__symbolic":"reference","name":"AgentSurveyResponse"},"member":"AsObject"}]}]}],"serializeBinary":[{"__symbolic":"method"}],"toObject":[{"__symbolic":"method"}],"toJSON":[{"__symbolic":"method"}],"toProtobufJSON":[{"__symbolic":"method"}]},"statics":{"id":"ondewo.survey.Survey"}},"SurveyInfo":{"__symbolic":"class","members":{"__ctor__":[{"__symbolic":"constructor","parameters":[{"__symbolic":"reference","name":"RecursivePartial","module":"@ngx-grpc/common","arguments":[{"__symbolic":"select","expression":{"__symbolic":"reference","name":"AgentSurveyResponse"},"member":"AsObject"}]}]}],"serializeBinary":[{"__symbolic":"method"}],"toObject":[{"__symbolic":"method"}],"toJSON":[{"__symbolic":"method"}],"toProtobufJSON":[{"__symbolic":"method"}]},"statics":{"id":"ondewo.survey.SurveyInfo"}},"Question":{"__symbolic":"class","members":{"__ctor__":[{"__symbolic":"constructor","parameters":[{"__symbolic":"reference","name":"RecursivePartial","module":"@ngx-grpc/common","arguments":[{"__symbolic":"select","expression":{"__symbolic":"reference","name":"AgentSurveyResponse"},"member":"AsObject"}]}]}],"serializeBinary":[{"__symbolic":"method"}],"toObject":[{"__symbolic":"method"}],"toJSON":[{"__symbolic":"method"}],"toProtobufJSON":[{"__symbolic":"method"}]},"statics":{"id":"ondewo.survey.Question"}},"OpenQuestion":{"__symbolic":"class","members":{"__ctor__":[{"__symbolic":"constructor","parameters":[{"__symbolic":"reference","name":"RecursivePartial","module":"@ngx-grpc/common","arguments":[{"__symbolic":"select","expression":{"__symbolic":"reference","name":"AgentSurveyResponse"},"member":"AsObject"}]}]}],"serializeBinary":[{"__symbolic":"method"}],"toObject":[{"__symbolic":"method"}],"toJSON":[{"__symbolic":"method"}],"toProtobufJSON":[{"__symbolic":"method"}]},"statics":{"id":"ondewo.survey.OpenQuestion"}},"SingleChoiceQuestion":{"__symbolic":"class","members":{"__ctor__":[{"__symbolic":"constructor","parameters":[{"__symbolic":"reference","name":"RecursivePartial","module":"@ngx-grpc/common","arguments":[{"__symbolic":"select","expression":{"__symbolic":"reference","name":"AgentSurveyResponse"},"member":"AsObject"}]}]}],"serializeBinary":[{"__symbolic":"method"}],"toObject":[{"__symbolic":"method"}],"toJSON":[{"__symbolic":"method"}],"toProtobufJSON":[{"__symbolic":"method"}]},"statics":{"id":"ondewo.survey.SingleChoiceQuestion"}},"MultipleChoiceQuestion":{"__symbolic":"class","members":{"__ctor__":[{"__symbolic":"constructor","parameters":[{"__symbolic":"reference","name":"RecursivePartial","module":"@ngx-grpc/common","arguments":[{"__symbolic":"select","expression":{"__symbolic":"reference","name":"AgentSurveyResponse"},"member":"AsObject"}]}]}],"serializeBinary":[{"__symbolic":"method"}],"toObject":[{"__symbolic":"method"}],"toJSON":[{"__symbolic":"method"}],"toProtobufJSON":[{"__symbolic":"method"}]},"statics":{"id":"ondewo.survey.MultipleChoiceQuestion"}},"ScaleQuestion":{"__symbolic":"class","members":{"__ctor__":[{"__symbolic":"constructor","parameters":[{"__symbolic":"reference","name":"RecursivePartial","module":"@ngx-grpc/common","arguments":[{"__symbolic":"select","expression":{"__symbolic":"reference","name":"AgentSurveyResponse"},"member":"AsObject"}]}]}],"serializeBinary":[{"__symbolic":"method"}],"toObject":[{"__symbolic":"method"}],"toJSON":[{"__symbolic":"method"}],"toProtobufJSON":[{"__symbolic":"method"}]},"statics":{"id":"ondewo.survey.ScaleQuestion"}},"SingleParameterQuestion":{"__symbolic":"class","members":{"__ctor__":[{"__symbolic":"constructor","parameters":[{"__symbolic":"reference","name":"RecursivePartial","module":"@ngx-grpc/common","arguments":[{"__symbolic":"select","expression":{"__symbolic":"reference","name":"AgentSurveyResponse"},"member":"AsObject"}]}]}],"serializeBinary":[{"__symbolic":"method"}],"toObject":[{"__symbolic":"method"}],"toJSON":[{"__symbolic":"method"}],"toProtobufJSON":[{"__symbolic":"method"}]},"statics":{"id":"ondewo.survey.SingleParameterQuestion"}},"MultipleParameterQuestion":{"__symbolic":"class","members":{"__ctor__":[{"__symbolic":"constructor","parameters":[{"__symbolic":"reference","name":"RecursivePartial","module":"@ngx-grpc/common","arguments":[{"__symbolic":"select","expression":{"__symbolic":"reference","name":"AgentSurveyResponse"},"member":"AsObject"}]}]}],"serializeBinary":[{"__symbolic":"method"}],"toObject":[{"__symbolic":"method"}],"toJSON":[{"__symbolic":"method"}],"toProtobufJSON":[{"__symbolic":"method"}]},"statics":{"id":"ondewo.survey.MultipleParameterQuestion"}},"Choice":{"__symbolic":"class","members":{"__ctor__":[{"__symbolic":"constructor","parameters":[{"__symbolic":"reference","name":"RecursivePartial","module":"@ngx-grpc/common","arguments":[{"__symbolic":"select","expression":{"__symbolic":"reference","name":"AgentSurveyResponse"},"member":"AsObject"}]}]}],"serializeBinary":[{"__symbolic":"method"}],"toObject":[{"__symbolic":"method"}],"toJSON":[{"__symbolic":"method"}],"toProtobufJSON":[{"__symbolic":"method"}]},"statics":{"id":"ondewo.survey.Choice"}},"Answer":{"__symbolic":"class","members":{"__ctor__":[{"__symbolic":"constructor","parameters":[{"__symbolic":"reference","name":"RecursivePartial","module":"@ngx-grpc/common","arguments":[{"__symbolic":"select","expression":{"__symbolic":"reference","name":"AgentSurveyResponse"},"member":"AsObject"}]}]}],"serializeBinary":[{"__symbolic":"method"}],"toObject":[{"__symbolic":"method"}],"toJSON":[{"__symbolic":"method"}],"toProtobufJSON":[{"__symbolic":"method"}]},"statics":{"id":"ondewo.survey.Answer"}},"CreateSurveyRequest":{"__symbolic":"class","members":{"__ctor__":[{"__symbolic":"constructor","parameters":[{"__symbolic":"reference","name":"RecursivePartial","module":"@ngx-grpc/common","arguments":[{"__symbolic":"select","expression":{"__symbolic":"reference","name":"AgentSurveyResponse"},"member":"AsObject"}]}]}],"serializeBinary":[{"__symbolic":"method"}],"toObject":[{"__symbolic":"method"}],"toJSON":[{"__symbolic":"method"}],"toProtobufJSON":[{"__symbolic":"method"}]},"statics":{"id":"ondewo.survey.CreateSurveyRequest"}},"GetSurveyRequest":{"__symbolic":"class","members":{"__ctor__":[{"__symbolic":"constructor","parameters":[{"__symbolic":"reference","name":"RecursivePartial","module":"@ngx-grpc/common","arguments":[{"__symbolic":"select","expression":{"__symbolic":"reference","name":"AgentSurveyResponse"},"member":"AsObject"}]}]}],"serializeBinary":[{"__symbolic":"method"}],"toObject":[{"__symbolic":"method"}],"toJSON":[{"__symbolic":"method"}],"toProtobufJSON":[{"__symbolic":"method"}]},"statics":{"id":"ondewo.survey.GetSurveyRequest"}},"UpdateSurveyRequest":{"__symbolic":"class","members":{"__ctor__":[{"__symbolic":"constructor","parameters":[{"__symbolic":"reference","name":"RecursivePartial","module":"@ngx-grpc/common","arguments":[{"__symbolic":"select","expression":{"__symbolic":"reference","name":"AgentSurveyResponse"},"member":"AsObject"}]}]}],"serializeBinary":[{"__symbolic":"method"}],"toObject":[{"__symbolic":"method"}],"toJSON":[{"__symbolic":"method"}],"toProtobufJSON":[{"__symbolic":"method"}]},"statics":{"id":"ondewo.survey.UpdateSurveyRequest"}},"DeleteSurveyRequest":{"__symbolic":"class","members":{"__ctor__":[{"__symbolic":"constructor","parameters":[{"__symbolic":"reference","name":"RecursivePartial","module":"@ngx-grpc/common","arguments":[{"__symbolic":"select","expression":{"__symbolic":"reference","name":"AgentSurveyResponse"},"member":"AsObject"}]}]}],"serializeBinary":[{"__symbolic":"method"}],"toObject":[{"__symbolic":"method"}],"toJSON":[{"__symbolic":"method"}],"toProtobufJSON":[{"__symbolic":"method"}]},"statics":{"id":"ondewo.survey.DeleteSurveyRequest"}},"GetSurveyAnswersRequest":{"__symbolic":"class","members":{"__ctor__":[{"__symbolic":"constructor","parameters":[{"__symbolic":"reference","name":"RecursivePartial","module":"@ngx-grpc/common","arguments":[{"__symbolic":"select","expression":{"__symbolic":"reference","name":"AgentSurveyResponse"},"member":"AsObject"}]}]}],"serializeBinary":[{"__symbolic":"method"}],"toObject":[{"__symbolic":"method"}],"toJSON":[{"__symbolic":"method"}],"toProtobufJSON":[{"__symbolic":"method"}]},"statics":{"id":"ondewo.survey.GetSurveyAnswersRequest"}},"GetAllSurveyAnswersRequest":{"__symbolic":"class","members":{"__ctor__":[{"__symbolic":"constructor","parameters":[{"__symbolic":"reference","name":"RecursivePartial","module":"@ngx-grpc/common","arguments":[{"__symbolic":"select","expression":{"__symbolic":"reference","name":"AgentSurveyResponse"},"member":"AsObject"}]}]}],"serializeBinary":[{"__symbolic":"method"}],"toObject":[{"__symbolic":"method"}],"toJSON":[{"__symbolic":"method"}],"toProtobufJSON":[{"__symbolic":"method"}]},"statics":{"id":"ondewo.survey.GetAllSurveyAnswersRequest"}},"SurveyAnswersResponse":{"__symbolic":"class","members":{"__ctor__":[{"__symbolic":"constructor","parameters":[{"__symbolic":"reference","name":"RecursivePartial","module":"@ngx-grpc/common","arguments":[{"__symbolic":"select","expression":{"__symbolic":"reference","name":"AgentSurveyResponse"},"member":"AsObject"}]}]}],"serializeBinary":[{"__symbolic":"method"}],"toObject":[{"__symbolic":"method"}],"toJSON":[{"__symbolic":"method"}],"toProtobufJSON":[{"__symbolic":"method"}]},"statics":{"id":"ondewo.survey.SurveyAnswersResponse"}},"ListSurveysRequest":{"__symbolic":"class","members":{"__ctor__":[{"__symbolic":"constructor","parameters":[{"__symbolic":"reference","name":"RecursivePartial","module":"@ngx-grpc/common","arguments":[{"__symbolic":"select","expression":{"__symbolic":"reference","name":"AgentSurveyResponse"},"member":"AsObject"}]}]}],"serializeBinary":[{"__symbolic":"method"}],"toObject":[{"__symbolic":"method"}],"toJSON":[{"__symbolic":"method"}],"toProtobufJSON":[{"__symbolic":"method"}]},"statics":{"id":"ondewo.survey.ListSurveysRequest"}},"ListSurveysResponse":{"__symbolic":"class","members":{"__ctor__":[{"__symbolic":"constructor","parameters":[{"__symbolic":"reference","name":"RecursivePartial","module":"@ngx-grpc/common","arguments":[{"__symbolic":"select","expression":{"__symbolic":"reference","name":"AgentSurveyResponse"},"member":"AsObject"}]}]}],"serializeBinary":[{"__symbolic":"method"}],"toObject":[{"__symbolic":"method"}],"toJSON":[{"__symbolic":"method"}],"toProtobufJSON":[{"__symbolic":"method"}]},"statics":{"id":"ondewo.survey.ListSurveysResponse"}},"AgentSurveyRequest":{"__symbolic":"class","members":{"__ctor__":[{"__symbolic":"constructor","parameters":[{"__symbolic":"reference","name":"RecursivePartial","module":"@ngx-grpc/common","arguments":[{"__symbolic":"select","expression":{"__symbolic":"reference","name":"AgentSurveyResponse"},"member":"AsObject"}]}]}],"serializeBinary":[{"__symbolic":"method"}],"toObject":[{"__symbolic":"method"}],"toJSON":[{"__symbolic":"method"}],"toProtobufJSON":[{"__symbolic":"method"}]},"statics":{"id":"ondewo.survey.AgentSurveyRequest"}},"AgentSurveyResponse":{"__symbolic":"class","members":{"__ctor__":[{"__symbolic":"constructor","parameters":[{"__symbolic":"reference","name":"RecursivePartial","module":"@ngx-grpc/common","arguments":[{"__symbolic":"select","expression":{"__symbolic":"reference","name":"AgentSurveyResponse"},"member":"AsObject"}]}]}],"serializeBinary":[{"__symbolic":"method"}],"toObject":[{"__symbolic":"method"}],"toJSON":[{"__symbolic":"method"}],"toProtobufJSON":[{"__symbolic":"method"}]},"statics":{"id":"ondewo.survey.AgentSurveyResponse"}},"GRPC_SURVEYS_CLIENT_SETTINGS":{"__symbolic":"new","expression":{"__symbolic":"reference","module":"@angular/core","name":"InjectionToken","line":11,"character":48},"arguments":["GRPC_SURVEYS_CLIENT_SETTINGS"]},"SurveysClient":{"__symbolic":"class","decorators":[{"__symbolic":"call","expression":{"__symbolic":"reference","module":"@angular/core","name":"Injectable","line":30,"character":1},"arguments":[{"providedIn":"any"}]}],"members":{"__ctor__":[{"__symbolic":"constructor","parameterDecorators":[[{"__symbolic":"call","expression":{"__symbolic":"reference","module":"@angular/core","name":"Optional","line":253,"character":5}},{"__symbolic":"call","expression":{"__symbolic":"reference","module":"@angular/core","name":"Inject","line":253,"character":17},"arguments":[{"__symbolic":"reference","name":"GRPC_SURVEYS_CLIENT_SETTINGS"}]}],[{"__symbolic":"call","expression":{"__symbolic":"reference","module":"@angular/core","name":"Inject","line":254,"character":5},"arguments":[{"__symbolic":"reference","module":"@ngx-grpc/core","name":"GRPC_CLIENT_FACTORY","line":254,"character":12}]}],null],"parameters":[{"__symbolic":"reference","name":"any"},{"__symbolic":"reference","name":"GrpcClientFactory","module":"@ngx-grpc/common","arguments":[{"__symbolic":"reference","name":"any"}]},{"__symbolic":"reference","module":"@ngx-grpc/core","name":"GrpcHandler","line":255,"character":21}]}],"createSurvey":[{"__symbolic":"method"}],"getSurvey":[{"__symbolic":"method"}],"updateSurvey":[{"__symbolic":"method"}],"deleteSurvey":[{"__symbolic":"method"}],"listSurveys":[{"__symbolic":"method"}],"getSurveyAnswers":[{"__symbolic":"method"}],"getAllSurveyAnswers":[{"__symbolic":"method"}],"createAgentSurvey":[{"__symbolic":"method"}],"updateAgentSurvey":[{"__symbolic":"method"}],"deleteAgentSurvey":[{"__symbolic":"method"}]},"statics":{"ɵprov":{}}},"Http":{"__symbolic":"class","members":{"__ctor__":[{"__symbolic":"constructor","parameters":[{"__symbolic":"reference","name":"RecursivePartial","module":"@ngx-grpc/common","arguments":[{"__symbolic":"select","expression":{"__symbolic":"reference","name":"CustomHttpPattern"},"member":"AsObject"}]}]}],"serializeBinary":[{"__symbolic":"method"}],"toObject":[{"__symbolic":"method"}],"toJSON":[{"__symbolic":"method"}],"toProtobufJSON":[{"__symbolic":"method"}]},"statics":{"id":"google.api.Http"}},"HttpRule":{"__symbolic":"class","members":{"__ctor__":[{"__symbolic":"constructor","parameters":[{"__symbolic":"reference","name":"RecursivePartial","module":"@ngx-grpc/common","arguments":[{"__symbolic":"select","expression":{"__symbolic":"reference","name":"CustomHttpPattern"},"member":"AsObject"}]}]}],"serializeBinary":[{"__symbolic":"method"}],"toObject":[{"__symbolic":"method"}],"toJSON":[{"__symbolic":"method"}],"toProtobufJSON":[{"__symbolic":"method"}]},"statics":{"id":"google.api.HttpRule"}},"CustomHttpPattern":{"__symbolic":"class","members":{"__ctor__":[{"__symbolic":"constructor","parameters":[{"__symbolic":"reference","name":"RecursivePartial","module":"@ngx-grpc/common","arguments":[{"__symbolic":"select","expression":{"__symbolic":"reference","name":"CustomHttpPattern"},"member":"AsObject"}]}]}],"serializeBinary":[{"__symbolic":"method"}],"toObject":[{"__symbolic":"method"}],"toJSON":[{"__symbolic":"method"}],"toProtobufJSON":[{"__symbolic":"method"}]},"statics":{"id":"google.api.CustomHttpPattern"}}},"origins":{"SubFlow":"./api/ondewo/survey/survey.pb","Survey":"./api/ondewo/survey/survey.pb","SurveyInfo":"./api/ondewo/survey/survey.pb","Question":"./api/ondewo/survey/survey.pb","OpenQuestion":"./api/ondewo/survey/survey.pb","SingleChoiceQuestion":"./api/ondewo/survey/survey.pb","MultipleChoiceQuestion":"./api/ondewo/survey/survey.pb","ScaleQuestion":"./api/ondewo/survey/survey.pb","SingleParameterQuestion":"./api/ondewo/survey/survey.pb","MultipleParameterQuestion":"./api/ondewo/survey/survey.pb","Choice":"./api/ondewo/survey/survey.pb","Answer":"./api/ondewo/survey/survey.pb","CreateSurveyRequest":"./api/ondewo/survey/survey.pb","GetSurveyRequest":"./api/ondewo/survey/survey.pb","UpdateSurveyRequest":"./api/ondewo/survey/survey.pb","DeleteSurveyRequest":"./api/ondewo/survey/survey.pb","GetSurveyAnswersRequest":"./api/ondewo/survey/survey.pb","GetAllSurveyAnswersRequest":"./api/ondewo/survey/survey.pb","SurveyAnswersResponse":"./api/ondewo/survey/survey.pb","ListSurveysRequest":"./api/ondewo/survey/survey.pb","ListSurveysResponse":"./api/ondewo/survey/survey.pb","AgentSurveyRequest":"./api/ondewo/survey/survey.pb","AgentSurveyResponse":"./api/ondewo/survey/survey.pb","GRPC_SURVEYS_CLIENT_SETTINGS":"./api/ondewo/survey/survey.pbconf","SurveysClient":"./api/ondewo/survey/survey.pbsc","Http":"./api/google/api/http.pb","HttpRule":"./api/google/api/http.pb","CustomHttpPattern":"./api/google/api/http.pb"},"importAs":"@ondewo/survey-client-angular"}
+{
+	"__symbolic": "module",
+	"version": 4,
+	"exports": [{ "from": "./api/google/api/annotations.pb" }],
+	"metadata": {
+		"SubFlow": {
+			"SUBFLOW_UNSPECIFIED": 0,
+			"BOT": 1,
+			"LEGAL_ENTITY": 2,
+			"POSTAL_ADDRESS": 3,
+			"EMAIL_ADDRESS": 4,
+			"PHONE_NUMBER": 5,
+			"PHONE_HOURS": 6,
+			"EXPECTED_DURATION": 7,
+			"PURPOSE": 8
+		},
+		"Survey": {
+			"__symbolic": "class",
+			"members": {
+				"__ctor__": [
+					{
+						"__symbolic": "constructor",
+						"parameters": [
+							{
+								"__symbolic": "reference",
+								"name": "RecursivePartial",
+								"module": "@ngx-grpc/common",
+								"arguments": [
+									{
+										"__symbolic": "select",
+										"expression": { "__symbolic": "reference", "name": "AgentSurveyResponse" },
+										"member": "AsObject"
+									}
+								]
+							}
+						]
+					}
+				],
+				"serializeBinary": [{ "__symbolic": "method" }],
+				"toObject": [{ "__symbolic": "method" }],
+				"toJSON": [{ "__symbolic": "method" }],
+				"toProtobufJSON": [{ "__symbolic": "method" }]
+			},
+			"statics": { "id": "ondewo.survey.Survey" }
+		},
+		"SurveyInfo": {
+			"__symbolic": "class",
+			"members": {
+				"__ctor__": [
+					{
+						"__symbolic": "constructor",
+						"parameters": [
+							{
+								"__symbolic": "reference",
+								"name": "RecursivePartial",
+								"module": "@ngx-grpc/common",
+								"arguments": [
+									{
+										"__symbolic": "select",
+										"expression": { "__symbolic": "reference", "name": "AgentSurveyResponse" },
+										"member": "AsObject"
+									}
+								]
+							}
+						]
+					}
+				],
+				"serializeBinary": [{ "__symbolic": "method" }],
+				"toObject": [{ "__symbolic": "method" }],
+				"toJSON": [{ "__symbolic": "method" }],
+				"toProtobufJSON": [{ "__symbolic": "method" }]
+			},
+			"statics": { "id": "ondewo.survey.SurveyInfo" }
+		},
+		"Question": {
+			"__symbolic": "class",
+			"members": {
+				"__ctor__": [
+					{
+						"__symbolic": "constructor",
+						"parameters": [
+							{
+								"__symbolic": "reference",
+								"name": "RecursivePartial",
+								"module": "@ngx-grpc/common",
+								"arguments": [
+									{
+										"__symbolic": "select",
+										"expression": { "__symbolic": "reference", "name": "AgentSurveyResponse" },
+										"member": "AsObject"
+									}
+								]
+							}
+						]
+					}
+				],
+				"serializeBinary": [{ "__symbolic": "method" }],
+				"toObject": [{ "__symbolic": "method" }],
+				"toJSON": [{ "__symbolic": "method" }],
+				"toProtobufJSON": [{ "__symbolic": "method" }]
+			},
+			"statics": { "id": "ondewo.survey.Question" }
+		},
+		"OpenQuestion": {
+			"__symbolic": "class",
+			"members": {
+				"__ctor__": [
+					{
+						"__symbolic": "constructor",
+						"parameters": [
+							{
+								"__symbolic": "reference",
+								"name": "RecursivePartial",
+								"module": "@ngx-grpc/common",
+								"arguments": [
+									{
+										"__symbolic": "select",
+										"expression": { "__symbolic": "reference", "name": "AgentSurveyResponse" },
+										"member": "AsObject"
+									}
+								]
+							}
+						]
+					}
+				],
+				"serializeBinary": [{ "__symbolic": "method" }],
+				"toObject": [{ "__symbolic": "method" }],
+				"toJSON": [{ "__symbolic": "method" }],
+				"toProtobufJSON": [{ "__symbolic": "method" }]
+			},
+			"statics": { "id": "ondewo.survey.OpenQuestion" }
+		},
+		"SingleChoiceQuestion": {
+			"__symbolic": "class",
+			"members": {
+				"__ctor__": [
+					{
+						"__symbolic": "constructor",
+						"parameters": [
+							{
+								"__symbolic": "reference",
+								"name": "RecursivePartial",
+								"module": "@ngx-grpc/common",
+								"arguments": [
+									{
+										"__symbolic": "select",
+										"expression": { "__symbolic": "reference", "name": "AgentSurveyResponse" },
+										"member": "AsObject"
+									}
+								]
+							}
+						]
+					}
+				],
+				"serializeBinary": [{ "__symbolic": "method" }],
+				"toObject": [{ "__symbolic": "method" }],
+				"toJSON": [{ "__symbolic": "method" }],
+				"toProtobufJSON": [{ "__symbolic": "method" }]
+			},
+			"statics": { "id": "ondewo.survey.SingleChoiceQuestion" }
+		},
+		"MultipleChoiceQuestion": {
+			"__symbolic": "class",
+			"members": {
+				"__ctor__": [
+					{
+						"__symbolic": "constructor",
+						"parameters": [
+							{
+								"__symbolic": "reference",
+								"name": "RecursivePartial",
+								"module": "@ngx-grpc/common",
+								"arguments": [
+									{
+										"__symbolic": "select",
+										"expression": { "__symbolic": "reference", "name": "AgentSurveyResponse" },
+										"member": "AsObject"
+									}
+								]
+							}
+						]
+					}
+				],
+				"serializeBinary": [{ "__symbolic": "method" }],
+				"toObject": [{ "__symbolic": "method" }],
+				"toJSON": [{ "__symbolic": "method" }],
+				"toProtobufJSON": [{ "__symbolic": "method" }]
+			},
+			"statics": { "id": "ondewo.survey.MultipleChoiceQuestion" }
+		},
+		"ScaleQuestion": {
+			"__symbolic": "class",
+			"members": {
+				"__ctor__": [
+					{
+						"__symbolic": "constructor",
+						"parameters": [
+							{
+								"__symbolic": "reference",
+								"name": "RecursivePartial",
+								"module": "@ngx-grpc/common",
+								"arguments": [
+									{
+										"__symbolic": "select",
+										"expression": { "__symbolic": "reference", "name": "AgentSurveyResponse" },
+										"member": "AsObject"
+									}
+								]
+							}
+						]
+					}
+				],
+				"serializeBinary": [{ "__symbolic": "method" }],
+				"toObject": [{ "__symbolic": "method" }],
+				"toJSON": [{ "__symbolic": "method" }],
+				"toProtobufJSON": [{ "__symbolic": "method" }]
+			},
+			"statics": { "id": "ondewo.survey.ScaleQuestion" }
+		},
+		"SingleParameterQuestion": {
+			"__symbolic": "class",
+			"members": {
+				"__ctor__": [
+					{
+						"__symbolic": "constructor",
+						"parameters": [
+							{
+								"__symbolic": "reference",
+								"name": "RecursivePartial",
+								"module": "@ngx-grpc/common",
+								"arguments": [
+									{
+										"__symbolic": "select",
+										"expression": { "__symbolic": "reference", "name": "AgentSurveyResponse" },
+										"member": "AsObject"
+									}
+								]
+							}
+						]
+					}
+				],
+				"serializeBinary": [{ "__symbolic": "method" }],
+				"toObject": [{ "__symbolic": "method" }],
+				"toJSON": [{ "__symbolic": "method" }],
+				"toProtobufJSON": [{ "__symbolic": "method" }]
+			},
+			"statics": { "id": "ondewo.survey.SingleParameterQuestion" }
+		},
+		"MultipleParameterQuestion": {
+			"__symbolic": "class",
+			"members": {
+				"__ctor__": [
+					{
+						"__symbolic": "constructor",
+						"parameters": [
+							{
+								"__symbolic": "reference",
+								"name": "RecursivePartial",
+								"module": "@ngx-grpc/common",
+								"arguments": [
+									{
+										"__symbolic": "select",
+										"expression": { "__symbolic": "reference", "name": "AgentSurveyResponse" },
+										"member": "AsObject"
+									}
+								]
+							}
+						]
+					}
+				],
+				"serializeBinary": [{ "__symbolic": "method" }],
+				"toObject": [{ "__symbolic": "method" }],
+				"toJSON": [{ "__symbolic": "method" }],
+				"toProtobufJSON": [{ "__symbolic": "method" }]
+			},
+			"statics": { "id": "ondewo.survey.MultipleParameterQuestion" }
+		},
+		"Choice": {
+			"__symbolic": "class",
+			"members": {
+				"__ctor__": [
+					{
+						"__symbolic": "constructor",
+						"parameters": [
+							{
+								"__symbolic": "reference",
+								"name": "RecursivePartial",
+								"module": "@ngx-grpc/common",
+								"arguments": [
+									{
+										"__symbolic": "select",
+										"expression": { "__symbolic": "reference", "name": "AgentSurveyResponse" },
+										"member": "AsObject"
+									}
+								]
+							}
+						]
+					}
+				],
+				"serializeBinary": [{ "__symbolic": "method" }],
+				"toObject": [{ "__symbolic": "method" }],
+				"toJSON": [{ "__symbolic": "method" }],
+				"toProtobufJSON": [{ "__symbolic": "method" }]
+			},
+			"statics": { "id": "ondewo.survey.Choice" }
+		},
+		"Answer": {
+			"__symbolic": "class",
+			"members": {
+				"__ctor__": [
+					{
+						"__symbolic": "constructor",
+						"parameters": [
+							{
+								"__symbolic": "reference",
+								"name": "RecursivePartial",
+								"module": "@ngx-grpc/common",
+								"arguments": [
+									{
+										"__symbolic": "select",
+										"expression": { "__symbolic": "reference", "name": "AgentSurveyResponse" },
+										"member": "AsObject"
+									}
+								]
+							}
+						]
+					}
+				],
+				"serializeBinary": [{ "__symbolic": "method" }],
+				"toObject": [{ "__symbolic": "method" }],
+				"toJSON": [{ "__symbolic": "method" }],
+				"toProtobufJSON": [{ "__symbolic": "method" }]
+			},
+			"statics": { "id": "ondewo.survey.Answer" }
+		},
+		"CreateSurveyRequest": {
+			"__symbolic": "class",
+			"members": {
+				"__ctor__": [
+					{
+						"__symbolic": "constructor",
+						"parameters": [
+							{
+								"__symbolic": "reference",
+								"name": "RecursivePartial",
+								"module": "@ngx-grpc/common",
+								"arguments": [
+									{
+										"__symbolic": "select",
+										"expression": { "__symbolic": "reference", "name": "AgentSurveyResponse" },
+										"member": "AsObject"
+									}
+								]
+							}
+						]
+					}
+				],
+				"serializeBinary": [{ "__symbolic": "method" }],
+				"toObject": [{ "__symbolic": "method" }],
+				"toJSON": [{ "__symbolic": "method" }],
+				"toProtobufJSON": [{ "__symbolic": "method" }]
+			},
+			"statics": { "id": "ondewo.survey.CreateSurveyRequest" }
+		},
+		"GetSurveyRequest": {
+			"__symbolic": "class",
+			"members": {
+				"__ctor__": [
+					{
+						"__symbolic": "constructor",
+						"parameters": [
+							{
+								"__symbolic": "reference",
+								"name": "RecursivePartial",
+								"module": "@ngx-grpc/common",
+								"arguments": [
+									{
+										"__symbolic": "select",
+										"expression": { "__symbolic": "reference", "name": "AgentSurveyResponse" },
+										"member": "AsObject"
+									}
+								]
+							}
+						]
+					}
+				],
+				"serializeBinary": [{ "__symbolic": "method" }],
+				"toObject": [{ "__symbolic": "method" }],
+				"toJSON": [{ "__symbolic": "method" }],
+				"toProtobufJSON": [{ "__symbolic": "method" }]
+			},
+			"statics": { "id": "ondewo.survey.GetSurveyRequest" }
+		},
+		"UpdateSurveyRequest": {
+			"__symbolic": "class",
+			"members": {
+				"__ctor__": [
+					{
+						"__symbolic": "constructor",
+						"parameters": [
+							{
+								"__symbolic": "reference",
+								"name": "RecursivePartial",
+								"module": "@ngx-grpc/common",
+								"arguments": [
+									{
+										"__symbolic": "select",
+										"expression": { "__symbolic": "reference", "name": "AgentSurveyResponse" },
+										"member": "AsObject"
+									}
+								]
+							}
+						]
+					}
+				],
+				"serializeBinary": [{ "__symbolic": "method" }],
+				"toObject": [{ "__symbolic": "method" }],
+				"toJSON": [{ "__symbolic": "method" }],
+				"toProtobufJSON": [{ "__symbolic": "method" }]
+			},
+			"statics": { "id": "ondewo.survey.UpdateSurveyRequest" }
+		},
+		"DeleteSurveyRequest": {
+			"__symbolic": "class",
+			"members": {
+				"__ctor__": [
+					{
+						"__symbolic": "constructor",
+						"parameters": [
+							{
+								"__symbolic": "reference",
+								"name": "RecursivePartial",
+								"module": "@ngx-grpc/common",
+								"arguments": [
+									{
+										"__symbolic": "select",
+										"expression": { "__symbolic": "reference", "name": "AgentSurveyResponse" },
+										"member": "AsObject"
+									}
+								]
+							}
+						]
+					}
+				],
+				"serializeBinary": [{ "__symbolic": "method" }],
+				"toObject": [{ "__symbolic": "method" }],
+				"toJSON": [{ "__symbolic": "method" }],
+				"toProtobufJSON": [{ "__symbolic": "method" }]
+			},
+			"statics": { "id": "ondewo.survey.DeleteSurveyRequest" }
+		},
+		"GetSurveyAnswersRequest": {
+			"__symbolic": "class",
+			"members": {
+				"__ctor__": [
+					{
+						"__symbolic": "constructor",
+						"parameters": [
+							{
+								"__symbolic": "reference",
+								"name": "RecursivePartial",
+								"module": "@ngx-grpc/common",
+								"arguments": [
+									{
+										"__symbolic": "select",
+										"expression": { "__symbolic": "reference", "name": "AgentSurveyResponse" },
+										"member": "AsObject"
+									}
+								]
+							}
+						]
+					}
+				],
+				"serializeBinary": [{ "__symbolic": "method" }],
+				"toObject": [{ "__symbolic": "method" }],
+				"toJSON": [{ "__symbolic": "method" }],
+				"toProtobufJSON": [{ "__symbolic": "method" }]
+			},
+			"statics": { "id": "ondewo.survey.GetSurveyAnswersRequest" }
+		},
+		"GetAllSurveyAnswersRequest": {
+			"__symbolic": "class",
+			"members": {
+				"__ctor__": [
+					{
+						"__symbolic": "constructor",
+						"parameters": [
+							{
+								"__symbolic": "reference",
+								"name": "RecursivePartial",
+								"module": "@ngx-grpc/common",
+								"arguments": [
+									{
+										"__symbolic": "select",
+										"expression": { "__symbolic": "reference", "name": "AgentSurveyResponse" },
+										"member": "AsObject"
+									}
+								]
+							}
+						]
+					}
+				],
+				"serializeBinary": [{ "__symbolic": "method" }],
+				"toObject": [{ "__symbolic": "method" }],
+				"toJSON": [{ "__symbolic": "method" }],
+				"toProtobufJSON": [{ "__symbolic": "method" }]
+			},
+			"statics": { "id": "ondewo.survey.GetAllSurveyAnswersRequest" }
+		},
+		"SurveyAnswersResponse": {
+			"__symbolic": "class",
+			"members": {
+				"__ctor__": [
+					{
+						"__symbolic": "constructor",
+						"parameters": [
+							{
+								"__symbolic": "reference",
+								"name": "RecursivePartial",
+								"module": "@ngx-grpc/common",
+								"arguments": [
+									{
+										"__symbolic": "select",
+										"expression": { "__symbolic": "reference", "name": "AgentSurveyResponse" },
+										"member": "AsObject"
+									}
+								]
+							}
+						]
+					}
+				],
+				"serializeBinary": [{ "__symbolic": "method" }],
+				"toObject": [{ "__symbolic": "method" }],
+				"toJSON": [{ "__symbolic": "method" }],
+				"toProtobufJSON": [{ "__symbolic": "method" }]
+			},
+			"statics": { "id": "ondewo.survey.SurveyAnswersResponse" }
+		},
+		"ListSurveysRequest": {
+			"__symbolic": "class",
+			"members": {
+				"__ctor__": [
+					{
+						"__symbolic": "constructor",
+						"parameters": [
+							{
+								"__symbolic": "reference",
+								"name": "RecursivePartial",
+								"module": "@ngx-grpc/common",
+								"arguments": [
+									{
+										"__symbolic": "select",
+										"expression": { "__symbolic": "reference", "name": "AgentSurveyResponse" },
+										"member": "AsObject"
+									}
+								]
+							}
+						]
+					}
+				],
+				"serializeBinary": [{ "__symbolic": "method" }],
+				"toObject": [{ "__symbolic": "method" }],
+				"toJSON": [{ "__symbolic": "method" }],
+				"toProtobufJSON": [{ "__symbolic": "method" }]
+			},
+			"statics": { "id": "ondewo.survey.ListSurveysRequest" }
+		},
+		"ListSurveysResponse": {
+			"__symbolic": "class",
+			"members": {
+				"__ctor__": [
+					{
+						"__symbolic": "constructor",
+						"parameters": [
+							{
+								"__symbolic": "reference",
+								"name": "RecursivePartial",
+								"module": "@ngx-grpc/common",
+								"arguments": [
+									{
+										"__symbolic": "select",
+										"expression": { "__symbolic": "reference", "name": "AgentSurveyResponse" },
+										"member": "AsObject"
+									}
+								]
+							}
+						]
+					}
+				],
+				"serializeBinary": [{ "__symbolic": "method" }],
+				"toObject": [{ "__symbolic": "method" }],
+				"toJSON": [{ "__symbolic": "method" }],
+				"toProtobufJSON": [{ "__symbolic": "method" }]
+			},
+			"statics": { "id": "ondewo.survey.ListSurveysResponse" }
+		},
+		"AgentSurveyRequest": {
+			"__symbolic": "class",
+			"members": {
+				"__ctor__": [
+					{
+						"__symbolic": "constructor",
+						"parameters": [
+							{
+								"__symbolic": "reference",
+								"name": "RecursivePartial",
+								"module": "@ngx-grpc/common",
+								"arguments": [
+									{
+										"__symbolic": "select",
+										"expression": { "__symbolic": "reference", "name": "AgentSurveyResponse" },
+										"member": "AsObject"
+									}
+								]
+							}
+						]
+					}
+				],
+				"serializeBinary": [{ "__symbolic": "method" }],
+				"toObject": [{ "__symbolic": "method" }],
+				"toJSON": [{ "__symbolic": "method" }],
+				"toProtobufJSON": [{ "__symbolic": "method" }]
+			},
+			"statics": { "id": "ondewo.survey.AgentSurveyRequest" }
+		},
+		"AgentSurveyResponse": {
+			"__symbolic": "class",
+			"members": {
+				"__ctor__": [
+					{
+						"__symbolic": "constructor",
+						"parameters": [
+							{
+								"__symbolic": "reference",
+								"name": "RecursivePartial",
+								"module": "@ngx-grpc/common",
+								"arguments": [
+									{
+										"__symbolic": "select",
+										"expression": { "__symbolic": "reference", "name": "AgentSurveyResponse" },
+										"member": "AsObject"
+									}
+								]
+							}
+						]
+					}
+				],
+				"serializeBinary": [{ "__symbolic": "method" }],
+				"toObject": [{ "__symbolic": "method" }],
+				"toJSON": [{ "__symbolic": "method" }],
+				"toProtobufJSON": [{ "__symbolic": "method" }]
+			},
+			"statics": { "id": "ondewo.survey.AgentSurveyResponse" }
+		},
+		"GRPC_SURVEYS_CLIENT_SETTINGS": {
+			"__symbolic": "new",
+			"expression": {
+				"__symbolic": "reference",
+				"module": "@angular/core",
+				"name": "InjectionToken",
+				"line": 11,
+				"character": 48
+			},
+			"arguments": ["GRPC_SURVEYS_CLIENT_SETTINGS"]
+		},
+		"SurveysClient": {
+			"__symbolic": "class",
+			"decorators": [
+				{
+					"__symbolic": "call",
+					"expression": {
+						"__symbolic": "reference",
+						"module": "@angular/core",
+						"name": "Injectable",
+						"line": 30,
+						"character": 1
+					},
+					"arguments": [{ "providedIn": "any" }]
+				}
+			],
+			"members": {
+				"__ctor__": [
+					{
+						"__symbolic": "constructor",
+						"parameterDecorators": [
+							[
+								{
+									"__symbolic": "call",
+									"expression": {
+										"__symbolic": "reference",
+										"module": "@angular/core",
+										"name": "Optional",
+										"line": 253,
+										"character": 5
+									}
+								},
+								{
+									"__symbolic": "call",
+									"expression": {
+										"__symbolic": "reference",
+										"module": "@angular/core",
+										"name": "Inject",
+										"line": 253,
+										"character": 17
+									},
+									"arguments": [{ "__symbolic": "reference", "name": "GRPC_SURVEYS_CLIENT_SETTINGS" }]
+								}
+							],
+							[
+								{
+									"__symbolic": "call",
+									"expression": {
+										"__symbolic": "reference",
+										"module": "@angular/core",
+										"name": "Inject",
+										"line": 254,
+										"character": 5
+									},
+									"arguments": [
+										{
+											"__symbolic": "reference",
+											"module": "@ngx-grpc/core",
+											"name": "GRPC_CLIENT_FACTORY",
+											"line": 254,
+											"character": 12
+										}
+									]
+								}
+							],
+							null
+						],
+						"parameters": [
+							{ "__symbolic": "reference", "name": "any" },
+							{
+								"__symbolic": "reference",
+								"name": "GrpcClientFactory",
+								"module": "@ngx-grpc/common",
+								"arguments": [{ "__symbolic": "reference", "name": "any" }]
+							},
+							{
+								"__symbolic": "reference",
+								"module": "@ngx-grpc/core",
+								"name": "GrpcHandler",
+								"line": 255,
+								"character": 21
+							}
+						]
+					}
+				],
+				"createSurvey": [{ "__symbolic": "method" }],
+				"getSurvey": [{ "__symbolic": "method" }],
+				"updateSurvey": [{ "__symbolic": "method" }],
+				"deleteSurvey": [{ "__symbolic": "method" }],
+				"listSurveys": [{ "__symbolic": "method" }],
+				"getSurveyAnswers": [{ "__symbolic": "method" }],
+				"getAllSurveyAnswers": [{ "__symbolic": "method" }],
+				"createAgentSurvey": [{ "__symbolic": "method" }],
+				"updateAgentSurvey": [{ "__symbolic": "method" }],
+				"deleteAgentSurvey": [{ "__symbolic": "method" }]
+			},
+			"statics": { "ɵprov": {} }
+		},
+		"Http": {
+			"__symbolic": "class",
+			"members": {
+				"__ctor__": [
+					{
+						"__symbolic": "constructor",
+						"parameters": [
+							{
+								"__symbolic": "reference",
+								"name": "RecursivePartial",
+								"module": "@ngx-grpc/common",
+								"arguments": [
+									{
+										"__symbolic": "select",
+										"expression": { "__symbolic": "reference", "name": "CustomHttpPattern" },
+										"member": "AsObject"
+									}
+								]
+							}
+						]
+					}
+				],
+				"serializeBinary": [{ "__symbolic": "method" }],
+				"toObject": [{ "__symbolic": "method" }],
+				"toJSON": [{ "__symbolic": "method" }],
+				"toProtobufJSON": [{ "__symbolic": "method" }]
+			},
+			"statics": { "id": "google.api.Http" }
+		},
+		"HttpRule": {
+			"__symbolic": "class",
+			"members": {
+				"__ctor__": [
+					{
+						"__symbolic": "constructor",
+						"parameters": [
+							{
+								"__symbolic": "reference",
+								"name": "RecursivePartial",
+								"module": "@ngx-grpc/common",
+								"arguments": [
+									{
+										"__symbolic": "select",
+										"expression": { "__symbolic": "reference", "name": "CustomHttpPattern" },
+										"member": "AsObject"
+									}
+								]
+							}
+						]
+					}
+				],
+				"serializeBinary": [{ "__symbolic": "method" }],
+				"toObject": [{ "__symbolic": "method" }],
+				"toJSON": [{ "__symbolic": "method" }],
+				"toProtobufJSON": [{ "__symbolic": "method" }]
+			},
+			"statics": { "id": "google.api.HttpRule" }
+		},
+		"CustomHttpPattern": {
+			"__symbolic": "class",
+			"members": {
+				"__ctor__": [
+					{
+						"__symbolic": "constructor",
+						"parameters": [
+							{
+								"__symbolic": "reference",
+								"name": "RecursivePartial",
+								"module": "@ngx-grpc/common",
+								"arguments": [
+									{
+										"__symbolic": "select",
+										"expression": { "__symbolic": "reference", "name": "CustomHttpPattern" },
+										"member": "AsObject"
+									}
+								]
+							}
+						]
+					}
+				],
+				"serializeBinary": [{ "__symbolic": "method" }],
+				"toObject": [{ "__symbolic": "method" }],
+				"toJSON": [{ "__symbolic": "method" }],
+				"toProtobufJSON": [{ "__symbolic": "method" }]
+			},
+			"statics": { "id": "google.api.CustomHttpPattern" }
+		}
+	},
+	"origins": {
+		"SubFlow": "./api/ondewo/survey/survey.pb",
+		"Survey": "./api/ondewo/survey/survey.pb",
+		"SurveyInfo": "./api/ondewo/survey/survey.pb",
+		"Question": "./api/ondewo/survey/survey.pb",
+		"OpenQuestion": "./api/ondewo/survey/survey.pb",
+		"SingleChoiceQuestion": "./api/ondewo/survey/survey.pb",
+		"MultipleChoiceQuestion": "./api/ondewo/survey/survey.pb",
+		"ScaleQuestion": "./api/ondewo/survey/survey.pb",
+		"SingleParameterQuestion": "./api/ondewo/survey/survey.pb",
+		"MultipleParameterQuestion": "./api/ondewo/survey/survey.pb",
+		"Choice": "./api/ondewo/survey/survey.pb",
+		"Answer": "./api/ondewo/survey/survey.pb",
+		"CreateSurveyRequest": "./api/ondewo/survey/survey.pb",
+		"GetSurveyRequest": "./api/ondewo/survey/survey.pb",
+		"UpdateSurveyRequest": "./api/ondewo/survey/survey.pb",
+		"DeleteSurveyRequest": "./api/ondewo/survey/survey.pb",
+		"GetSurveyAnswersRequest": "./api/ondewo/survey/survey.pb",
+		"GetAllSurveyAnswersRequest": "./api/ondewo/survey/survey.pb",
+		"SurveyAnswersResponse": "./api/ondewo/survey/survey.pb",
+		"ListSurveysRequest": "./api/ondewo/survey/survey.pb",
+		"ListSurveysResponse": "./api/ondewo/survey/survey.pb",
+		"AgentSurveyRequest": "./api/ondewo/survey/survey.pb",
+		"AgentSurveyResponse": "./api/ondewo/survey/survey.pb",
+		"GRPC_SURVEYS_CLIENT_SETTINGS": "./api/ondewo/survey/survey.pbconf",
+		"SurveysClient": "./api/ondewo/survey/survey.pbsc",
+		"Http": "./api/google/api/http.pb",
+		"HttpRule": "./api/google/api/http.pb",
+		"CustomHttpPattern": "./api/google/api/http.pb"
+	},
+	"importAs": "@ondewo/survey-client-angular"
+}
