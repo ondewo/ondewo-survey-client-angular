@@ -1962,7 +1962,7 @@ class ScaleQuestion {
 ScaleQuestion.id = 'ondewo.survey.ScaleQuestion';
 (function (ScaleQuestion) {
 	/**
-	 * Message implementation for ondewo.survey.ScaleQuestion.ScaleValue
+	 * Message implementation for ondewo.survey.ScaleValue
 	 */
 	class ScaleValue {
 		/**
@@ -2077,7 +2077,7 @@ ScaleQuestion.id = 'ondewo.survey.ScaleQuestion';
 			};
 		}
 	}
-	ScaleValue.id = 'ondewo.survey.ScaleQuestion.ScaleValue';
+	ScaleValue.id = 'ondewo.survey.ScaleValue';
 	ScaleQuestion.ScaleValue = ScaleValue;
 })(ScaleQuestion || (ScaleQuestion = {}));
 /**
@@ -2664,7 +2664,7 @@ Answer.id = 'ondewo.survey.Answer';
 		IsAnonymousCase[(IsAnonymousCase['userInformation'] = 2)] = 'userInformation';
 	})((IsAnonymousCase = Answer.IsAnonymousCase || (Answer.IsAnonymousCase = {})));
 	/**
-	 * Message implementation for ondewo.survey.Answer.UserInfo
+	 * Message implementation for ondewo.survey.UserInfo
 	 */
 	class UserInfo {
 		/**
@@ -2827,7 +2827,7 @@ Answer.id = 'ondewo.survey.Answer';
 			};
 		}
 	}
-	UserInfo.id = 'ondewo.survey.Answer.UserInfo';
+	UserInfo.id = 'ondewo.survey.UserInfo';
 	Answer.UserInfo = UserInfo;
 })(Answer || (Answer = {}));
 /**
@@ -4177,7 +4177,7 @@ class FHIRClient {
 }
 FHIRClient.ɵfac = i0.ɵɵngDeclareFactory({
 	minVersion: '12.0.0',
-	version: '14.2.1',
+	version: '14.2.0',
 	ngImport: i0,
 	type: FHIRClient,
 	deps: [
@@ -4189,14 +4189,14 @@ FHIRClient.ɵfac = i0.ɵɵngDeclareFactory({
 });
 FHIRClient.ɵprov = i0.ɵɵngDeclareInjectable({
 	minVersion: '12.0.0',
-	version: '14.2.1',
+	version: '14.2.0',
 	ngImport: i0,
 	type: FHIRClient,
 	providedIn: 'any'
 });
 i0.ɵɵngDeclareClassMetadata({
 	minVersion: '12.0.0',
-	version: '14.2.1',
+	version: '14.2.0',
 	ngImport: i0,
 	type: FHIRClient,
 	decorators: [
@@ -4539,7 +4539,7 @@ class SurveysClient {
 }
 SurveysClient.ɵfac = i0.ɵɵngDeclareFactory({
 	minVersion: '12.0.0',
-	version: '14.2.1',
+	version: '14.2.0',
 	ngImport: i0,
 	type: SurveysClient,
 	deps: [
@@ -4551,14 +4551,14 @@ SurveysClient.ɵfac = i0.ɵɵngDeclareFactory({
 });
 SurveysClient.ɵprov = i0.ɵɵngDeclareInjectable({
 	minVersion: '12.0.0',
-	version: '14.2.1',
+	version: '14.2.0',
 	ngImport: i0,
 	type: SurveysClient,
 	providedIn: 'any'
 });
 i0.ɵɵngDeclareClassMetadata({
 	minVersion: '12.0.0',
-	version: '14.2.1',
+	version: '14.2.0',
 	ngImport: i0,
 	type: SurveysClient,
 	decorators: [

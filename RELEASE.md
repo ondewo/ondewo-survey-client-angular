@@ -1,4 +1,11 @@
 # Release History
+
+***************** 
+## Release ONDEWO Survey Angular Client 2.0.0 
+ 
+### Improvements 
+ * Tracking API Version [2.0.0](https://github.com/ondewo/ondewo-survey-api/releases/tag/2.0.0) ( [Documentation](https://ondewo.github.io/ondewo-survey-api/) ) 
+
 *****************
 
 ## Release ONDEWO Survey Angular Client 1.1.0
