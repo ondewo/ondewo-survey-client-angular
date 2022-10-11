@@ -632,7 +632,7 @@ export declare module ScaleQuestion {
 		maxValue?: ScaleQuestion.ScaleValue.AsProtobufJSON | null;
 	}
 	/**
-	 * Message implementation for ondewo.survey.ScaleValue
+	 * Message implementation for ondewo.survey.ScaleQuestion.ScaleValue
 	 */
 	class ScaleValue implements GrpcMessage {
 		static id: string;
@@ -1039,7 +1039,7 @@ export declare module Answer {
 		userInformation = 2
 	}
 	/**
-	 * Message implementation for ondewo.survey.UserInfo
+	 * Message implementation for ondewo.survey.Answer.UserInfo
 	 */
 	class UserInfo implements GrpcMessage {
 		static id: string;

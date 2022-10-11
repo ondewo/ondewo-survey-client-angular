@@ -114,7 +114,7 @@ export class FHIRClient {
 }
 FHIRClient.ɵfac = i0.ɵɵngDeclareFactory({
 	minVersion: '12.0.0',
-	version: '14.2.0',
+	version: '14.2.5',
 	ngImport: i0,
 	type: FHIRClient,
 	deps: [
@@ -126,14 +126,14 @@ FHIRClient.ɵfac = i0.ɵɵngDeclareFactory({
 });
 FHIRClient.ɵprov = i0.ɵɵngDeclareInjectable({
 	minVersion: '12.0.0',
-	version: '14.2.0',
+	version: '14.2.5',
 	ngImport: i0,
 	type: FHIRClient,
 	providedIn: 'any'
 });
 i0.ɵɵngDeclareClassMetadata({
 	minVersion: '12.0.0',
-	version: '14.2.0',
+	version: '14.2.5',
 	ngImport: i0,
 	type: FHIRClient,
 	decorators: [
