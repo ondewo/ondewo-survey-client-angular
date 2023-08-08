@@ -18,7 +18,7 @@ export
 ONDEWO_SURVEY_VERSION = 2.0.0
 
 SURVEY_API_GIT_BRANCH=tags/2.0.0
-ONDEWO_PROTO_COMPILER_GIT_BRANCH=tags/4.1.2
+ONDEWO_PROTO_COMPILER_GIT_BRANCH=tags/4.6.0
 ONDEWO_PROTO_COMPILER_DIR=ondewo-proto-compiler
 SURVEY_APIS_DIR=src/ondewo-survey-api
 SURVEY_PROTOS_DIR=${SURVEY_APIS_DIR}/ondewo
@@ -233,8 +233,10 @@ check_out_correct_submodule_versions: ## Fetches all Submodules and checksout sp
 	git submodule update --init --recursive
 	git -C ${SURVEY_APIS_DIR} fetch --all
 	git -C ${SURVEY_APIS_DIR} checkout ${SURVEY_API_GIT_BRANCH}
+	git -C ${SURVEY_APIS_DIR} pull
 	git -C ${ONDEWO_PROTO_COMPILER_DIR} fetch --all
 	git -C ${ONDEWO_PROTO_COMPILER_DIR} checkout ${ONDEWO_PROTO_COMPILER_GIT_BRANCH}
+	git -C ${ONDEWO_PROTO_COMPILER_DIR} pull
 	@echo "DONE checking out correct submodule versions."
 
 npm_run_build: ## Runs the build command in package.json
