@@ -121,7 +121,7 @@ release: ## Create Github and NPM Release
 	git add ondewo-survey-client-angular.metadata.json
 	git add package-lock.json
 	git add package.json
-	git add tsconfig.json
+	-git add tsconfig.json
 	git add Makefile
 	git add ${ONDEWO_PROTO_COMPILER_DIR}
 	git add ${SURVEY_APIS_DIR}
