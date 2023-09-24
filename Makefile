@@ -15,10 +15,10 @@ export
 # 		Variables
 ########################################################
 
-ONDEWO_SURVEY_VERSION = 2.0.0
+ONDEWO_SURVEY_VERSION=2.0.1
 
 SURVEY_API_GIT_BRANCH=tags/2.0.0
-ONDEWO_PROTO_COMPILER_GIT_BRANCH=tags/4.6.0
+ONDEWO_PROTO_COMPILER_GIT_BRANCH=tags/4.7.0
 ONDEWO_PROTO_COMPILER_DIR=ondewo-proto-compiler
 SURVEY_APIS_DIR=src/ondewo-survey-api
 SURVEY_PROTOS_DIR=${SURVEY_APIS_DIR}/ondewo
@@ -88,12 +88,10 @@ check_build: ## Checks if all built proto-code is there
 	do \
 		find api -iname "*pb*" | grep -q $${file}; \
 		if test $$? != 0; then  echo "No Proto-Code for $${file} in api" & exit 1;fi; \
-		find esm2020 -iname "*pb*" | grep -q $${file}; \
-		if test $$? != 0; then  echo "No Proto-Code for $${file} in esm2020" & exit 1;fi; \
-		find fesm2015 -iname "*ondewo-survey-client-angular*" | wc -l | grep -q "2"; \
-		if test $$? != 0; then  echo "No Proto-Code for $${file} in fesm2015" & exit 1;fi; \
-		find fesm2020 -iname "*ondewo-survey-client-angular*" | wc -l | grep -q "2"; \
-		if test $$? != 0; then  echo "No Proto-Code for $${file} in fesm2020" & exit 1;fi; \
+		find esm2022 -iname "*pb*" | grep -q $${file}; \
+		if test $$? != 0; then  echo "No Proto-Code for $${file} in esm2022" & exit 1;fi; \
+		find fesm2022 -iname "*ondewo-survey-client-angular*" | wc -l | grep -q "2"; \
+		if test $$? != 0; then  echo "No Proto-Code for $${file} in fesm2022" & exit 1;fi; \
 	done
 	@rm -rf build_check.txt
 	@rm -rf build_check_temp.txt
@@ -113,9 +111,8 @@ release: ## Create Github and NPM Release
 	make run_precommit_hooks
 	git status
 	git add api
-	git add esm2020
-	git add fesm2020
-	git add fesm2015
+	git add esm2022
+	git add fesm2022
 	git add src
 	git add README.md
 	git add RELEASE.md
@@ -128,14 +125,13 @@ release: ## Create Github and NPM Release
 	git add ${ONDEWO_PROTO_COMPILER_DIR}
 	git add ${SURVEY_APIS_DIR}
 	git status
-	git commit -m "Preparing for Release ${ONDEWO_SURVEY_VERSION}"
+	-git commit -m "Preparing for Release ${ONDEWO_SURVEY_VERSION}"
 	git push
 	make publish_npm_via_docker
 	make create_release_branch
 	make create_release_tag
 	make release_to_github_via_docker_image
 	@echo "Finished Release"
-
 
 gh_release: build_utils_docker_image release_to_github_via_docker_image ## Builds Utils Image and Releases to Github
 
@@ -207,7 +203,6 @@ spc: ## Checks if the Release Branch, Tag and Pypi version already exist
 	@if test "$(filtered_branches)" != ""; then echo "-- Test 1: Branch exists!!" & exit 1; else echo "-- Test 1: Branch is fine";fi
 	@if test "$(filtered_tags)" != ""; then echo "-- Test 2: Tag exists!!" & exit 1; else echo "-- Test 2: Tag is fine";fi
 
-
 ########################################################
 # Build
 
@@ -233,10 +228,10 @@ check_out_correct_submodule_versions: ## Fetches all Submodules and checksout sp
 	git submodule update --init --recursive
 	git -C ${SURVEY_APIS_DIR} fetch --all
 	git -C ${SURVEY_APIS_DIR} checkout ${SURVEY_API_GIT_BRANCH}
-	git -C ${SURVEY_APIS_DIR} pull
+	-git -C ${SURVEY_APIS_DIR} pull
 	git -C ${ONDEWO_PROTO_COMPILER_DIR} fetch --all
 	git -C ${ONDEWO_PROTO_COMPILER_DIR} checkout ${ONDEWO_PROTO_COMPILER_GIT_BRANCH}
-	git -C ${ONDEWO_PROTO_COMPILER_DIR} pull
+	-git -C ${ONDEWO_PROTO_COMPILER_DIR} pull
 	@echo "DONE checking out correct submodule versions."
 
 npm_run_build: ## Runs the build command in package.json

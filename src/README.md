@@ -62,7 +62,7 @@ npm
 │           ├── survey.pbconf.d.ts
 │           ├── survey.pb.d.ts
 │           └── survey.pbsc.d.ts
-├── esm2020
+├── esm2022
 │   ├── api
 │   │   ├── google
 │   │   │   └── api
@@ -78,10 +78,7 @@ npm
 │   │           └── survey.pbsc.mjs
 │   ├── ondewo-survey-client-angular.mjs
 │   └── public-api.mjs
-├── fesm2015
-│   ├── ondewo-survey-client-angular.mjs
-│   └── ondewo-survey-client-angular.mjs.map
-├── fesm2020
+├── fesm2022
 │   ├── ondewo-survey-client-angular.mjs
 │   └── ondewo-survey-client-angular.mjs.map
 ├── ondewo-survey-api
