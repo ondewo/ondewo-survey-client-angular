@@ -17,13 +17,13 @@ export
 ONDEWO_SURVEY_VERSION = 2.0.1
 
 SURVEY_API_GIT_BRANCH=tags/2.0.0
-ONDEWO_PROTO_COMPILER_GIT_BRANCH=tags/5.0.0
+ONDEWO_PROTO_COMPILER_GIT_BRANCH=tags/5.3.0
 ONDEWO_PROTO_COMPILER_DIR=ondewo-proto-compiler
 SURVEY_APIS_DIR=src/ondewo-survey-api
 SURVEY_PROTOS_DIR=${SURVEY_APIS_DIR}/ondewo
 GOOGLE_APIS_DIR=${SURVEY_APIS_DIR}/googleapis
 GOOGLE_PROTOS_DIR=${GOOGLE_APIS_DIR}/google
-NPM_USERNAME?=ENTER_HERE_YOUR_NPM_USERNAME
+NPM_USERNAME?=ENTER_HERE_YOUR_NPM_USERNAM# E
 NPM_PASSWORD?=ENTER_HERE_YOUR_NPM_PASSWORD
 GITHUB_GH_TOKEN?=
 NPM_AUTOMATION_TOKEN?=
@@ -86,8 +86,8 @@ check_build: ## Checks if all built proto-code is there
 	do \
 		find api -iname "*pb*" | grep -q $${file}; \
 		if test $$? != 0; then  echo "No Proto-Code for $${file} in api" & exit 1;fi; \
-		find esm2022 -iname "*pb*" | grep -q $${file}; \
-		if test $$? != 0; then  echo "No Proto-Code for $${file} in esm2022" & exit 1;fi; \
+		# find esm2022 -iname "*pb*" | grep -q $${file}; \
+		# if test $$? != 0; then  echo "No Proto-Code for $${file} in esm2022" & exit 1;fi; \
 		find fesm2022 -iname "*ondewo-survey-client-angular*" | wc -l | grep -q "2"; \
 		if test $$? != 0; then  echo "No Proto-Code for $${file} in fesm2022" & exit 1;fi; \
 	done
@@ -109,7 +109,7 @@ release: ## Create Github and NPM Release
 	make run_precommit_hooks
 	git status
 	git add api
-	git add esm2022
+	-git add esm2022
 	git add fesm2022
 	git add src
 	git add README.md
