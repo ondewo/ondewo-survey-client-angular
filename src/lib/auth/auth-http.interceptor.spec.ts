@@ -5,21 +5,35 @@ import { authHttpInterceptor } from "./auth-http.interceptor";
 import { AUTHORIZATION_HEADER, BEARER_PREFIX } from "./resolve-token";
 import { TOKEN_PROVIDER, TokenProvider, TokenResult } from "./token-provider";
 
-const TOKEN = "header.payload.signature";
-const BEARER = `${BEARER_PREFIX}${TOKEN}`;
-const URL = "https://api.example.com/ondewo.survey.Surveys/ListSurveys";
+/** A representative (structurally valid) JWT used across the assertions. */
+const TOKEN: string = "header.payload.signature";
+
+/** The expected `Authorization` header value for {@link TOKEN}. */
+const BEARER: string = `${BEARER_PREFIX}${TOKEN}`;
+
+/** A representative gRPC-web-over-HTTP endpoint the interceptor authorizes. */
+const URL: string = "https://api.example.com/ondewo.survey.Surveys/ListSurveys";
 
 /** A `TokenProvider` whose `getToken` returns a caller-supplied value. */
 class StubTokenProvider implements TokenProvider {
-  constructor(private readonly value: TokenResult) {}
+  /**
+   * @param value the token result every `getToken()` call should return.
+   */
+  public constructor(private readonly value: TokenResult) {}
 
+  /**
+   * @returns the caller-supplied token result.
+   */
   public getToken(): TokenResult {
     return this.value;
   }
 }
 
+/** The outcome of driving the interceptor: the forwarded request and its event stream. */
 interface RunResult {
+  /** The request actually handed to the `next` handler. */
   forwarded: HttpRequest<unknown>;
+  /** The stream of HTTP events the interceptor returned. */
   events: Observable<HttpEvent<unknown>>;
 }
 
@@ -28,9 +42,13 @@ interface RunResult {
  * given `TokenProvider`, capturing the request actually handed to the next
  * handler. The fake `next` echoes a sentinel data event so the stream is
  * observable end-to-end.
+ *
+ * @param tokenResult the token result the stub `TokenProvider` should return.
+ * @param request the outgoing request to feed through the interceptor.
+ * @returns the forwarded request (lazily, via getter) and the event stream.
  */
 function run(tokenResult: TokenResult, request: HttpRequest<unknown>): RunResult {
-  const injector = Injector.create({
+  const injector: Injector = Injector.create({
     providers: [{ provide: TOKEN_PROVIDER, useValue: new StubTokenProvider(tokenResult) }]
   });
 
@@ -40,7 +58,9 @@ function run(tokenResult: TokenResult, request: HttpRequest<unknown>): RunResult
     return of({ type: 0 } as HttpEvent<unknown>);
   };
 
-  const events = runInInjectionContext(injector, () => authHttpInterceptor(request, next));
+  const events: Observable<HttpEvent<unknown>> = runInInjectionContext(injector, () =>
+    authHttpInterceptor(request, next)
+  );
   // `forwarded` is assigned synchronously only for the sync-token paths; the
   // caller awaits `events` before reading it for async paths.
   return { get forwarded(): HttpRequest<unknown> {
@@ -51,64 +71,83 @@ function run(tokenResult: TokenResult, request: HttpRequest<unknown>): RunResult
     }, events };
 }
 
+/**
+ * Build a plain `GET` request to {@link URL}, optionally carrying preset headers.
+ *
+ * @param headers optional headers to attach (e.g. a pre-set `Authorization`).
+ * @returns the constructed request.
+ */
 function newRequest(headers?: HttpHeaders): HttpRequest<unknown> {
   return new HttpRequest("GET", URL, headers === undefined ? undefined : { headers });
 }
 
+/**
+ * Covers the functional HTTP interceptor: it attaches a bearer header when a
+ * token is available (sync/Promise/Observable), forwards untouched otherwise,
+ * never overwrites a caller-set `Authorization`, and propagates token errors.
+ */
 describe("authHttpInterceptor", () => {
-  it("attaches the bearer header when a synchronous token is present", async () => {
-    const result = run(TOKEN, newRequest());
+  /** A synchronous token is attached as the `Authorization` header on a clone. */
+  it("attaches the bearer header when a synchronous token is present", async (): Promise<void> => {
+    const result: RunResult = run(TOKEN, newRequest());
     await firstValueFrom(result.events);
     expect(result.forwarded.headers.get(AUTHORIZATION_HEADER)).toBe(BEARER);
   });
 
-  it("forwards the original request untouched when the token is null", async () => {
-    const request = newRequest();
-    const result = run(null, request);
+  /** A `null` token leaves the original request object untouched (same reference). */
+  it("forwards the original request untouched when the token is null", async (): Promise<void> => {
+    const request: HttpRequest<unknown> = newRequest();
+    const result: RunResult = run(null, request);
     await firstValueFrom(result.events);
     expect(result.forwarded).toBe(request);
     expect(result.forwarded.headers.has(AUTHORIZATION_HEADER)).toBe(false);
   });
 
-  it("forwards untouched when the token is an empty string", async () => {
-    const request = newRequest();
-    const result = run("", request);
+  /** An empty-string token is normalized to "no token" and forwards untouched. */
+  it("forwards untouched when the token is an empty string", async (): Promise<void> => {
+    const request: HttpRequest<unknown> = newRequest();
+    const result: RunResult = run("", request);
     await firstValueFrom(result.events);
     expect(result.forwarded).toBe(request);
     expect(result.forwarded.headers.has(AUTHORIZATION_HEADER)).toBe(false);
   });
 
-  it("resolves a Promise-based token before sending", async () => {
-    const result = run(Promise.resolve(TOKEN), newRequest());
+  /** A `Promise`-based token is awaited before the request is sent. */
+  it("resolves a Promise-based token before sending", async (): Promise<void> => {
+    const result: RunResult = run(Promise.resolve(TOKEN), newRequest());
     await firstValueFrom(result.events);
     expect(result.forwarded.headers.get(AUTHORIZATION_HEADER)).toBe(BEARER);
   });
 
-  it("resolves an Observable-based token before sending", async () => {
-    const result = run(of(TOKEN), newRequest());
+  /** An `Observable`-based token is awaited before the request is sent. */
+  it("resolves an Observable-based token before sending", async (): Promise<void> => {
+    const result: RunResult = run(of(TOKEN), newRequest());
     await firstValueFrom(result.events);
     expect(result.forwarded.headers.get(AUTHORIZATION_HEADER)).toBe(BEARER);
   });
 
-  it("does not clone the request when the token source resolves to null", async () => {
-    const request = newRequest();
-    const result = run(Promise.resolve(null), request);
+  /** An async source resolving to `null` must not clone the request. */
+  it("does not clone the request when the token source resolves to null", async (): Promise<void> => {
+    const request: HttpRequest<unknown> = newRequest();
+    const result: RunResult = run(Promise.resolve(null), request);
     await firstValueFrom(result.events);
     expect(result.forwarded).toBe(request);
   });
 
-  it("leaves an explicitly-set Authorization header untouched", async () => {
-    const preset = `${BEARER_PREFIX}caller-supplied`;
-    const request = newRequest(new HttpHeaders({ [AUTHORIZATION_HEADER]: preset }));
-    const result = run(TOKEN, request);
+  /** A caller-supplied `Authorization` header wins and is not overwritten. */
+  it("leaves an explicitly-set Authorization header untouched", async (): Promise<void> => {
+    const preset: string = `${BEARER_PREFIX}caller-supplied`;
+    const request: HttpRequest<unknown> = newRequest(new HttpHeaders({ [AUTHORIZATION_HEADER]: preset }));
+    const result: RunResult = run(TOKEN, request);
     await firstValueFrom(result.events);
     expect(result.forwarded).toBe(request);
     expect(result.forwarded.headers.get(AUTHORIZATION_HEADER)).toBe(preset);
   });
 
-  it("propagates an error raised by the token source without sending the request", async () => {
-    const boom = new Error("token refresh failed");
-    const result = run(throwError(() => boom), newRequest());
+  /** An error from the token source surfaces and the request is never sent. */
+  it("propagates an error raised by the token source without sending the request", async (): Promise<void> => {
+    const boom: Error = new Error("token refresh failed");
+    const result: RunResult = run(throwError(() => boom), newRequest());
     await expect(firstValueFrom(result.events)).rejects.toBe(boom);
   });
 });
