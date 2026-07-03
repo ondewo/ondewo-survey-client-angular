@@ -16,9 +16,9 @@ const TOKEN: string = "eyJhbGciOi.payload.signature";
  * change to either value silently breaks every request the library authorizes.
  */
 describe("constants", () => {
-  /** The header name must stay lower-case (HTTP/2 + gRPC-web metadata convention). */
-  it("uses a lower-case authorization header name", (): void => {
-    expect(AUTHORIZATION_HEADER).toBe("authorization");
+  /** The header name must stay the canonical `Authorization` (case-insensitive on the wire). */
+  it("uses the canonical Authorization header name", (): void => {
+    expect(AUTHORIZATION_HEADER).toBe("Authorization");
   });
 
   /** The scheme prefix must stay the standard `"Bearer "` (with trailing space). */
