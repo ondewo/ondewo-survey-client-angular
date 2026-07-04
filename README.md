@@ -44,6 +44,44 @@ cd ondewo-survey-client-angular                                      ## Change i
 make setup_developer_environment_locally                          ## Install dependencies
 ```
 
+## Authentication (Keycloak bearer token)
+
+The client attaches the current Keycloak access token as an
+`authorization: Bearer <token>` credential to every gRPC-web (and HTTP) request.
+Wire it up **once** at application bootstrap — supply a `TokenProvider` (or the
+ready-made `KeycloakTokenProvider`) and register the interceptors:
+
+```ts
+import {
+  authHttpInterceptor,
+  KEYCLOAK_TOKEN_PROVIDER_CONFIG,
+  KeycloakTokenProvider,
+  KeycloakTokenProviderConfig,
+  provideOndewoSurveyAuth
+} from "@ondewo/survey-client-angular";
+import { provideHttpClient, withInterceptors } from "@angular/common/http";
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    {
+      provide: KEYCLOAK_TOKEN_PROVIDER_CONFIG,
+      useValue: {
+        keycloakUrl: "https://auth.example.com/auth",
+        realm: "ondewo-ccai-platform",
+        clientId: "ondewo-nlu-cai-sdk-public",
+        username: "svc-user@example.com",
+        password: "…"
+      } satisfies KeycloakTokenProviderConfig
+    },
+    provideOndewoSurveyAuth(KeycloakTokenProvider),
+    provideHttpClient(withInterceptors([authHttpInterceptor]))
+  ]
+});
+```
+
+Once the providers are registered, injected clients such as `SurveysClient` are
+authenticated automatically — no per-call token handling is required.
+
 ## Package structure
 
 ```

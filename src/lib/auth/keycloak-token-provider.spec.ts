@@ -295,6 +295,23 @@ describe("KeycloakTokenProvider", () => {
       provider.ngOnDestroy();
     });
 
+    /**
+     * A background-refresh HTTP failure must be swallowed by the timer body's catch:
+     * the previous (stale) access token stays served and no unhandled rejection escapes.
+     */
+    it("swallows a failed background refresh and keeps the previous token", async (): Promise<void> => {
+      const { provider, httpMock } = setup(passwordConfig());
+      flushToken(httpMock, { access_token: ACCESS_TOKEN_1, refresh_token: REFRESH_TOKEN_1, expires_in: EXPIRES_IN });
+      await provider.whenReady();
+
+      jest.advanceTimersByTime(PAST_REFRESH_MS);
+      httpMock.expectOne(TOKEN_ENDPOINT).flush("nope", { status: 500, statusText: "Server Error" });
+      await flushMicrotasks();
+
+      expect(provider.getToken()).toBe(ACCESS_TOKEN_1);
+      provider.ngOnDestroy();
+    });
+
     /** A missing / non-positive expires_in floors the refresh delay at the minimum. */
     it("floors the refresh delay when expires_in is missing", async (): Promise<void> => {
       const { provider, httpMock } = setup(passwordConfig());
