@@ -15,3 +15,9 @@ ondewo-survey-api
 ondewo-survey-client-angular.d.ts
 ondewo-survey-client-angular.d.ts.map
 ondewo-survey-client-angular.metadata.json
+package-lock.json
+package.json
+npm/
+dist/
+.test-build/
+.test-build-examples/

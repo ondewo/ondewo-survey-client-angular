@@ -53,29 +53,29 @@ ready-made `KeycloakTokenProvider`) and register the interceptors:
 
 ```ts
 import {
-  authHttpInterceptor,
-  KEYCLOAK_TOKEN_PROVIDER_CONFIG,
-  KeycloakTokenProvider,
-  KeycloakTokenProviderConfig,
-  provideOndewoSurveyAuth
-} from "@ondewo/survey-client-angular";
-import { provideHttpClient, withInterceptors } from "@angular/common/http";
+	authHttpInterceptor,
+	KEYCLOAK_TOKEN_PROVIDER_CONFIG,
+	KeycloakTokenProvider,
+	KeycloakTokenProviderConfig,
+	provideOndewoSurveyAuth
+} from '@ondewo/survey-client-angular';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 
 bootstrapApplication(AppComponent, {
-  providers: [
-    {
-      provide: KEYCLOAK_TOKEN_PROVIDER_CONFIG,
-      useValue: {
-        keycloakUrl: "https://auth.example.com/auth",
-        realm: "ondewo-ccai-platform",
-        clientId: "ondewo-nlu-cai-sdk-public",
-        username: "svc-user@example.com",
-        password: "…"
-      } satisfies KeycloakTokenProviderConfig
-    },
-    provideOndewoSurveyAuth(KeycloakTokenProvider),
-    provideHttpClient(withInterceptors([authHttpInterceptor]))
-  ]
+	providers: [
+		{
+			provide: KEYCLOAK_TOKEN_PROVIDER_CONFIG,
+			useValue: {
+				keycloakUrl: 'https://auth.example.com/auth',
+				realm: 'ondewo-ccai-platform',
+				clientId: 'ondewo-nlu-cai-sdk-public',
+				username: 'svc-user@example.com',
+				password: '…'
+			} satisfies KeycloakTokenProviderConfig
+		},
+		provideOndewoSurveyAuth(KeycloakTokenProvider),
+		provideHttpClient(withInterceptors([authHttpInterceptor]))
+	]
 });
 ```
 
@@ -127,7 +127,7 @@ npm
 └── README.md
 ```
 
-[comment]: <> (START OF GITHUB README)
+[comment]: <> 'START OF GITHUB README'
 
 ## Build
 
@@ -179,4 +179,4 @@ TODO after PR merge:
 
 > :warning: The Release Automation checks if the build has created all the proto-code files, but it does not check the code-integrity. Please build and test the generated code prior to starting the release process.
 
-[comment]: <> (END OF GITHUB README)
+[comment]: <> 'END OF GITHUB README'
