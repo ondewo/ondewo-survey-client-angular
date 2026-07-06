@@ -29,16 +29,17 @@ import {
 } from "@ondewo/survey-client-angular";
 import { provideHttpClient, withInterceptors } from "@angular/common/http";
 
+// `config` carries the canonical env-var values (see environment.env).
 bootstrapApplication(AppComponent, {
   providers: [
     {
       provide: KEYCLOAK_TOKEN_PROVIDER_CONFIG,
       useValue: {
-        keycloakUrl: "https://auth.example.com/auth",
-        realm: "ondewo-ccai-platform",
-        clientId: "ondewo-nlu-cai-sdk-public",
-        username: "svc-user@example.com",
-        password: "…"
+        keycloakUrl: config.KEYCLOAK_URL,
+        realm: config.KEYCLOAK_REALM,
+        clientId: config.KEYCLOAK_CLIENT_ID,
+        username: config.KEYCLOAK_USER_NAME,
+        password: config.KEYCLOAK_PASSWORD
       } satisfies KeycloakTokenProviderConfig
     },
     provideOndewoSurveyAuth(KeycloakTokenProvider),
@@ -50,6 +51,18 @@ bootstrapApplication(AppComponent, {
 Once the providers are registered, injected clients such as `SurveysClient` are
 authenticated automatically — no per-call token handling is required, as shown
 in [`list-surveys.example.ts`](./list-surveys.example.ts).
+
+## Configuration
+
+Config values use the canonical ONDEWO env-var scheme — one name per concept,
+shared across every ONDEWO client SDK. A non-secret template listing every
+variable the examples reference lives in
+[`environment.env`](./environment.env) (`ONDEWO_HOST`, `ONDEWO_PORT`,
+`KEYCLOAK_URL`, `KEYCLOAK_REALM`, `KEYCLOAK_CLIENT_ID`, `KEYCLOAK_USER_NAME`,
+`KEYCLOAK_PASSWORD`, `ONDEWO_SURVEY_ID`, …). Because the example is a browser
+Angular service it consumes these through Angular DI rather than loading the
+dotenv file directly; supply the values from your application's build/runtime
+configuration and keep the names identical.
 
 > The examples import the generated stubs from the library's own public barrel
 > (`../public-api`) so they compile and are tested against the freshly generated
