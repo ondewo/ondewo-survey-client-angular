@@ -19,8 +19,8 @@
     "prebuild": "cp ondewo-survey-api/googleapis/google ondewo-survey-api/ -R",
     "postbuild": "rm -rf ondewo-survey-api/google && cp README.md ../. && cp RELEASE.md ../.",
     "submodule_update": "git submodule update --init --recursive",
-    "generate": "docker run -it -v ${PWD}:/input-volume -v ${PWD}/..:/output-volume ondewo-angular-proto-compiler ondewo-survey-api ondewo",
-    "debug": "docker run -it --entrypoint /bin/bash -v ${PWD}:/input-volume -v ${PWD}/..:/output-volume ondewo-angular-proto-compiler",
+    "generate": "docker run -v ${PWD}:/input-volume -v ${PWD}/..:/output-volume ondewo-angular-proto-compiler ondewo-survey-api ondewo",
+    "debug": "docker run --entrypoint /bin/bash -v ${PWD}:/input-volume -v ${PWD}/..:/output-volume ondewo-angular-proto-compiler",
     "publish-npm": "npm publish ../npm --access public",
     "test-in-ondewo-aim": "npm run build && rm -rf ../../ondewo-aim/node_modules/@ondewo/survey-client-angular/* && cp ../npm/* ../../ondewo-aim/node_modules/@ondewo/survey-client-angular/. -R",
     "test-in-ondewo-aim-copy-only": "rm -rf ../../ondewo-aim/node_modules/@ondewo/survey-client-angular/* && cp ../npm/* ../../ondewo-aim/node_modules/@ondewo/survey-client-angular/. -R"
