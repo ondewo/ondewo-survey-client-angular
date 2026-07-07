@@ -16,8 +16,8 @@ export
 
 ONDEWO_SURVEY_VERSION = 2.0.1
 
-SURVEY_API_GIT_BRANCH=tags/2.0.0
-ONDEWO_PROTO_COMPILER_GIT_BRANCH=tags/5.9.0
+SURVEY_API_GIT_BRANCH=OND211-2418-add-keycloak-for-2-fa
+ONDEWO_PROTO_COMPILER_GIT_BRANCH=tags/5.10.0
 ONDEWO_PROTO_COMPILER_DIR=ondewo-proto-compiler
 SURVEY_APIS_DIR=src/ondewo-survey-api
 SURVEY_PROTOS_DIR=${SURVEY_APIS_DIR}/ondewo
@@ -31,7 +31,7 @@ IMAGE_UTILS_NAME=ondewo-survey-client-utils-angular:${ONDEWO_SURVEY_VERSION}
 PRETTIER_WRITE?=
 
 CURRENT_RELEASE_NOTES=`cat RELEASE.md \
-	| sed -n '/Release ONDEWO Survey Angular Client ${ONDEWO_SURVEY_VERSION}/,/\*\*/p'`
+	| perl -ne 'print if /Release ONDEWO Survey Angular Client ${ONDEWO_SURVEY_VERSION}/../\*\*/'`
 
 GH_REPO="https://github.com/ondewo/ondewo-survey-client-angular"
 DEVOPS_ACCOUNT_GIT="ondewo-devops-accounts"
@@ -80,7 +80,7 @@ check_build: ## Checks if all built proto-code is there
 		cat build_check_temp.txt >> build_check.txt; \
 	done
 	@echo "`sort build_check.txt | uniq`" > build_check.txt
-	@sed -i "s/\_/\-/g" build_check.txt
+	@perl -i -pe "s/\_/\-/g" build_check.txt
 
 	@for file in `cat build_check.txt`;\
 	do \
@@ -206,7 +206,7 @@ spc: ## Checks if the Release Branch, Tag and Pypi version already exist
 # Build
 
 update_package: ## Updates Package Version in src/package.json
-	@sed -i "s/\"version\": \"[0-9]*.[0-9]*.[0-9]\"/\"version\": \"${ONDEWO_SURVEY_VERSION}\"/g" src/package.json
+	@perl -i -pe "s/\"version\": \"[0-9]*.[0-9]*.[0-9]\"/\"version\": \"${ONDEWO_SURVEY_VERSION}\"/g" src/package.json
 
 build: check_out_correct_submodule_versions build_compiler update_package npm_run_build ## Build Code with Proto-Compiler
 	@echo "################### PROMPT FOR CHANGING FILE OWNERSHIP FROM ROOT TO YOU ##########################"
@@ -215,9 +215,9 @@ build: check_out_correct_submodule_versions build_compiler update_package npm_ru
 		sudo chown -R `whoami`:`whoami` $$f && echo $$f; \
 	done
 	-cd src/ondewo-survey-api && git checkout -- '**/*.proto' && cd ../..
-	@$(eval README_CUT_LINES:=$(shell cat -n src/README.md | sed -n "/START OF GITHUB README/,/END OF GITHUB README/p" | grep -o -E '[0-9]+' | sed -e 's/^0\+//' | awk 'NR==1; END{print}'))
-	@$(eval DELETE_LINES:=$(shell echo ${README_CUT_LINES}| sed -e "s/[[:space:]]/,/"))
-	@sed -i "${DELETE_LINES}d" npm/README.md
+	@$(eval README_CUT_LINES:=$(shell cat -n src/README.md | perl -ne 'print if /START OF GITHUB README/../END OF GITHUB README/' | grep -o -E '[0-9]+' | perl -pe 's/^0+//' | awk 'NR==1; END{print}'))
+	@$(eval DELETE_LINES:=$(shell echo ${README_CUT_LINES}| perl -pe "s/[[:space:]]/,/"))
+	@perl -i -ne 'BEGIN{($$s,$$e)=split/,/,"${DELETE_LINES}"} print unless $$. >= $$s && $$. <= $$e' npm/README.md
 	make install_dependencies
 
 install_dependencies:

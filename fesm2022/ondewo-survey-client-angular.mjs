@@ -1,241 +1,10 @@
-import * as i0 from '@angular/core';
-import { InjectionToken, Injectable, Optional, Inject } from '@angular/core';
-import { GrpcCallType, GrpcMetadata } from '@ngx-grpc/common';
-import * as i1 from '@ngx-grpc/core';
-import { throwStatusErrors, takeMessages, GRPC_CLIENT_FACTORY } from '@ngx-grpc/core';
 import { BinaryReader, BinaryWriter } from 'google-protobuf';
 import * as googleProtobuf006 from '@ngx-grpc/well-known-types';
-
-/**
- * Message implementation for ondewo.survey.CreateFHIRSurveyRequest
- */
-class CreateFHIRSurveyRequest {
-    static { this.id = 'ondewo.survey.CreateFHIRSurveyRequest'; }
-    /**
-     * Deserialize binary data to message
-     * @param instance message instance
-     */
-    static deserializeBinary(bytes) {
-        const instance = new CreateFHIRSurveyRequest();
-        CreateFHIRSurveyRequest.deserializeBinaryFromReader(instance, new BinaryReader(bytes));
-        return instance;
-    }
-    /**
-     * Check all the properties and set default protobuf values if necessary
-     * @param _instance message instance
-     */
-    static refineValues(_instance) {
-        _instance.fhirQuestionnaire = _instance.fhirQuestionnaire || undefined;
-    }
-    /**
-     * Deserializes / reads binary message into message instance using provided binary reader
-     * @param _instance message instance
-     * @param _reader binary reader instance
-     */
-    static deserializeBinaryFromReader(_instance, _reader) {
-        while (_reader.nextField()) {
-            if (_reader.isEndGroup())
-                break;
-            switch (_reader.getFieldNumber()) {
-                case 1:
-                    _instance.fhirQuestionnaire = new googleProtobuf006.Struct();
-                    _reader.readMessage(_instance.fhirQuestionnaire, googleProtobuf006.Struct.deserializeBinaryFromReader);
-                    break;
-                default:
-                    _reader.skipField();
-            }
-        }
-        CreateFHIRSurveyRequest.refineValues(_instance);
-    }
-    /**
-     * Serializes a message to binary format using provided binary reader
-     * @param _instance message instance
-     * @param _writer binary writer instance
-     */
-    static serializeBinaryToWriter(_instance, _writer) {
-        if (_instance.fhirQuestionnaire) {
-            _writer.writeMessage(1, _instance.fhirQuestionnaire, googleProtobuf006.Struct.serializeBinaryToWriter);
-        }
-    }
-    /**
-     * Message constructor. Initializes the properties and applies default Protobuf values if necessary
-     * @param _value initial values object or instance of CreateFHIRSurveyRequest to deeply clone from
-     */
-    constructor(_value) {
-        _value = _value || {};
-        this.fhirQuestionnaire = _value.fhirQuestionnaire
-            ? new googleProtobuf006.Struct(_value.fhirQuestionnaire)
-            : undefined;
-        CreateFHIRSurveyRequest.refineValues(this);
-    }
-    get fhirQuestionnaire() {
-        return this._fhirQuestionnaire;
-    }
-    set fhirQuestionnaire(value) {
-        this._fhirQuestionnaire = value;
-    }
-    /**
-     * Serialize message to binary data
-     * @param instance message instance
-     */
-    serializeBinary() {
-        const writer = new BinaryWriter();
-        CreateFHIRSurveyRequest.serializeBinaryToWriter(this, writer);
-        return writer.getResultBuffer();
-    }
-    /**
-     * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
-     */
-    toObject() {
-        return {
-            fhirQuestionnaire: this.fhirQuestionnaire
-                ? this.fhirQuestionnaire.toObject()
-                : undefined
-        };
-    }
-    /**
-     * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
-     */
-    toJSON() {
-        return this.toObject();
-    }
-    /**
-     * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
-     * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
-     * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
-     */
-    toProtobufJSON(
-    // @ts-ignore
-    options) {
-        return {
-            fhirQuestionnaire: this.fhirQuestionnaire
-                ? this.fhirQuestionnaire.toProtobufJSON(options)
-                : null
-        };
-    }
-}
-/**
- * Message implementation for ondewo.survey.SurveyFHIRAnswersResponse
- */
-class SurveyFHIRAnswersResponse {
-    static { this.id = 'ondewo.survey.SurveyFHIRAnswersResponse'; }
-    /**
-     * Deserialize binary data to message
-     * @param instance message instance
-     */
-    static deserializeBinary(bytes) {
-        const instance = new SurveyFHIRAnswersResponse();
-        SurveyFHIRAnswersResponse.deserializeBinaryFromReader(instance, new BinaryReader(bytes));
-        return instance;
-    }
-    /**
-     * Check all the properties and set default protobuf values if necessary
-     * @param _instance message instance
-     */
-    static refineValues(_instance) {
-        _instance.surveyId = _instance.surveyId || '';
-        _instance.fhirQuestionnaireResponses =
-            _instance.fhirQuestionnaireResponses || [];
-    }
-    /**
-     * Deserializes / reads binary message into message instance using provided binary reader
-     * @param _instance message instance
-     * @param _reader binary reader instance
-     */
-    static deserializeBinaryFromReader(_instance, _reader) {
-        while (_reader.nextField()) {
-            if (_reader.isEndGroup())
-                break;
-            switch (_reader.getFieldNumber()) {
-                case 1:
-                    _instance.surveyId = _reader.readString();
-                    break;
-                case 2:
-                    const messageInitializer2 = new googleProtobuf006.Struct();
-                    _reader.readMessage(messageInitializer2, googleProtobuf006.Struct.deserializeBinaryFromReader);
-                    (_instance.fhirQuestionnaireResponses =
-                        _instance.fhirQuestionnaireResponses || []).push(messageInitializer2);
-                    break;
-                default:
-                    _reader.skipField();
-            }
-        }
-        SurveyFHIRAnswersResponse.refineValues(_instance);
-    }
-    /**
-     * Serializes a message to binary format using provided binary reader
-     * @param _instance message instance
-     * @param _writer binary writer instance
-     */
-    static serializeBinaryToWriter(_instance, _writer) {
-        if (_instance.surveyId) {
-            _writer.writeString(1, _instance.surveyId);
-        }
-        if (_instance.fhirQuestionnaireResponses &&
-            _instance.fhirQuestionnaireResponses.length) {
-            _writer.writeRepeatedMessage(2, _instance.fhirQuestionnaireResponses, googleProtobuf006.Struct.serializeBinaryToWriter);
-        }
-    }
-    /**
-     * Message constructor. Initializes the properties and applies default Protobuf values if necessary
-     * @param _value initial values object or instance of SurveyFHIRAnswersResponse to deeply clone from
-     */
-    constructor(_value) {
-        _value = _value || {};
-        this.surveyId = _value.surveyId;
-        this.fhirQuestionnaireResponses = (_value.fhirQuestionnaireResponses || []).map(m => new googleProtobuf006.Struct(m));
-        SurveyFHIRAnswersResponse.refineValues(this);
-    }
-    get surveyId() {
-        return this._surveyId;
-    }
-    set surveyId(value) {
-        this._surveyId = value;
-    }
-    get fhirQuestionnaireResponses() {
-        return this._fhirQuestionnaireResponses;
-    }
-    set fhirQuestionnaireResponses(value) {
-        this._fhirQuestionnaireResponses = value;
-    }
-    /**
-     * Serialize message to binary data
-     * @param instance message instance
-     */
-    serializeBinary() {
-        const writer = new BinaryWriter();
-        SurveyFHIRAnswersResponse.serializeBinaryToWriter(this, writer);
-        return writer.getResultBuffer();
-    }
-    /**
-     * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
-     */
-    toObject() {
-        return {
-            surveyId: this.surveyId,
-            fhirQuestionnaireResponses: (this.fhirQuestionnaireResponses || []).map(m => m.toObject())
-        };
-    }
-    /**
-     * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
-     */
-    toJSON() {
-        return this.toObject();
-    }
-    /**
-     * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
-     * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
-     * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
-     */
-    toProtobufJSON(
-    // @ts-ignore
-    options) {
-        return {
-            surveyId: this.surveyId,
-            fhirQuestionnaireResponses: (this.fhirQuestionnaireResponses || []).map(m => m.toProtobufJSON(options))
-        };
-    }
-}
+import * as i0 from '@angular/core';
+import { InjectionToken, Optional, Inject, Injectable } from '@angular/core';
+import { GrpcMetadata, GrpcCallType } from '@ngx-grpc/common';
+import * as i1 from '@ngx-grpc/core';
+import { throwStatusErrors, takeMessages, GRPC_CLIENT_FACTORY } from '@ngx-grpc/core';
 
 var SubFlow;
 (function (SubFlow) {
@@ -305,7 +74,7 @@ class Survey {
                     _reader.readMessage(_instance.surveyInfo, SurveyInfo.deserializeBinaryFromReader);
                     break;
                 case 9:
-                    (_instance.excludeSubflows = _instance.excludeSubflows || []).push(...(_reader.readPackedEnum() || []));
+                    _reader.readPackableEnumInto((_instance.excludeSubflows = _instance.excludeSubflows || []));
                     break;
                 case 10:
                     _instance.status = _reader.readEnum();
@@ -3575,145 +3344,6 @@ class AgentSurveyResponse {
 // THIS IS A GENERATED FILE
 // DO NOT MODIFY IT! YOUR CHANGES WILL BE LOST
 /**
- * Specific GrpcClientSettings for Fhir.
- * Use it only if your default settings are not set or the service requires other settings.
- */
-const GRPC_FHIR_CLIENT_SETTINGS = new InjectionToken('GRPC_FHIR_CLIENT_SETTINGS');
-
-/* tslint:disable */
-/* eslint-disable */
-// @ts-nocheck
-//
-// THIS IS A GENERATED FILE
-// DO NOT MODIFY IT! YOUR CHANGES WILL BE LOST
-/**
- * Service client implementation for ondewo.survey.FHIR
- */
-class FHIRClient {
-    constructor(settings, clientFactory, handler) {
-        this.handler = handler;
-        /**
-         * Raw RPC implementation for each service client method.
-         * The raw methods provide more control on the incoming data and events. E.g. they can be useful to read status `OK` metadata.
-         * Attention: these methods do not throw errors when non-zero status codes are received.
-         */
-        this.$raw = {
-            /**
-             * Unary call: /ondewo.survey.FHIR/CreateFHIRSurvey
-             *
-             * @param requestMessage Request message
-             * @param requestMetadata Request metadata
-             * @returns Observable<GrpcEvent<ondewoSurvey005.Survey>>
-             */
-            createFHIRSurvey: (requestData, requestMetadata = new GrpcMetadata()) => {
-                return this.handler.handle({
-                    type: GrpcCallType.unary,
-                    client: this.client,
-                    path: '/ondewo.survey.FHIR/CreateFHIRSurvey',
-                    requestData,
-                    requestMetadata,
-                    requestClass: CreateFHIRSurveyRequest,
-                    responseClass: Survey
-                });
-            },
-            /**
-             * Unary call: /ondewo.survey.FHIR/GetFHIRSurveyAnswers
-             *
-             * @param requestMessage Request message
-             * @param requestMetadata Request metadata
-             * @returns Observable<GrpcEvent<thisProto.SurveyFHIRAnswersResponse>>
-             */
-            getFHIRSurveyAnswers: (requestData, requestMetadata = new GrpcMetadata()) => {
-                return this.handler.handle({
-                    type: GrpcCallType.unary,
-                    client: this.client,
-                    path: '/ondewo.survey.FHIR/GetFHIRSurveyAnswers',
-                    requestData,
-                    requestMetadata,
-                    requestClass: GetSurveyAnswersRequest,
-                    responseClass: SurveyFHIRAnswersResponse
-                });
-            },
-            /**
-             * Unary call: /ondewo.survey.FHIR/GetAllFHIRSurveyAnswers
-             *
-             * @param requestMessage Request message
-             * @param requestMetadata Request metadata
-             * @returns Observable<GrpcEvent<thisProto.SurveyFHIRAnswersResponse>>
-             */
-            getAllFHIRSurveyAnswers: (requestData, requestMetadata = new GrpcMetadata()) => {
-                return this.handler.handle({
-                    type: GrpcCallType.unary,
-                    client: this.client,
-                    path: '/ondewo.survey.FHIR/GetAllFHIRSurveyAnswers',
-                    requestData,
-                    requestMetadata,
-                    requestClass: GetAllSurveyAnswersRequest,
-                    responseClass: SurveyFHIRAnswersResponse
-                });
-            }
-        };
-        this.client = clientFactory.createClient('ondewo.survey.FHIR', settings);
-    }
-    /**
-     * Unary call @/ondewo.survey.FHIR/CreateFHIRSurvey
-     *
-     * @param requestMessage Request message
-     * @param requestMetadata Request metadata
-     * @returns Observable<ondewoSurvey005.Survey>
-     */
-    createFHIRSurvey(requestData, requestMetadata = new GrpcMetadata()) {
-        return this.$raw
-            .createFHIRSurvey(requestData, requestMetadata)
-            .pipe(throwStatusErrors(), takeMessages());
-    }
-    /**
-     * Unary call @/ondewo.survey.FHIR/GetFHIRSurveyAnswers
-     *
-     * @param requestMessage Request message
-     * @param requestMetadata Request metadata
-     * @returns Observable<thisProto.SurveyFHIRAnswersResponse>
-     */
-    getFHIRSurveyAnswers(requestData, requestMetadata = new GrpcMetadata()) {
-        return this.$raw
-            .getFHIRSurveyAnswers(requestData, requestMetadata)
-            .pipe(throwStatusErrors(), takeMessages());
-    }
-    /**
-     * Unary call @/ondewo.survey.FHIR/GetAllFHIRSurveyAnswers
-     *
-     * @param requestMessage Request message
-     * @param requestMetadata Request metadata
-     * @returns Observable<thisProto.SurveyFHIRAnswersResponse>
-     */
-    getAllFHIRSurveyAnswers(requestData, requestMetadata = new GrpcMetadata()) {
-        return this.$raw
-            .getAllFHIRSurveyAnswers(requestData, requestMetadata)
-            .pipe(throwStatusErrors(), takeMessages());
-    }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.2.10", ngImport: i0, type: FHIRClient, deps: [{ token: GRPC_FHIR_CLIENT_SETTINGS, optional: true }, { token: GRPC_CLIENT_FACTORY }, { token: i1.GrpcHandler }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "18.2.10", ngImport: i0, type: FHIRClient, providedIn: 'any' }); }
-}
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.2.10", ngImport: i0, type: FHIRClient, decorators: [{
-            type: Injectable,
-            args: [{ providedIn: 'any' }]
-        }], ctorParameters: () => [{ type: undefined, decorators: [{
-                    type: Optional
-                }, {
-                    type: Inject,
-                    args: [GRPC_FHIR_CLIENT_SETTINGS]
-                }] }, { type: undefined, decorators: [{
-                    type: Inject,
-                    args: [GRPC_CLIENT_FACTORY]
-                }] }, { type: i1.GrpcHandler }] });
-
-/* tslint:disable */
-/* eslint-disable */
-// @ts-nocheck
-//
-// THIS IS A GENERATED FILE
-// DO NOT MODIFY IT! YOUR CHANGES WILL BE LOST
-/**
  * Specific GrpcClientSettings for Surveys.
  * Use it only if your default settings are not set or the service requires other settings.
  */
@@ -4040,10 +3670,10 @@ class SurveysClient {
             .deleteAgentSurvey(requestData, requestMetadata)
             .pipe(throwStatusErrors(), takeMessages());
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.2.10", ngImport: i0, type: SurveysClient, deps: [{ token: GRPC_SURVEYS_CLIENT_SETTINGS, optional: true }, { token: GRPC_CLIENT_FACTORY }, { token: i1.GrpcHandler }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "18.2.10", ngImport: i0, type: SurveysClient, providedIn: 'any' }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.25", ngImport: i0, type: SurveysClient, deps: [{ token: GRPC_SURVEYS_CLIENT_SETTINGS, optional: true }, { token: GRPC_CLIENT_FACTORY }, { token: i1.GrpcHandler }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.25", ngImport: i0, type: SurveysClient, providedIn: 'any' }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.2.10", ngImport: i0, type: SurveysClient, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.25", ngImport: i0, type: SurveysClient, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'any' }]
         }], ctorParameters: () => [{ type: undefined, decorators: [{
@@ -4051,6 +3681,376 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.2.10", ngImpo
                 }, {
                     type: Inject,
                     args: [GRPC_SURVEYS_CLIENT_SETTINGS]
+                }] }, { type: undefined, decorators: [{
+                    type: Inject,
+                    args: [GRPC_CLIENT_FACTORY]
+                }] }, { type: i1.GrpcHandler }] });
+
+/* tslint:disable */
+/* eslint-disable */
+// @ts-nocheck
+//
+// THIS IS A GENERATED FILE
+// DO NOT MODIFY IT! YOUR CHANGES WILL BE LOST
+/**
+ * Specific GrpcClientSettings for Fhir.
+ * Use it only if your default settings are not set or the service requires other settings.
+ */
+const GRPC_FHIR_CLIENT_SETTINGS = new InjectionToken('GRPC_FHIR_CLIENT_SETTINGS');
+
+/**
+ * Message implementation for ondewo.survey.CreateFHIRSurveyRequest
+ */
+class CreateFHIRSurveyRequest {
+    static { this.id = 'ondewo.survey.CreateFHIRSurveyRequest'; }
+    /**
+     * Deserialize binary data to message
+     * @param instance message instance
+     */
+    static deserializeBinary(bytes) {
+        const instance = new CreateFHIRSurveyRequest();
+        CreateFHIRSurveyRequest.deserializeBinaryFromReader(instance, new BinaryReader(bytes));
+        return instance;
+    }
+    /**
+     * Check all the properties and set default protobuf values if necessary
+     * @param _instance message instance
+     */
+    static refineValues(_instance) {
+        _instance.fhirQuestionnaire = _instance.fhirQuestionnaire || undefined;
+    }
+    /**
+     * Deserializes / reads binary message into message instance using provided binary reader
+     * @param _instance message instance
+     * @param _reader binary reader instance
+     */
+    static deserializeBinaryFromReader(_instance, _reader) {
+        while (_reader.nextField()) {
+            if (_reader.isEndGroup())
+                break;
+            switch (_reader.getFieldNumber()) {
+                case 1:
+                    _instance.fhirQuestionnaire = new googleProtobuf006.Struct();
+                    _reader.readMessage(_instance.fhirQuestionnaire, googleProtobuf006.Struct.deserializeBinaryFromReader);
+                    break;
+                default:
+                    _reader.skipField();
+            }
+        }
+        CreateFHIRSurveyRequest.refineValues(_instance);
+    }
+    /**
+     * Serializes a message to binary format using provided binary reader
+     * @param _instance message instance
+     * @param _writer binary writer instance
+     */
+    static serializeBinaryToWriter(_instance, _writer) {
+        if (_instance.fhirQuestionnaire) {
+            _writer.writeMessage(1, _instance.fhirQuestionnaire, googleProtobuf006.Struct.serializeBinaryToWriter);
+        }
+    }
+    /**
+     * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+     * @param _value initial values object or instance of CreateFHIRSurveyRequest to deeply clone from
+     */
+    constructor(_value) {
+        _value = _value || {};
+        this.fhirQuestionnaire = _value.fhirQuestionnaire
+            ? new googleProtobuf006.Struct(_value.fhirQuestionnaire)
+            : undefined;
+        CreateFHIRSurveyRequest.refineValues(this);
+    }
+    get fhirQuestionnaire() {
+        return this._fhirQuestionnaire;
+    }
+    set fhirQuestionnaire(value) {
+        this._fhirQuestionnaire = value;
+    }
+    /**
+     * Serialize message to binary data
+     * @param instance message instance
+     */
+    serializeBinary() {
+        const writer = new BinaryWriter();
+        CreateFHIRSurveyRequest.serializeBinaryToWriter(this, writer);
+        return writer.getResultBuffer();
+    }
+    /**
+     * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+     */
+    toObject() {
+        return {
+            fhirQuestionnaire: this.fhirQuestionnaire
+                ? this.fhirQuestionnaire.toObject()
+                : undefined
+        };
+    }
+    /**
+     * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+     */
+    toJSON() {
+        return this.toObject();
+    }
+    /**
+     * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+     * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+     * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+     */
+    toProtobufJSON(
+    // @ts-ignore
+    options) {
+        return {
+            fhirQuestionnaire: this.fhirQuestionnaire
+                ? this.fhirQuestionnaire.toProtobufJSON(options)
+                : null
+        };
+    }
+}
+/**
+ * Message implementation for ondewo.survey.SurveyFHIRAnswersResponse
+ */
+class SurveyFHIRAnswersResponse {
+    static { this.id = 'ondewo.survey.SurveyFHIRAnswersResponse'; }
+    /**
+     * Deserialize binary data to message
+     * @param instance message instance
+     */
+    static deserializeBinary(bytes) {
+        const instance = new SurveyFHIRAnswersResponse();
+        SurveyFHIRAnswersResponse.deserializeBinaryFromReader(instance, new BinaryReader(bytes));
+        return instance;
+    }
+    /**
+     * Check all the properties and set default protobuf values if necessary
+     * @param _instance message instance
+     */
+    static refineValues(_instance) {
+        _instance.surveyId = _instance.surveyId || '';
+        _instance.fhirQuestionnaireResponses =
+            _instance.fhirQuestionnaireResponses || [];
+    }
+    /**
+     * Deserializes / reads binary message into message instance using provided binary reader
+     * @param _instance message instance
+     * @param _reader binary reader instance
+     */
+    static deserializeBinaryFromReader(_instance, _reader) {
+        while (_reader.nextField()) {
+            if (_reader.isEndGroup())
+                break;
+            switch (_reader.getFieldNumber()) {
+                case 1:
+                    _instance.surveyId = _reader.readString();
+                    break;
+                case 2:
+                    const messageInitializer2 = new googleProtobuf006.Struct();
+                    _reader.readMessage(messageInitializer2, googleProtobuf006.Struct.deserializeBinaryFromReader);
+                    (_instance.fhirQuestionnaireResponses =
+                        _instance.fhirQuestionnaireResponses || []).push(messageInitializer2);
+                    break;
+                default:
+                    _reader.skipField();
+            }
+        }
+        SurveyFHIRAnswersResponse.refineValues(_instance);
+    }
+    /**
+     * Serializes a message to binary format using provided binary reader
+     * @param _instance message instance
+     * @param _writer binary writer instance
+     */
+    static serializeBinaryToWriter(_instance, _writer) {
+        if (_instance.surveyId) {
+            _writer.writeString(1, _instance.surveyId);
+        }
+        if (_instance.fhirQuestionnaireResponses &&
+            _instance.fhirQuestionnaireResponses.length) {
+            _writer.writeRepeatedMessage(2, _instance.fhirQuestionnaireResponses, googleProtobuf006.Struct.serializeBinaryToWriter);
+        }
+    }
+    /**
+     * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+     * @param _value initial values object or instance of SurveyFHIRAnswersResponse to deeply clone from
+     */
+    constructor(_value) {
+        _value = _value || {};
+        this.surveyId = _value.surveyId;
+        this.fhirQuestionnaireResponses = (_value.fhirQuestionnaireResponses || []).map(m => new googleProtobuf006.Struct(m));
+        SurveyFHIRAnswersResponse.refineValues(this);
+    }
+    get surveyId() {
+        return this._surveyId;
+    }
+    set surveyId(value) {
+        this._surveyId = value;
+    }
+    get fhirQuestionnaireResponses() {
+        return this._fhirQuestionnaireResponses;
+    }
+    set fhirQuestionnaireResponses(value) {
+        this._fhirQuestionnaireResponses = value;
+    }
+    /**
+     * Serialize message to binary data
+     * @param instance message instance
+     */
+    serializeBinary() {
+        const writer = new BinaryWriter();
+        SurveyFHIRAnswersResponse.serializeBinaryToWriter(this, writer);
+        return writer.getResultBuffer();
+    }
+    /**
+     * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+     */
+    toObject() {
+        return {
+            surveyId: this.surveyId,
+            fhirQuestionnaireResponses: (this.fhirQuestionnaireResponses || []).map(m => m.toObject())
+        };
+    }
+    /**
+     * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+     */
+    toJSON() {
+        return this.toObject();
+    }
+    /**
+     * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+     * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+     * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+     */
+    toProtobufJSON(
+    // @ts-ignore
+    options) {
+        return {
+            surveyId: this.surveyId,
+            fhirQuestionnaireResponses: (this.fhirQuestionnaireResponses || []).map(m => m.toProtobufJSON(options))
+        };
+    }
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @ts-nocheck
+//
+// THIS IS A GENERATED FILE
+// DO NOT MODIFY IT! YOUR CHANGES WILL BE LOST
+/**
+ * Service client implementation for ondewo.survey.FHIR
+ */
+class FHIRClient {
+    constructor(settings, clientFactory, handler) {
+        this.handler = handler;
+        /**
+         * Raw RPC implementation for each service client method.
+         * The raw methods provide more control on the incoming data and events. E.g. they can be useful to read status `OK` metadata.
+         * Attention: these methods do not throw errors when non-zero status codes are received.
+         */
+        this.$raw = {
+            /**
+             * Unary call: /ondewo.survey.FHIR/CreateFHIRSurvey
+             *
+             * @param requestMessage Request message
+             * @param requestMetadata Request metadata
+             * @returns Observable<GrpcEvent<ondewoSurvey005.Survey>>
+             */
+            createFHIRSurvey: (requestData, requestMetadata = new GrpcMetadata()) => {
+                return this.handler.handle({
+                    type: GrpcCallType.unary,
+                    client: this.client,
+                    path: '/ondewo.survey.FHIR/CreateFHIRSurvey',
+                    requestData,
+                    requestMetadata,
+                    requestClass: CreateFHIRSurveyRequest,
+                    responseClass: Survey
+                });
+            },
+            /**
+             * Unary call: /ondewo.survey.FHIR/GetFHIRSurveyAnswers
+             *
+             * @param requestMessage Request message
+             * @param requestMetadata Request metadata
+             * @returns Observable<GrpcEvent<thisProto.SurveyFHIRAnswersResponse>>
+             */
+            getFHIRSurveyAnswers: (requestData, requestMetadata = new GrpcMetadata()) => {
+                return this.handler.handle({
+                    type: GrpcCallType.unary,
+                    client: this.client,
+                    path: '/ondewo.survey.FHIR/GetFHIRSurveyAnswers',
+                    requestData,
+                    requestMetadata,
+                    requestClass: GetSurveyAnswersRequest,
+                    responseClass: SurveyFHIRAnswersResponse
+                });
+            },
+            /**
+             * Unary call: /ondewo.survey.FHIR/GetAllFHIRSurveyAnswers
+             *
+             * @param requestMessage Request message
+             * @param requestMetadata Request metadata
+             * @returns Observable<GrpcEvent<thisProto.SurveyFHIRAnswersResponse>>
+             */
+            getAllFHIRSurveyAnswers: (requestData, requestMetadata = new GrpcMetadata()) => {
+                return this.handler.handle({
+                    type: GrpcCallType.unary,
+                    client: this.client,
+                    path: '/ondewo.survey.FHIR/GetAllFHIRSurveyAnswers',
+                    requestData,
+                    requestMetadata,
+                    requestClass: GetAllSurveyAnswersRequest,
+                    responseClass: SurveyFHIRAnswersResponse
+                });
+            }
+        };
+        this.client = clientFactory.createClient('ondewo.survey.FHIR', settings);
+    }
+    /**
+     * Unary call @/ondewo.survey.FHIR/CreateFHIRSurvey
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<ondewoSurvey005.Survey>
+     */
+    createFHIRSurvey(requestData, requestMetadata = new GrpcMetadata()) {
+        return this.$raw
+            .createFHIRSurvey(requestData, requestMetadata)
+            .pipe(throwStatusErrors(), takeMessages());
+    }
+    /**
+     * Unary call @/ondewo.survey.FHIR/GetFHIRSurveyAnswers
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<thisProto.SurveyFHIRAnswersResponse>
+     */
+    getFHIRSurveyAnswers(requestData, requestMetadata = new GrpcMetadata()) {
+        return this.$raw
+            .getFHIRSurveyAnswers(requestData, requestMetadata)
+            .pipe(throwStatusErrors(), takeMessages());
+    }
+    /**
+     * Unary call @/ondewo.survey.FHIR/GetAllFHIRSurveyAnswers
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<thisProto.SurveyFHIRAnswersResponse>
+     */
+    getAllFHIRSurveyAnswers(requestData, requestMetadata = new GrpcMetadata()) {
+        return this.$raw
+            .getAllFHIRSurveyAnswers(requestData, requestMetadata)
+            .pipe(throwStatusErrors(), takeMessages());
+    }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.25", ngImport: i0, type: FHIRClient, deps: [{ token: GRPC_FHIR_CLIENT_SETTINGS, optional: true }, { token: GRPC_CLIENT_FACTORY }, { token: i1.GrpcHandler }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.25", ngImport: i0, type: FHIRClient, providedIn: 'any' }); }
+}
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.25", ngImport: i0, type: FHIRClient, decorators: [{
+            type: Injectable,
+            args: [{ providedIn: 'any' }]
+        }], ctorParameters: () => [{ type: undefined, decorators: [{
+                    type: Optional
+                }, {
+                    type: Inject,
+                    args: [GRPC_FHIR_CLIENT_SETTINGS]
                 }] }, { type: undefined, decorators: [{
                     type: Inject,
                     args: [GRPC_CLIENT_FACTORY]
