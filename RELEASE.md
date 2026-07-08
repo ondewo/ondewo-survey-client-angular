@@ -1,24 +1,19 @@
 # Release History
 
-***************** 
+*****************
 
-## Release ONDEWO Survey Angular Client 2.0.1 
- 
+## Release ONDEWO Survey Angular Client 2.0.1
+
 ### Improvements
 
 * Optimized for Angular 16 (esm2022 and fesm2022)
-* Tracking API Version [2.0.0](https://github.com/ondewo/ondewo-survey-api/releases/tag/2.0.0) ( [Documentation](https://ondewo.github.io/ondewo-survey-api/) ) 
-
-***************** 
-
-## Release ONDEWO Survey Angular Client 2.0.0 
- 
-### Improvements 
-* Tracking API Version [2.0.0](https://github.com/ondewo/ondewo-survey-api/releases/tag/2.0.0) ( [Documentation](https://ondewo.github.io/ondewo-survey-api/) ) 
+* Tracking API Version [2.0.0](https://github.com/ondewo/ondewo-survey-api/releases/tag/2.0.0) ( [Documentation](https://ondewo.github.io/ondewo-survey-api/) )
 
 *****************
 
-## Release ONDEWO Survey Angular Client 1.1.0
+## Release ONDEWO Survey Angular Client 2.0.0
+
+### Improvements
 
 * Track version 1.1.0 of [ONDEWO Survey API](https://github.com/ondewo/ondewo-nlu-api/releases/1.1.0)
 * [[OND211-2039]](https://ondewo.atlassian.net/browse/OND211-2039) - Implemented automated release for GitHub and NPM

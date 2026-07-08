@@ -28,7 +28,6 @@
 
 ONDEWO APIs use [Protocol Buffers](https://github.com/google/protobuf) version 3 (proto3) as their Interface Definition Language (IDL) to define the API interface and the structure of the payload messages. The same interface definition is used for gRPC versions of the API in all languages.
 
-
 ## Setup
 
 Using NPM:
@@ -128,8 +127,6 @@ npm
 └── README.md
 ```
 
-[comment]: <> (START OF GITHUB README)
-
 ## Build
 
 The `make build` command is dependent on 2 `repositories` and their speciefied `version`:
@@ -146,13 +143,17 @@ The repository is published to GitHub and NPM by the Automated Release Process o
 TODO after PR merge:
 
 - Checkout master
+
   ```shell
   git checkout master
   ```
+
 - Pull newest state
+
   ```shell
   git pull
   ```
+
 - Adjust `ONDEWO_SURVEY_VERSION` in the `Makefile` <br><br>
 - Add new Release Notes to `src/RELEASE.md` in following format:
 
@@ -165,9 +166,11 @@ TODO after PR merge:
   ```
 
 - Release
+
   ```shell
   make ondewo_release
   ```
+
   <br>
   The release process can be divided into 6 Steps:
 
@@ -179,5 +182,3 @@ TODO after PR merge:
 6. Create a new `Release` on GitHub
 
 > :warning: The Release Automation checks if the build has created all the proto-code files, but it does not check the code-integrity. Please build and test the generated code prior to starting the release process.
-
-[comment]: <> (END OF GITHUB README)

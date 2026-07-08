@@ -51,6 +51,7 @@ run_precommit_hooks: ## Runs all precommit hooks
 
 install_precommit_hooks: ## Install precommit hooks
 	npx husky install
+	uv tool install pre-commit || pipx install pre-commit || pip install --user pre-commit
 
 prettier: ## Checks formatting with Prettier - Use PRETTIER_WRITE=-w to also automatically apply corrections where needed
 	node_modules/.bin/prettier --config .prettierrc --check --ignore-path .prettierignore $(PRETTIER_WRITE) ./

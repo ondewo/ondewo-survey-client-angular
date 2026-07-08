@@ -1,6 +1,6 @@
 Apache License
 Version 2.0, January 2004
-http://www.apache.org/licenses/
+<http://www.apache.org/licenses/>/>
 
 TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
 
@@ -58,7 +58,7 @@ owner as "Not a Contribution."
 of whom a Contribution has been received by Licensor and subsequently
 incorporated within the Work.
 
-2. Grant of Copyright License.
+1. Grant of Copyright License.
 
 Subject to the terms and conditions of this License, each Contributor hereby
 grants to You a perpetual, worldwide, non-exclusive, no-charge, royalty-free,
@@ -66,7 +66,7 @@ irrevocable copyright license to reproduce, prepare Derivative Works of,
 publicly display, publicly perform, sublicense, and distribute the Work and such
 Derivative Works in Source or Object form.
 
-3. Grant of Patent License.
+1. Grant of Patent License.
 
 Subject to the terms and conditions of this License, each Contributor hereby
 grants to You a perpetual, worldwide, non-exclusive, no-charge, royalty-free,
@@ -81,7 +81,7 @@ Contribution incorporated within the Work constitutes direct or contributory
 patent infringement, then any patent licenses granted to You under this License
 for that Work shall terminate as of the date such litigation is filed.
 
-4. Redistribution.
+1. Redistribution.
 
 You may reproduce and distribute copies of the Work or Derivative Works thereof
 in any medium, with or without modifications, and in Source or Object form,
@@ -114,7 +114,7 @@ distribution of Your modifications, or for any such Derivative Works as a whole,
 provided Your use, reproduction, and distribution of the Work otherwise complies
 with the conditions stated in this License.
 
-5. Submission of Contributions.
+1. Submission of Contributions.
 
 Unless You explicitly state otherwise, any Contribution intentionally submitted
 for inclusion in the Work by You to the Licensor shall be under the terms and
@@ -123,14 +123,14 @@ Notwithstanding the above, nothing herein shall supersede or modify the terms of
 any separate license agreement you may have executed with Licensor regarding
 such Contributions.
 
-6. Trademarks.
+1. Trademarks.
 
 This License does not grant permission to use the trade names, trademarks,
 service marks, or product names of the Licensor, except as required for
 reasonable and customary use in describing the origin of the Work and
 reproducing the content of the NOTICE file.
 
-7. Disclaimer of Warranty.
+1. Disclaimer of Warranty.
 
 Unless required by applicable law or agreed to in writing, Licensor provides the
 Work (and each Contributor provides its Contributions) on an "AS IS" BASIS,
@@ -141,7 +141,7 @@ solely responsible for determining the appropriateness of using or
 redistributing the Work and assume any risks associated with Your exercise of
 permissions under this License.
 
-8. Limitation of Liability.
+1. Limitation of Liability.
 
 In no event and under no legal theory, whether in tort (including negligence),
 contract, or otherwise, unless required by applicable law (such as deliberate
@@ -153,7 +153,7 @@ damages for loss of goodwill, work stoppage, computer failure or malfunction, or
 any and all other commercial damages or losses), even if such Contributor has
 been advised of the possibility of such damages.
 
-9. Accepting Warranty or Additional Liability.
+1. Accepting Warranty or Additional Liability.
 
 While redistributing the Work or Derivative Works thereof, You may choose to
 offer, and charge a fee for, acceptance of support, warranty, indemnity, or

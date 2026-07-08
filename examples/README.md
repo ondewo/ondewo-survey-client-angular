@@ -8,8 +8,8 @@ service, so the examples are verified without a live backend:
 npm test
 ```
 
-| Example                                              | Shows                                                                 |
-| ---------------------------------------------------- | --------------------------------------------------------------------- |
+| Example                                                | Shows                                                                 |
+| ------------------------------------------------------ | --------------------------------------------------------------------- |
 | [`list-surveys.example.ts`](./list-surveys.example.ts) | Injecting `SurveysClient`, building a request, handling the response. |
 
 ## Authentication (Keycloak bearer token)

@@ -1,0 +1,70 @@
+#############################################################################################
+# pre-commit — language-agnostic hooks for this non-python repo (angular/ts client).        #
+# Language-specific linting/formatting stays with the repo's own toolchain (eslint/prettier #
+# via husky). Ruff/mypy/uv are python-only and NOT included here.                           #
+#############################################################################################
+
+# Never touch generated / vendored code. Excluded here:
+#   node_modules/                       — installed deps
+#   api/                                — generated protobuf-ts stubs (*.pb.ts/*.pbconf.ts/*.pbsc.ts)
+#   fesm2022/                           — generated angular fesm bundle (*.mjs/*.mjs.map)
+#   src/ondewo-survey-api/              — git submodule (proto api)
+#   ondewo-proto-compiler/              — git submodule (proto compiler)
+#   ondewo-*-api/                       — any vendored proto api
+#   package-lock.json                   — lockfile
+#   index.d.ts / *.d.ts / *.d.ts.map    — generated type declarations + maps
+#   *.metadata.json                     — generated angular metadata
+exclude: >
+  (?x)^(
+    node_modules/.*|
+    api/.*|
+    fesm2022/.*|
+    src/ondewo-survey-api/.*|
+    ondewo-proto-compiler/.*|
+    ondewo-.*-api/.*|
+    package-lock\.json|
+    index\.d\.ts|
+    public-api\.d\.ts\.map|
+    ondewo-survey-client-angular\.(d\.ts|d\.ts\.map|metadata\.json)|
+    .*\.d\.ts|
+    .*\.d\.ts\.map|
+    .*\.metadata\.json
+  )$
+
+fail_fast: false
+
+repos:
+
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.23.0
+    hooks:
+      - id: markdownlint-cli2
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-added-large-files
+        args: [ maxkb=1024 ]
+      - id: check-json          # validate (does NOT reformat) json/package.json
+      - id: check-yaml
+      - id: check-xml
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: detect-private-key
+      - id: check-executables-have-shebangs
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+
+  - repo: https://github.com/milin/giticket
+    rev: '1.92'
+    hooks:
+      - id: giticket
+        args: [ '--regex=(?:(?:feature|bugfix|support|hotfix)/)?(OND[0-9]{3}-[0-9]{1,5})[_-][\w-]+',
+                '--format=[{ticket}] {commit_msg}',
+                '--mode=regex_match' ]
+
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v4.4.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [ commit-msg ]
