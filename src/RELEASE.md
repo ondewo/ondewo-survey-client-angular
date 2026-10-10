@@ -2,6 +2,27 @@
 
 *****************
 
+## Release ONDEWO Survey Angular Client 2.0.3
+
+### Bug Fixes
+
+* The hand-written Keycloak bearer-auth surface (`AuthGrpcInterceptor`, `authHttpInterceptor`, the auth providers, `KeycloakTokenProvider`, `TokenProvider`) is now part of the published package. 2.0.2 announced its re-export but was built with ondewo-proto-compiler 5.10.0, which emits no such export, so no auth symbol reached npm; and with any newer compiler the build failed with `error TS2307: Cannot find module './lib/auth'`, because the sources lived under `src/lib`, the ng-packagr `dest` that ng-packagr deletes before compiling. They moved to `src/auth`, and a jest guard (`src/auth/ng-packagr-dest.spec.ts`) fails when the barrel sits inside `dest` again.
+
+### Improvements
+
+* **TLS endpoint builder for the browser gRPC-web client.** `buildGrpcWebHost(config)` turns the `host` / `port` / `useSecureChannel` fields every ONDEWO SDK takes into the gRPC-web base URL: `https://` by default; `http://` only with `useSecureChannel: false`, and then a `console.warn` naming `host:port`. A bare IPv6 literal is bracketed; a host that already carries an `http(s)://` scheme is used as given, and an `http://` URL together with `useSecureChannel: true` is refused.
+* **Certificate and key fields are refused instead of being silently dropped.** In a browser the user agent owns the TLS handshake, so a non-empty `grpcCert`, `grpcClientCert` or `grpcClientKey` (or their snake_case spellings, listed in `BROWSER_UNSUPPORTED_TLS_FIELDS`) throws a `GrpcWebEndpointError`. An empty host, a `host:port` string and a port outside 1-65535 are refused as well. Error messages name the field, never its value.
+* README: new section "TLS, mutual TLS and certificates".
+* Regenerated with [ondewo-proto-compiler 5.15.7](https://github.com/ondewo/ondewo-proto-compiler/releases/tag/5.15.7).
+* Tracking API Version [2.0.1](https://github.com/ondewo/ondewo-survey-api/releases/tag/2.0.1) ( [Documentation](https://ondewo.github.io/ondewo-survey-api/) ); the API is now pinned to that tag instead of a feature branch. Its protos are identical to the ones 2.0.2's development tracked.
+* Release tooling: release credentials reach the recipes through the environment, never a process argv (pinned by a jest test); the dead `esm2022` staging and the detached-HEAD submodule pulls no longer break the release; markdownlint runs in a single batch so parallel hooks cannot rewrite the same file.
+
+### Tests
+
+* Unit tests for every TLS rule above, real-handshake tests against an HTTPS server with an in-test openssl PKI, and a jest spec that pins the release-notes slice and keeps `src/RELEASE.md` identical to `RELEASE.md`.
+
+*****************
+
 ## Release ONDEWO Survey Angular Client 2.0.2
 
 ### Bug Fixes
