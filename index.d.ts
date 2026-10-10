@@ -4,14 +4,440 @@ import {
 	ToProtobufJSONOptions,
 	GrpcMetadata,
 	GrpcEvent,
-	GrpcClientFactory
+	GrpcClientFactory,
+	GrpcRequest
 } from '@ngx-grpc/common';
 import { ByteSource, BinaryReader, BinaryWriter } from 'google-protobuf';
 import * as googleProtobuf006 from '@ngx-grpc/well-known-types';
-import { GrpcHandler } from '@ngx-grpc/core';
-import { Observable } from 'rxjs';
 import * as i0 from '@angular/core';
-import { InjectionToken } from '@angular/core';
+import { InjectionToken, OnDestroy, Type, EnvironmentProviders } from '@angular/core';
+import { GrpcHandler, GrpcInterceptor } from '@ngx-grpc/core';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpRequest, HttpHandlerFn, HttpEvent } from '@angular/common/http';
+
+/**
+ * Message implementation for google.api.Http
+ */
+declare class Http implements GrpcMessage {
+	static id: string;
+	/**
+	 * Deserialize binary data to message
+	 * @param instance message instance
+	 */
+	static deserializeBinary(bytes: ByteSource): Http;
+	/**
+	 * Check all the properties and set default protobuf values if necessary
+	 * @param _instance message instance
+	 */
+	static refineValues(_instance: Http): void;
+	/**
+	 * Deserializes / reads binary message into message instance using provided binary reader
+	 * @param _instance message instance
+	 * @param _reader binary reader instance
+	 */
+	static deserializeBinaryFromReader(_instance: Http, _reader: BinaryReader): void;
+	/**
+	 * Serializes a message to binary format using provided binary reader
+	 * @param _instance message instance
+	 * @param _writer binary writer instance
+	 */
+	static serializeBinaryToWriter(_instance: Http, _writer: BinaryWriter): void;
+	private _rules?;
+	private _fullyDecodeReservedExpansion;
+	/**
+	 * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+	 * @param _value initial values object or instance of Http to deeply clone from
+	 */
+	constructor(_value?: RecursivePartial<Http.AsObject>);
+	get rules(): HttpRule[] | undefined;
+	set rules(value: HttpRule[] | undefined);
+	get fullyDecodeReservedExpansion(): boolean;
+	set fullyDecodeReservedExpansion(value: boolean);
+	/**
+	 * Serialize message to binary data
+	 * @param instance message instance
+	 */
+	serializeBinary(): any;
+	/**
+	 * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+	 */
+	toObject(): Http.AsObject;
+	/**
+	 * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+	 */
+	toJSON(): Http.AsObject;
+	/**
+	 * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+	 * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+	 * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+	 */
+	toProtobufJSON(options?: ToProtobufJSONOptions): Http.AsProtobufJSON;
+}
+declare namespace Http {
+	/**
+	 * Standard JavaScript object representation for Http
+	 */
+	interface AsObject {
+		rules?: HttpRule.AsObject[];
+		fullyDecodeReservedExpansion: boolean;
+	}
+	/**
+	 * Protobuf JSON representation for Http
+	 */
+	interface AsProtobufJSON {
+		rules: HttpRule.AsProtobufJSON[] | null;
+		fullyDecodeReservedExpansion: boolean;
+	}
+}
+/**
+ * Message implementation for google.api.HttpRule
+ */
+declare class HttpRule implements GrpcMessage {
+	static id: string;
+	/**
+	 * Deserialize binary data to message
+	 * @param instance message instance
+	 */
+	static deserializeBinary(bytes: ByteSource): HttpRule;
+	/**
+	 * Check all the properties and set default protobuf values if necessary
+	 * @param _instance message instance
+	 */
+	static refineValues(_instance: HttpRule): void;
+	/**
+	 * Deserializes / reads binary message into message instance using provided binary reader
+	 * @param _instance message instance
+	 * @param _reader binary reader instance
+	 */
+	static deserializeBinaryFromReader(_instance: HttpRule, _reader: BinaryReader): void;
+	/**
+	 * Serializes a message to binary format using provided binary reader
+	 * @param _instance message instance
+	 * @param _writer binary writer instance
+	 */
+	static serializeBinaryToWriter(_instance: HttpRule, _writer: BinaryWriter): void;
+	private _selector;
+	private _get;
+	private _put;
+	private _post;
+	private _delete;
+	private _patch;
+	private _custom?;
+	private _body;
+	private _responseBody;
+	private _additionalBindings?;
+	private _pattern;
+	/**
+	 * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+	 * @param _value initial values object or instance of HttpRule to deeply clone from
+	 */
+	constructor(_value?: RecursivePartial<HttpRule.AsObject>);
+	get selector(): string;
+	set selector(value: string);
+	get get(): string;
+	set get(value: string);
+	get put(): string;
+	set put(value: string);
+	get post(): string;
+	set post(value: string);
+	get delete(): string;
+	set delete(value: string);
+	get patch(): string;
+	set patch(value: string);
+	get custom(): CustomHttpPattern | undefined;
+	set custom(value: CustomHttpPattern | undefined);
+	get body(): string;
+	set body(value: string);
+	get responseBody(): string;
+	set responseBody(value: string);
+	get additionalBindings(): HttpRule[] | undefined;
+	set additionalBindings(value: HttpRule[] | undefined);
+	get pattern(): HttpRule.PatternCase;
+	/**
+	 * Serialize message to binary data
+	 * @param instance message instance
+	 */
+	serializeBinary(): any;
+	/**
+	 * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+	 */
+	toObject(): HttpRule.AsObject;
+	/**
+	 * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+	 */
+	toJSON(): HttpRule.AsObject;
+	/**
+	 * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+	 * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+	 * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+	 */
+	toProtobufJSON(options?: ToProtobufJSONOptions): HttpRule.AsProtobufJSON;
+}
+declare namespace HttpRule {
+	/**
+	 * Standard JavaScript object representation for HttpRule
+	 */
+	interface AsObject {
+		selector: string;
+		get: string;
+		put: string;
+		post: string;
+		delete: string;
+		patch: string;
+		custom?: CustomHttpPattern.AsObject;
+		body: string;
+		responseBody: string;
+		additionalBindings?: HttpRule.AsObject[];
+	}
+	/**
+	 * Protobuf JSON representation for HttpRule
+	 */
+	interface AsProtobufJSON {
+		selector: string;
+		get: string | null;
+		put: string | null;
+		post: string | null;
+		delete: string | null;
+		patch: string | null;
+		custom: CustomHttpPattern.AsProtobufJSON | null;
+		body: string;
+		responseBody: string;
+		additionalBindings: HttpRule.AsProtobufJSON[] | null;
+	}
+	enum PatternCase {
+		none = 0,
+		get = 1,
+		put = 2,
+		post = 3,
+		delete = 4,
+		patch = 5,
+		custom = 6
+	}
+}
+/**
+ * Message implementation for google.api.CustomHttpPattern
+ */
+declare class CustomHttpPattern implements GrpcMessage {
+	static id: string;
+	/**
+	 * Deserialize binary data to message
+	 * @param instance message instance
+	 */
+	static deserializeBinary(bytes: ByteSource): CustomHttpPattern;
+	/**
+	 * Check all the properties and set default protobuf values if necessary
+	 * @param _instance message instance
+	 */
+	static refineValues(_instance: CustomHttpPattern): void;
+	/**
+	 * Deserializes / reads binary message into message instance using provided binary reader
+	 * @param _instance message instance
+	 * @param _reader binary reader instance
+	 */
+	static deserializeBinaryFromReader(_instance: CustomHttpPattern, _reader: BinaryReader): void;
+	/**
+	 * Serializes a message to binary format using provided binary reader
+	 * @param _instance message instance
+	 * @param _writer binary writer instance
+	 */
+	static serializeBinaryToWriter(_instance: CustomHttpPattern, _writer: BinaryWriter): void;
+	private _kind;
+	private _path;
+	/**
+	 * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+	 * @param _value initial values object or instance of CustomHttpPattern to deeply clone from
+	 */
+	constructor(_value?: RecursivePartial<CustomHttpPattern.AsObject>);
+	get kind(): string;
+	set kind(value: string);
+	get path(): string;
+	set path(value: string);
+	/**
+	 * Serialize message to binary data
+	 * @param instance message instance
+	 */
+	serializeBinary(): any;
+	/**
+	 * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+	 */
+	toObject(): CustomHttpPattern.AsObject;
+	/**
+	 * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+	 */
+	toJSON(): CustomHttpPattern.AsObject;
+	/**
+	 * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+	 * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+	 * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+	 */
+	toProtobufJSON(options?: ToProtobufJSONOptions): CustomHttpPattern.AsProtobufJSON;
+}
+declare namespace CustomHttpPattern {
+	/**
+	 * Standard JavaScript object representation for CustomHttpPattern
+	 */
+	interface AsObject {
+		kind: string;
+		path: string;
+	}
+	/**
+	 * Protobuf JSON representation for CustomHttpPattern
+	 */
+	interface AsProtobufJSON {
+		kind: string;
+		path: string;
+	}
+}
+
+/**
+ * Message implementation for ondewo.survey.CreateFHIRSurveyRequest
+ */
+declare class CreateFHIRSurveyRequest implements GrpcMessage {
+	static id: string;
+	/**
+	 * Deserialize binary data to message
+	 * @param instance message instance
+	 */
+	static deserializeBinary(bytes: ByteSource): CreateFHIRSurveyRequest;
+	/**
+	 * Check all the properties and set default protobuf values if necessary
+	 * @param _instance message instance
+	 */
+	static refineValues(_instance: CreateFHIRSurveyRequest): void;
+	/**
+	 * Deserializes / reads binary message into message instance using provided binary reader
+	 * @param _instance message instance
+	 * @param _reader binary reader instance
+	 */
+	static deserializeBinaryFromReader(_instance: CreateFHIRSurveyRequest, _reader: BinaryReader): void;
+	/**
+	 * Serializes a message to binary format using provided binary reader
+	 * @param _instance message instance
+	 * @param _writer binary writer instance
+	 */
+	static serializeBinaryToWriter(_instance: CreateFHIRSurveyRequest, _writer: BinaryWriter): void;
+	private _fhirQuestionnaire?;
+	/**
+	 * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+	 * @param _value initial values object or instance of CreateFHIRSurveyRequest to deeply clone from
+	 */
+	constructor(_value?: RecursivePartial<CreateFHIRSurveyRequest.AsObject>);
+	get fhirQuestionnaire(): googleProtobuf006.Struct | undefined;
+	set fhirQuestionnaire(value: googleProtobuf006.Struct | undefined);
+	/**
+	 * Serialize message to binary data
+	 * @param instance message instance
+	 */
+	serializeBinary(): any;
+	/**
+	 * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+	 */
+	toObject(): CreateFHIRSurveyRequest.AsObject;
+	/**
+	 * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+	 */
+	toJSON(): CreateFHIRSurveyRequest.AsObject;
+	/**
+	 * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+	 * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+	 * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+	 */
+	toProtobufJSON(options?: ToProtobufJSONOptions): CreateFHIRSurveyRequest.AsProtobufJSON;
+}
+declare namespace CreateFHIRSurveyRequest {
+	/**
+	 * Standard JavaScript object representation for CreateFHIRSurveyRequest
+	 */
+	interface AsObject {
+		fhirQuestionnaire?: googleProtobuf006.Struct.AsObject;
+	}
+	/**
+	 * Protobuf JSON representation for CreateFHIRSurveyRequest
+	 */
+	interface AsProtobufJSON {
+		fhirQuestionnaire: googleProtobuf006.Struct.AsProtobufJSON | null;
+	}
+}
+/**
+ * Message implementation for ondewo.survey.SurveyFHIRAnswersResponse
+ */
+declare class SurveyFHIRAnswersResponse implements GrpcMessage {
+	static id: string;
+	/**
+	 * Deserialize binary data to message
+	 * @param instance message instance
+	 */
+	static deserializeBinary(bytes: ByteSource): SurveyFHIRAnswersResponse;
+	/**
+	 * Check all the properties and set default protobuf values if necessary
+	 * @param _instance message instance
+	 */
+	static refineValues(_instance: SurveyFHIRAnswersResponse): void;
+	/**
+	 * Deserializes / reads binary message into message instance using provided binary reader
+	 * @param _instance message instance
+	 * @param _reader binary reader instance
+	 */
+	static deserializeBinaryFromReader(_instance: SurveyFHIRAnswersResponse, _reader: BinaryReader): void;
+	/**
+	 * Serializes a message to binary format using provided binary reader
+	 * @param _instance message instance
+	 * @param _writer binary writer instance
+	 */
+	static serializeBinaryToWriter(_instance: SurveyFHIRAnswersResponse, _writer: BinaryWriter): void;
+	private _surveyId;
+	private _fhirQuestionnaireResponses?;
+	/**
+	 * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+	 * @param _value initial values object or instance of SurveyFHIRAnswersResponse to deeply clone from
+	 */
+	constructor(_value?: RecursivePartial<SurveyFHIRAnswersResponse.AsObject>);
+	get surveyId(): string;
+	set surveyId(value: string);
+	get fhirQuestionnaireResponses(): googleProtobuf006.Struct[] | undefined;
+	set fhirQuestionnaireResponses(value: googleProtobuf006.Struct[] | undefined);
+	/**
+	 * Serialize message to binary data
+	 * @param instance message instance
+	 */
+	serializeBinary(): any;
+	/**
+	 * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+	 */
+	toObject(): SurveyFHIRAnswersResponse.AsObject;
+	/**
+	 * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+	 */
+	toJSON(): SurveyFHIRAnswersResponse.AsObject;
+	/**
+	 * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+	 * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+	 * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+	 */
+	toProtobufJSON(options?: ToProtobufJSONOptions): SurveyFHIRAnswersResponse.AsProtobufJSON;
+}
+declare namespace SurveyFHIRAnswersResponse {
+	/**
+	 * Standard JavaScript object representation for SurveyFHIRAnswersResponse
+	 */
+	interface AsObject {
+		surveyId: string;
+		fhirQuestionnaireResponses?: googleProtobuf006.Struct.AsObject[];
+	}
+	/**
+	 * Protobuf JSON representation for SurveyFHIRAnswersResponse
+	 */
+	interface AsProtobufJSON {
+		surveyId: string;
+		fhirQuestionnaireResponses: googleProtobuf006.Struct.AsProtobufJSON[] | null;
+	}
+}
+
+/**
+ * Specific GrpcClientSettings for Fhir.
+ * Use it only if your default settings are not set or the service requires other settings.
+ */
+declare const GRPC_FHIR_CLIENT_SETTINGS: InjectionToken<any>;
 
 declare enum SubFlow {
 	SUBFLOW_UNSPECIFIED = 0,
@@ -1939,6 +2365,93 @@ declare namespace AgentSurveyResponse {
 }
 
 /**
+ * Service client implementation for ondewo.survey.FHIR
+ */
+declare class FHIRClient {
+	private handler;
+	private client;
+	/**
+	 * Raw RPC implementation for each service client method.
+	 * The raw methods provide more control on the incoming data and events. E.g. they can be useful to read status `OK` metadata.
+	 * Attention: these methods do not throw errors when non-zero status codes are received.
+	 */
+	$raw: {
+		/**
+		 * Unary call: /ondewo.survey.FHIR/CreateFHIRSurvey
+		 *
+		 * @param requestMessage Request message
+		 * @param requestMetadata Request metadata
+		 * @returns Observable<GrpcEvent<ondewoSurvey005.Survey>>
+		 */
+		createFHIRSurvey: (
+			requestData: CreateFHIRSurveyRequest,
+			requestMetadata?: GrpcMetadata
+		) => Observable<GrpcEvent<Survey>>;
+		/**
+		 * Unary call: /ondewo.survey.FHIR/GetFHIRSurveyAnswers
+		 *
+		 * @param requestMessage Request message
+		 * @param requestMetadata Request metadata
+		 * @returns Observable<GrpcEvent<thisProto.SurveyFHIRAnswersResponse>>
+		 */
+		getFHIRSurveyAnswers: (
+			requestData: GetSurveyAnswersRequest,
+			requestMetadata?: GrpcMetadata
+		) => Observable<GrpcEvent<SurveyFHIRAnswersResponse>>;
+		/**
+		 * Unary call: /ondewo.survey.FHIR/GetAllFHIRSurveyAnswers
+		 *
+		 * @param requestMessage Request message
+		 * @param requestMetadata Request metadata
+		 * @returns Observable<GrpcEvent<thisProto.SurveyFHIRAnswersResponse>>
+		 */
+		getAllFHIRSurveyAnswers: (
+			requestData: GetAllSurveyAnswersRequest,
+			requestMetadata?: GrpcMetadata
+		) => Observable<GrpcEvent<SurveyFHIRAnswersResponse>>;
+	};
+	constructor(settings: any, clientFactory: GrpcClientFactory<any>, handler: GrpcHandler);
+	/**
+	 * Unary call @/ondewo.survey.FHIR/CreateFHIRSurvey
+	 *
+	 * @param requestMessage Request message
+	 * @param requestMetadata Request metadata
+	 * @returns Observable<ondewoSurvey005.Survey>
+	 */
+	createFHIRSurvey(requestData: CreateFHIRSurveyRequest, requestMetadata?: GrpcMetadata): Observable<Survey>;
+	/**
+	 * Unary call @/ondewo.survey.FHIR/GetFHIRSurveyAnswers
+	 *
+	 * @param requestMessage Request message
+	 * @param requestMetadata Request metadata
+	 * @returns Observable<thisProto.SurveyFHIRAnswersResponse>
+	 */
+	getFHIRSurveyAnswers(
+		requestData: GetSurveyAnswersRequest,
+		requestMetadata?: GrpcMetadata
+	): Observable<SurveyFHIRAnswersResponse>;
+	/**
+	 * Unary call @/ondewo.survey.FHIR/GetAllFHIRSurveyAnswers
+	 *
+	 * @param requestMessage Request message
+	 * @param requestMetadata Request metadata
+	 * @returns Observable<thisProto.SurveyFHIRAnswersResponse>
+	 */
+	getAllFHIRSurveyAnswers(
+		requestData: GetAllSurveyAnswersRequest,
+		requestMetadata?: GrpcMetadata
+	): Observable<SurveyFHIRAnswersResponse>;
+	static ɵfac: i0.ɵɵFactoryDeclaration<FHIRClient, [{ optional: true }, null, null]>;
+	static ɵprov: i0.ɵɵInjectableDeclaration<FHIRClient>;
+}
+
+/**
+ * Specific GrpcClientSettings for Surveys.
+ * Use it only if your default settings are not set or the service requires other settings.
+ */
+declare const GRPC_SURVEYS_CLIENT_SETTINGS: InjectionToken<any>;
+
+/**
  * Service client implementation for ondewo.survey.Surveys
  */
 declare class SurveysClient {
@@ -2147,520 +2660,532 @@ declare class SurveysClient {
 }
 
 /**
- * Specific GrpcClientSettings for Fhir.
- * Use it only if your default settings are not set or the service requires other settings.
+ * The set of shapes a {@link TokenProvider} is allowed to return for the current
+ * access token.
+ *
+ * - `string` — a ready, synchronous token.
+ * - `null` — there is no token right now (the user is unauthenticated). The
+ *   request must be sent unchanged, never with an empty `Bearer` header.
+ * - `Promise<...>` / `Observable<...>` — an asynchronous source (e.g.
+ *   `keycloak.updateToken()` from `keycloak-js`, or `KeycloakService` from
+ *   `keycloak-angular`) that resolves to a token or `null`.
  */
-declare const GRPC_FHIR_CLIENT_SETTINGS: InjectionToken<any>;
+type TokenResult = string | null | Promise<string | null> | Observable<string | null>;
+/**
+ * Contract the consuming application implements to feed the current Keycloak
+ * access token into this library's auth interceptors.
+ *
+ * SECURITY: this client deliberately does NOT perform any OAuth/OIDC flow
+ * itself — no Resource Owner Password Credentials grant, no client secret, no
+ * token storage. Acquiring, refreshing and storing the token is the
+ * responsibility of a dedicated, browser-safe library (`keycloak-js` /
+ * `keycloak-angular`) in the host application. This client only reads the
+ * current token and attaches it as a bearer credential to outgoing requests.
+ *
+ * Implementations should return the freshest token they have. Returning a
+ * `Promise`/`Observable` lets the implementation refresh a soon-to-expire token
+ * before the request is sent (e.g. `keycloak.updateToken(30)`).
+ */
+interface TokenProvider {
+	/**
+	 * Return the current access token, or `null` when the user is not
+	 * authenticated. May be synchronous or asynchronous.
+	 */
+	getToken(): TokenResult;
+}
+/**
+ * DI token under which the consuming application registers its
+ * {@link TokenProvider} implementation.
+ *
+ * Example:
+ *
+ * ```ts
+ * providers: [
+ *   { provide: TOKEN_PROVIDER, useExisting: KeycloakTokenProvider },
+ * ]
+ * ```
+ */
+declare const TOKEN_PROVIDER: InjectionToken<TokenProvider>;
 
 /**
- * Specific GrpcClientSettings for Surveys.
- * Use it only if your default settings are not set or the service requires other settings.
+ * Seconds of head-room subtracted from a token's `expires_in` so the background
+ * refresh fires *before* the access token actually lapses (covers clock skew and
+ * the round-trip to Keycloak). Mirrors the nodejs SDK's `REFRESH_SKEW_IN_S` and the
+ * python SDK's `_EXPIRY_LEEWAY_S`.
  */
-declare const GRPC_SURVEYS_CLIENT_SETTINGS: InjectionToken<any>;
-
+declare const REFRESH_SKEW_IN_S: number;
 /**
- * Message implementation for ondewo.survey.CreateFHIRSurveyRequest
+ * Lower bound (in seconds) for the scheduled refresh delay so a tiny / zero
+ * `expires_in` cannot spin a hot refresh loop.
  */
-declare class CreateFHIRSurveyRequest implements GrpcMessage {
-	static id: string;
-	/**
-	 * Deserialize binary data to message
-	 * @param instance message instance
-	 */
-	static deserializeBinary(bytes: ByteSource): CreateFHIRSurveyRequest;
-	/**
-	 * Check all the properties and set default protobuf values if necessary
-	 * @param _instance message instance
-	 */
-	static refineValues(_instance: CreateFHIRSurveyRequest): void;
-	/**
-	 * Deserializes / reads binary message into message instance using provided binary reader
-	 * @param _instance message instance
-	 * @param _reader binary reader instance
-	 */
-	static deserializeBinaryFromReader(_instance: CreateFHIRSurveyRequest, _reader: BinaryReader): void;
-	/**
-	 * Serializes a message to binary format using provided binary reader
-	 * @param _instance message instance
-	 * @param _writer binary writer instance
-	 */
-	static serializeBinaryToWriter(_instance: CreateFHIRSurveyRequest, _writer: BinaryWriter): void;
-	private _fhirQuestionnaire?;
-	/**
-	 * Message constructor. Initializes the properties and applies default Protobuf values if necessary
-	 * @param _value initial values object or instance of CreateFHIRSurveyRequest to deeply clone from
-	 */
-	constructor(_value?: RecursivePartial<CreateFHIRSurveyRequest.AsObject>);
-	get fhirQuestionnaire(): googleProtobuf006.Struct | undefined;
-	set fhirQuestionnaire(value: googleProtobuf006.Struct | undefined);
-	/**
-	 * Serialize message to binary data
-	 * @param instance message instance
-	 */
-	serializeBinary(): any;
-	/**
-	 * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
-	 */
-	toObject(): CreateFHIRSurveyRequest.AsObject;
-	/**
-	 * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
-	 */
-	toJSON(): CreateFHIRSurveyRequest.AsObject;
-	/**
-	 * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
-	 * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
-	 * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
-	 */
-	toProtobufJSON(options?: ToProtobufJSONOptions): CreateFHIRSurveyRequest.AsProtobufJSON;
-}
-declare namespace CreateFHIRSurveyRequest {
-	/**
-	 * Standard JavaScript object representation for CreateFHIRSurveyRequest
-	 */
-	interface AsObject {
-		fhirQuestionnaire?: googleProtobuf006.Struct.AsObject;
-	}
-	/**
-	 * Protobuf JSON representation for CreateFHIRSurveyRequest
-	 */
-	interface AsProtobufJSON {
-		fhirQuestionnaire: googleProtobuf006.Struct.AsProtobufJSON | null;
-	}
-}
+declare const MIN_REFRESH_DELAY_IN_S: number;
 /**
- * Message implementation for ondewo.survey.SurveyFHIRAnswersResponse
+ * Configuration for the {@link KeycloakTokenProvider}.
+ *
+ * Exactly one credential mode must be supplied:
+ *
+ * - an `offlineToken` (a previously-obtained offline / refresh token), or
+ * - a `username` + `password` pair (Resource Owner Password Credentials grant
+ *   against a *public* SDK client with the `offline_access` scope).
+ *
+ * The provider performs a one-time login, then keeps the short-lived access token
+ * fresh in the background from the (rotating) refresh token.
  */
-declare class SurveyFHIRAnswersResponse implements GrpcMessage {
-	static id: string;
+interface KeycloakTokenProviderConfig {
 	/**
-	 * Deserialize binary data to message
-	 * @param instance message instance
+	 * Base Keycloak URL, e.g. `"https://auth.example.com/auth"` or
+	 * `"https://auth.example.com"`. A trailing slash is tolerated.
 	 */
-	static deserializeBinary(bytes: ByteSource): SurveyFHIRAnswersResponse;
+	keycloakUrl: string;
+	/** Realm name, e.g. `"ondewo-ccai-platform"`. */
+	realm: string;
 	/**
-	 * Check all the properties and set default protobuf values if necessary
-	 * @param _instance message instance
+	 * Public SDK client id, e.g. `"ondewo-nlu-cai-sdk-public"`. No `client_secret`
+	 * is ever sent (the client is public).
 	 */
-	static refineValues(_instance: SurveyFHIRAnswersResponse): void;
+	clientId: string;
 	/**
-	 * Deserializes / reads binary message into message instance using provided binary reader
-	 * @param _instance message instance
-	 * @param _reader binary reader instance
+	 * A previously-obtained offline / refresh token. When set, the provider seeds
+	 * its first access token via a `refresh_token` grant instead of a password
+	 * login. Mutually exclusive with {@link username} / {@link password}.
 	 */
-	static deserializeBinaryFromReader(_instance: SurveyFHIRAnswersResponse, _reader: BinaryReader): void;
+	offlineToken?: string;
 	/**
-	 * Serializes a message to binary format using provided binary reader
-	 * @param _instance message instance
-	 * @param _writer binary writer instance
+	 * 2FA-exempt technical-user email / username for the password grant. Required
+	 * (with {@link password}) when no {@link offlineToken} is supplied.
 	 */
-	static serializeBinaryToWriter(_instance: SurveyFHIRAnswersResponse, _writer: BinaryWriter): void;
-	private _surveyId;
-	private _fhirQuestionnaireResponses?;
+	username?: string;
 	/**
-	 * Message constructor. Initializes the properties and applies default Protobuf values if necessary
-	 * @param _value initial values object or instance of SurveyFHIRAnswersResponse to deeply clone from
+	 * Technical-user password for the password grant. Required (with
+	 * {@link username}) when no {@link offlineToken} is supplied.
 	 */
-	constructor(_value?: RecursivePartial<SurveyFHIRAnswersResponse.AsObject>);
-	get surveyId(): string;
-	set surveyId(value: string);
-	get fhirQuestionnaireResponses(): googleProtobuf006.Struct[] | undefined;
-	set fhirQuestionnaireResponses(value: googleProtobuf006.Struct[] | undefined);
+	password?: string;
 	/**
-	 * Serialize message to binary data
-	 * @param instance message instance
-	 */
-	serializeBinary(): any;
-	/**
-	 * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
-	 */
-	toObject(): SurveyFHIRAnswersResponse.AsObject;
-	/**
-	 * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
-	 */
-	toJSON(): SurveyFHIRAnswersResponse.AsObject;
-	/**
-	 * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
-	 * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
-	 * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
-	 */
-	toProtobufJSON(options?: ToProtobufJSONOptions): SurveyFHIRAnswersResponse.AsProtobufJSON;
-}
-declare namespace SurveyFHIRAnswersResponse {
-	/**
-	 * Standard JavaScript object representation for SurveyFHIRAnswersResponse
-	 */
-	interface AsObject {
-		surveyId: string;
-		fhirQuestionnaireResponses?: googleProtobuf006.Struct.AsObject[];
-	}
-	/**
-	 * Protobuf JSON representation for SurveyFHIRAnswersResponse
-	 */
-	interface AsProtobufJSON {
-		surveyId: string;
-		fhirQuestionnaireResponses: googleProtobuf006.Struct.AsProtobufJSON[] | null;
-	}
-}
-
-/**
- * Service client implementation for ondewo.survey.FHIR
- */
-declare class FHIRClient {
-	private handler;
-	private client;
-	/**
-	 * Raw RPC implementation for each service client method.
-	 * The raw methods provide more control on the incoming data and events. E.g. they can be useful to read status `OK` metadata.
-	 * Attention: these methods do not throw errors when non-zero status codes are received.
-	 */
-	$raw: {
-		/**
-		 * Unary call: /ondewo.survey.FHIR/CreateFHIRSurvey
-		 *
-		 * @param requestMessage Request message
-		 * @param requestMetadata Request metadata
-		 * @returns Observable<GrpcEvent<ondewoSurvey005.Survey>>
-		 */
-		createFHIRSurvey: (
-			requestData: CreateFHIRSurveyRequest,
-			requestMetadata?: GrpcMetadata
-		) => Observable<GrpcEvent<Survey>>;
-		/**
-		 * Unary call: /ondewo.survey.FHIR/GetFHIRSurveyAnswers
-		 *
-		 * @param requestMessage Request message
-		 * @param requestMetadata Request metadata
-		 * @returns Observable<GrpcEvent<thisProto.SurveyFHIRAnswersResponse>>
-		 */
-		getFHIRSurveyAnswers: (
-			requestData: GetSurveyAnswersRequest,
-			requestMetadata?: GrpcMetadata
-		) => Observable<GrpcEvent<SurveyFHIRAnswersResponse>>;
-		/**
-		 * Unary call: /ondewo.survey.FHIR/GetAllFHIRSurveyAnswers
-		 *
-		 * @param requestMessage Request message
-		 * @param requestMetadata Request metadata
-		 * @returns Observable<GrpcEvent<thisProto.SurveyFHIRAnswersResponse>>
-		 */
-		getAllFHIRSurveyAnswers: (
-			requestData: GetAllSurveyAnswersRequest,
-			requestMetadata?: GrpcMetadata
-		) => Observable<GrpcEvent<SurveyFHIRAnswersResponse>>;
-	};
-	constructor(settings: any, clientFactory: GrpcClientFactory<any>, handler: GrpcHandler);
-	/**
-	 * Unary call @/ondewo.survey.FHIR/CreateFHIRSurvey
+	 * Whether to verify the Keycloak server's TLS certificate on the
+	 * token-endpoint call. Defaults to `true` (secure).
 	 *
-	 * @param requestMessage Request message
-	 * @param requestMetadata Request metadata
-	 * @returns Observable<ondewoSurvey005.Survey>
+	 * NO-OP IN THIS ANGULAR/BROWSER CLIENT. The token request is made with
+	 * Angular's `HttpClient` (an XHR/fetch call), and in a browser the TLS
+	 * handshake is owned by the user agent — there is no `https.Agent`, undici
+	 * dispatcher, or `rejectUnauthorized` hook that app code can reach, and
+	 * `HttpClient`'s request options expose no certificate-verification slot. The
+	 * value is therefore stored on the provider for cross-SDK config parity with
+	 * the Python/Node.js clients (where it does disable TLS verification) but has
+	 * no effect on the outgoing request here. For a self-signed local Envoy at
+	 * `https://localhost:12001/auth`, the certificate must be trusted at the
+	 * browser/OS level instead.
 	 */
-	createFHIRSurvey(requestData: CreateFHIRSurveyRequest, requestMetadata?: GrpcMetadata): Observable<Survey>;
+	keycloakVerifySsl?: boolean;
+}
+/**
+ * DI token under which the consuming application supplies the
+ * {@link KeycloakTokenProviderConfig} consumed by {@link KeycloakTokenProvider}.
+ *
+ * Example:
+ *
+ * ```ts
+ * providers: [
+ *   {
+ *     provide: KEYCLOAK_TOKEN_PROVIDER_CONFIG,
+ *     useValue: {
+ *       keycloakUrl: "https://auth.example.com/auth",
+ *       realm: "ondewo-ccai-platform",
+ *       clientId: "ondewo-nlu-cai-sdk-public",
+ *       username: "svc-user@example.com",
+ *       password: "…",
+ *     } satisfies KeycloakTokenProviderConfig,
+ *   },
+ *   provideOndewoSurveyAuth(KeycloakTokenProvider),
+ * ]
+ * ```
+ */
+declare const KEYCLOAK_TOKEN_PROVIDER_CONFIG: InjectionToken<KeycloakTokenProviderConfig>;
+/** Raised on any token-endpoint failure or unusable token response. */
+declare class KeycloakTokenError extends Error {
 	/**
-	 * Unary call @/ondewo.survey.FHIR/GetFHIRSurveyAnswers
-	 *
-	 * @param requestMessage Request message
-	 * @param requestMetadata Request metadata
-	 * @returns Observable<thisProto.SurveyFHIRAnswersResponse>
+	 * @param message a human-readable description of the token failure.
 	 */
-	getFHIRSurveyAnswers(
-		requestData: GetSurveyAnswersRequest,
-		requestMetadata?: GrpcMetadata
-	): Observable<SurveyFHIRAnswersResponse>;
+	constructor(message: string);
+}
+/**
+ * Concrete, ready-to-use {@link TokenProvider} that performs the Keycloak headless
+ * offline-token flow itself so a consuming application gets background access-token
+ * refresh without implementing {@link TokenProvider}.
+ *
+ * On construction it logs in once against the realm's OIDC token endpoint — either
+ * with a supplied offline / refresh token (`grant_type=refresh_token`) or a
+ * username + password (`grant_type=password`, `scope=offline_access`) against a
+ * *public* SDK client (no `client_secret`). It then arms a background timer that
+ * refreshes the access token shortly *before* it expires (skew + deadline clamp,
+ * mirroring the nodejs `OfflineTokenProvider` and the python `KeycloakTokenProvider`).
+ *
+ * {@link getToken} returns the current valid access token synchronously, or `null`
+ * before the first login completes (so the interceptors send the request unchanged
+ * rather than with an empty `Bearer` header). Register it with
+ * `provideOndewoSurveyAuth(KeycloakTokenProvider)` and supply a
+ * {@link KeycloakTokenProviderConfig} under {@link KEYCLOAK_TOKEN_PROVIDER_CONFIG}.
+ */
+declare class KeycloakTokenProvider implements TokenProvider, OnDestroy {
+	private readonly http;
+	/** Pre-computed OIDC token endpoint URL for the configured realm. */
+	private readonly tokenEndpoint;
+	/** Public SDK client id sent on every token request (no `client_secret`). */
+	private readonly clientId;
 	/**
-	 * Unary call @/ondewo.survey.FHIR/GetAllFHIRSurveyAnswers
-	 *
-	 * @param requestMessage Request message
-	 * @param requestMetadata Request metadata
-	 * @returns Observable<thisProto.SurveyFHIRAnswersResponse>
+	 * Whether TLS-certificate verification is requested for the token-endpoint
+	 * call. Defaults to `true`. Stored for cross-SDK config parity only — it is a
+	 * NO-OP in this browser client (the browser owns the TLS handshake), so the
+	 * outgoing {@link postTokenRequest} call is unaffected by its value. See
+	 * {@link KeycloakTokenProviderConfig.keycloakVerifySsl}.
 	 */
-	getAllFHIRSurveyAnswers(
-		requestData: GetAllSurveyAnswersRequest,
-		requestMetadata?: GrpcMetadata
-	): Observable<SurveyFHIRAnswersResponse>;
-	static ɵfac: i0.ɵɵFactoryDeclaration<FHIRClient, [{ optional: true }, null, null]>;
-	static ɵprov: i0.ɵɵInjectableDeclaration<FHIRClient>;
+	private readonly verifySsl;
+	/** Pre-validated form params for the one-time login grant (password or refresh). */
+	private readonly loginParams;
+	/** The current access token, or `null` before the first login completes. */
+	private accessToken;
+	/** The current (rotating) offline refresh token, or `null` before login. */
+	private refreshToken;
+	/** Handle of the armed refresh timer, or `null` when none is scheduled. */
+	private timer;
+	/** Whether {@link ngOnDestroy} ran; suppresses any further (re-)scheduling. */
+	private destroyed;
+	/** Resolves once the first login completes; lets callers await readiness. */
+	private readonly ready;
+	/**
+	 * Construct the provider and start the one-time login + background refresh loop.
+	 *
+	 * @param http the Angular {@link HttpClient} used for the token-endpoint calls.
+	 * @param config the {@link KeycloakTokenProviderConfig}, injected under
+	 *   {@link KEYCLOAK_TOKEN_PROVIDER_CONFIG}.
+	 * @throws KeycloakTokenError synchronously when no config is provided or the
+	 *   credential fields are missing / inconsistent.
+	 */
+	constructor(http: HttpClient, config: KeycloakTokenProviderConfig | null);
+	/**
+	 * Return the current access token.
+	 *
+	 * @returns the current valid access token, or `null` before the first login
+	 *   completes (the interceptors then forward the request unchanged).
+	 */
+	getToken(): TokenResult;
+	/**
+	 * The resolved TLS-verification setting from
+	 * {@link KeycloakTokenProviderConfig.keycloakVerifySsl} (defaults to `true`).
+	 *
+	 * Exposed for cross-SDK config parity and introspection only. It is a NO-OP in
+	 * this browser client — the browser owns the TLS handshake, so the value never
+	 * reaches {@link postTokenRequest} and does not change the outgoing request.
+	 *
+	 * @returns `true` when TLS verification is requested (the default), `false`
+	 *   when the config explicitly opted out (still inert here).
+	 */
+	get keycloakVerifySsl(): boolean;
+	/**
+	 * Await the one-time login that seeds the first access token.
+	 *
+	 * Awaiting is optional — {@link getToken} simply returns `null` until login
+	 * completes — but a consumer can `await provider.whenReady()` at bootstrap to
+	 * fail fast on bad credentials.
+	 *
+	 * @returns a promise that resolves once the first token is stored, or rejects
+	 *   with the {@link KeycloakTokenError} from a failed login.
+	 */
+	whenReady(): Promise<void>;
+	/** Stop the background refresh loop. Idempotent; safe to call from any state. */
+	ngOnDestroy(): void;
+	/**
+	 * Validate a config and build the one-time login grant params from it.
+	 *
+	 * Prefers a `refresh_token` grant when an `offlineToken` is supplied, otherwise a
+	 * `password` grant with `scope=offline_access`. This is the single point where the
+	 * credential fields are validated and narrowed to `string`.
+	 *
+	 * @param config the config to validate.
+	 * @returns the form params for the login grant.
+	 * @throws KeycloakTokenError when a required base field is absent / empty, or when
+	 *   neither an offline token nor a username + password pair is supplied.
+	 */
+	private static buildLoginParams;
+	/**
+	 * Perform the one-time login (using the pre-built {@link loginParams}) and arm the
+	 * first refresh.
+	 *
+	 * @returns a promise that resolves once the first token is stored and the refresh
+	 *   is armed.
+	 * @throws KeycloakTokenError when the token endpoint fails or the response carries
+	 *   no usable `access_token`.
+	 */
+	private login;
+	/**
+	 * Exchange the current refresh token for a fresh access token and re-arm the
+	 * next refresh. No-ops once {@link ngOnDestroy} has run.
+	 *
+	 * @returns a promise that resolves once the token is refreshed and the next
+	 *   refresh is armed.
+	 * @throws KeycloakTokenError when there is no refresh token or the endpoint call
+	 *   returns an unusable body.
+	 */
+	private refresh;
+	/**
+	 * Store the access token and (rotated) refresh token from a token response.
+	 *
+	 * Keycloak may omit the refresh token on a refresh; the previous one is kept in
+	 * that case so a same-token refresh does not blank out the offline token.
+	 *
+	 * @param response the parsed token-endpoint response.
+	 * @throws KeycloakTokenError when the response carries no `access_token`.
+	 */
+	private store;
+	/**
+	 * Arm a single timer for the next refresh.
+	 *
+	 * The delay is `expires_in` minus {@link REFRESH_SKEW_IN_S}, floored at
+	 * {@link MIN_REFRESH_DELAY_IN_S}; a missing / non-positive `expires_in` falls
+	 * back to {@link MIN_REFRESH_DELAY_IN_S}.
+	 *
+	 * @param expiresInRaw the `expires_in` (seconds) from the latest token response.
+	 */
+	private scheduleRefresh;
+	/**
+	 * POST a form-encoded body to the token endpoint and return the parsed JSON.
+	 *
+	 * @param params the form fields (grant type, client id, credentials).
+	 * @returns the parsed {@link KeycloakTokenResponse}.
+	 * @throws KeycloakTokenError when the request fails (the {@link HttpClient}
+	 *   error is wrapped).
+	 */
+	private postTokenRequest;
+	/**
+	 * Build the realm's OIDC token endpoint URL, tolerating a trailing slash on the
+	 * base URL.
+	 *
+	 * @param keycloakUrl the base Keycloak URL (trailing slashes are stripped).
+	 * @param realm the realm name; URL-encoded into the path.
+	 * @returns the fully-qualified `.../protocol/openid-connect/token` URL.
+	 */
+	private static buildTokenEndpoint;
+	/**
+	 * Render an unknown caught value as a short string for error messages.
+	 *
+	 * @param error the caught value.
+	 * @returns the `message` of an `Error`, the value itself when it is already a
+	 *   string, otherwise a JSON rendering (falling back to a fixed label for
+	 *   values that cannot be stringified).
+	 */
+	private static describe;
+	static ɵfac: i0.ɵɵFactoryDeclaration<KeycloakTokenProvider, [null, { optional: true }]>;
+	static ɵprov: i0.ɵɵInjectableDeclaration<KeycloakTokenProvider>;
 }
 
 /**
- * Message implementation for google.api.Http
+ * The HTTP / gRPC header under which the bearer credential is attached.
+ *
+ * Canonical `Authorization` casing: gRPC-web metadata keys and Angular
+ * `HttpHeaders` are case-insensitive, so the capitalized form is safe on the
+ * wire and matches the platform-wide convention.
  */
-declare class Http implements GrpcMessage {
-	static id: string;
+declare const AUTHORIZATION_HEADER: string;
+/** The credential scheme prefix prepended to the raw access token. */
+declare const BEARER_PREFIX: string;
+/**
+ * Normalize the value returned by a `TokenProvider.getToken()` call — which may
+ * be a `string`, `null`, a `Promise` or an `Observable` — into a single
+ * `Observable<string | null>` that emits exactly once.
+ *
+ * A non-empty token is returned trimmed; `null`, `undefined`, an empty string
+ * and a whitespace-only string are all collapsed to `null` so callers have a
+ * single "no usable token" signal and never build an empty `Bearer` header.
+ *
+ * @param result the raw value returned by `TokenProvider.getToken()`.
+ * @returns an observable emitting the usable token, or `null` when absent.
+ */
+declare function resolveToken(result: TokenResult): Observable<string | null>;
+/**
+ * Build the `Authorization` header value for a resolved token, or `null` when
+ * the token is absent.
+ *
+ * @param token a usable token, or `null`.
+ * @returns the `"Bearer <token>"` string, or `null` when there is no token.
+ */
+declare function buildBearerValue(token: string | null): string | null;
+/**
+ * Convenience wrapper: emit the ready-to-use `Authorization` header value, or
+ * `null` when no token is available.
+ *
+ * @param result the raw value returned by `TokenProvider.getToken()`.
+ * @returns an observable emitting the bearer header value, or `null`.
+ */
+declare function resolveBearerValue(result: TokenResult): Observable<string | null>;
+
+/**
+ * Functional Angular `HttpInterceptor` that attaches the current Keycloak access
+ * token as an `Authorization: Bearer <token>` header to outgoing HTTP requests.
+ *
+ * Behaviour:
+ * - token present  → a cloned request carrying the bearer header is forwarded.
+ * - token absent / empty → the original request is forwarded untouched (no empty
+ *   `Bearer` header is ever sent).
+ * - token source is async (Promise/Observable) → resolved before the request is
+ *   sent.
+ * - an existing `Authorization` header on the request is left untouched, so a
+ *   caller that already set credentials explicitly wins.
+ *
+ * Register it in the application's HTTP pipeline:
+ *
+ * ```ts
+ * provideHttpClient(withInterceptors([authHttpInterceptor]))
+ * ```
+ *
+ * Errors raised by the `TokenProvider` propagate to the caller (the request is
+ * not sent) so an authentication failure surfaces rather than silently issuing
+ * an unauthenticated request.
+ *
+ * @param req the outgoing HTTP request.
+ * @param next the next handler in the interceptor chain.
+ * @returns the stream of HTTP events for the (possibly authorized) request.
+ */
+declare function authHttpInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>>;
+
+/**
+ * `@ngx-grpc` interceptor that attaches the current Keycloak access token as an
+ * `authorization: Bearer <token>` entry on the gRPC-web request metadata. This
+ * is the gRPC-web counterpart of {@link authHttpInterceptor} and matches the
+ * `@ngx-grpc` client style used by every generated `*.pbsc.ts` service client in
+ * this library (e.g. `SurveysClient` and `FHIRClient` for the
+ * `ondewo.survey.Surveys` / `ondewo.survey.FHIR` services).
+ *
+ * Behaviour mirrors the HTTP interceptor:
+ * - token present → the bearer credential is set on `requestMetadata`.
+ * - token absent / empty → the request metadata is left untouched (no empty
+ *   `Bearer` value is ever attached).
+ * - token source is async (Promise/Observable) → resolved before the request is
+ *   handed to the next handler.
+ * - an `authorization` entry already present on the request metadata is left
+ *   untouched, so an explicitly-set credential wins.
+ *
+ * Register it via the standard `@ngx-grpc` multi-provider:
+ *
+ * ```ts
+ * providers: [
+ *   { provide: GRPC_INTERCEPTORS, useClass: AuthGrpcInterceptor, multi: true },
+ * ]
+ * ```
+ */
+declare class AuthGrpcInterceptor implements GrpcInterceptor {
+	private readonly tokenProvider;
 	/**
-	 * Deserialize binary data to message
-	 * @param instance message instance
+	 * @param tokenProvider the consuming application's {@link TokenProvider},
+	 *   injected under the {@link TOKEN_PROVIDER} DI token.
 	 */
-	static deserializeBinary(bytes: ByteSource): Http;
+	constructor(tokenProvider: TokenProvider);
 	/**
-	 * Check all the properties and set default protobuf values if necessary
-	 * @param _instance message instance
+	 * Attach the bearer credential (when available) to the request metadata, then
+	 * delegate to the next handler in the chain.
+	 *
+	 * @param request the intercepted gRPC request.
+	 * @param next the next handler to pass the request through.
+	 * @returns the stream of gRPC events for the (possibly authorized) request.
 	 */
-	static refineValues(_instance: Http): void;
-	/**
-	 * Deserializes / reads binary message into message instance using provided binary reader
-	 * @param _instance message instance
-	 * @param _reader binary reader instance
-	 */
-	static deserializeBinaryFromReader(_instance: Http, _reader: BinaryReader): void;
-	/**
-	 * Serializes a message to binary format using provided binary reader
-	 * @param _instance message instance
-	 * @param _writer binary writer instance
-	 */
-	static serializeBinaryToWriter(_instance: Http, _writer: BinaryWriter): void;
-	private _rules?;
-	private _fullyDecodeReservedExpansion;
-	/**
-	 * Message constructor. Initializes the properties and applies default Protobuf values if necessary
-	 * @param _value initial values object or instance of Http to deeply clone from
-	 */
-	constructor(_value?: RecursivePartial<Http.AsObject>);
-	get rules(): HttpRule[] | undefined;
-	set rules(value: HttpRule[] | undefined);
-	get fullyDecodeReservedExpansion(): boolean;
-	set fullyDecodeReservedExpansion(value: boolean);
-	/**
-	 * Serialize message to binary data
-	 * @param instance message instance
-	 */
-	serializeBinary(): any;
-	/**
-	 * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
-	 */
-	toObject(): Http.AsObject;
-	/**
-	 * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
-	 */
-	toJSON(): Http.AsObject;
-	/**
-	 * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
-	 * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
-	 * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
-	 */
-	toProtobufJSON(options?: ToProtobufJSONOptions): Http.AsProtobufJSON;
+	intercept<Q extends GrpcMessage, S extends GrpcMessage>(
+		request: GrpcRequest<Q, S>,
+		next: GrpcHandler
+	): Observable<GrpcEvent<S>>;
+	static ɵfac: i0.ɵɵFactoryDeclaration<AuthGrpcInterceptor, never>;
+	static ɵprov: i0.ɵɵInjectableDeclaration<AuthGrpcInterceptor>;
 }
-declare namespace Http {
+
+/**
+ * Wire a consuming application's {@link TokenProvider} implementation into this
+ * library and register the `@ngx-grpc` {@link AuthGrpcInterceptor} that uses it.
+ *
+ * This covers the gRPC-web side. For HTTP requests, additionally register the
+ * functional `authHttpInterceptor`:
+ *
+ * ```ts
+ * provideHttpClient(withInterceptors([authHttpInterceptor]))
+ * ```
+ *
+ * Usage in an application's `providers` (standalone bootstrap or `AppModule`):
+ *
+ * ```ts
+ * import { provideOndewoSurveyAuth } from "@ondewo/survey-client-angular";
+ *
+ * bootstrapApplication(AppComponent, {
+ *   providers: [
+ *     provideOndewoSurveyAuth(KeycloakTokenProvider),
+ *     provideHttpClient(withInterceptors([authHttpInterceptor])),
+ *   ],
+ * });
+ * ```
+ *
+ * @param tokenProvider the application's `TokenProvider` class (e.g. one that
+ *   wraps `keycloak-js` / `keycloak-angular`).
+ * @returns environment providers binding the token provider and the gRPC
+ *   interceptor.
+ */
+declare function provideOndewoSurveyAuth(tokenProvider: Type<TokenProvider>): EnvironmentProviders;
+
+/**
+ * Builds the gRPC-web endpoint URL (`host` setting of `@ngx-grpc/grpc-web-client`) from the
+ * same `host` / `port` / `useSecureChannel` fields every ONDEWO SDK takes.
+ *
+ * In a browser the TLS handshake belongs to the user agent: it verifies the server against
+ * its own (OS / browser) trust store and presents a client certificate only from the
+ * browser's certificate store. Application code can neither add a CA nor attach a client
+ * identity, and a private key must never be shipped to a browser. The certificate fields the
+ * other SDKs accept (`grpcCert`, `grpcClientCert`, `grpcClientKey`) are therefore refused
+ * here instead of being silently dropped.
+ */
+/** Connection settings for a gRPC-web endpoint (an Envoy / gRPC-web proxy in front of the ONDEWO server). */
+interface GrpcWebEndpointConfig {
 	/**
-	 * Standard JavaScript object representation for Http
+	 * Host name or IP address (`nlu.example.com`, `10.0.0.5`, `::1`, `[::1]`), or a complete base
+	 * URL with scheme (`https://nlu.example.com:8443/grpc`), which is then used as given.
 	 */
-	interface AsObject {
-		rules?: HttpRule.AsObject[];
-		fullyDecodeReservedExpansion: boolean;
-	}
-	/**
-	 * Protobuf JSON representation for Http
-	 */
-	interface AsProtobufJSON {
-		rules: HttpRule.AsProtobufJSON[] | null;
-		fullyDecodeReservedExpansion: boolean;
-	}
+	host: string;
+	/** Port; omit it for the scheme's default port. Must be omitted when `host` is a URL. */
+	port?: number | string;
+	/** `true` (default): `https://`. `false`: plain `http://`, logged as a warning -- never in production. */
+	useSecureChannel?: boolean;
 }
 /**
- * Message implementation for google.api.HttpRule
+ * Certificate / key fields of the other ONDEWO SDKs' configs (camelCase and snake_case) that a
+ * browser cannot use. A non-empty value in any of them makes {@link buildGrpcWebHost} throw.
  */
-declare class HttpRule implements GrpcMessage {
-	static id: string;
+declare const BROWSER_UNSUPPORTED_TLS_FIELDS: readonly string[];
+/** Raised for an unusable {@link GrpcWebEndpointConfig}. The message names fields, never their values. */
+declare class GrpcWebEndpointError extends Error {
 	/**
-	 * Deserialize binary data to message
-	 * @param instance message instance
+	 * @param message a description of the problem that names the offending field.
 	 */
-	static deserializeBinary(bytes: ByteSource): HttpRule;
-	/**
-	 * Check all the properties and set default protobuf values if necessary
-	 * @param _instance message instance
-	 */
-	static refineValues(_instance: HttpRule): void;
-	/**
-	 * Deserializes / reads binary message into message instance using provided binary reader
-	 * @param _instance message instance
-	 * @param _reader binary reader instance
-	 */
-	static deserializeBinaryFromReader(_instance: HttpRule, _reader: BinaryReader): void;
-	/**
-	 * Serializes a message to binary format using provided binary reader
-	 * @param _instance message instance
-	 * @param _writer binary writer instance
-	 */
-	static serializeBinaryToWriter(_instance: HttpRule, _writer: BinaryWriter): void;
-	private _selector;
-	private _get;
-	private _put;
-	private _post;
-	private _delete;
-	private _patch;
-	private _custom?;
-	private _body;
-	private _responseBody;
-	private _additionalBindings?;
-	private _pattern;
-	/**
-	 * Message constructor. Initializes the properties and applies default Protobuf values if necessary
-	 * @param _value initial values object or instance of HttpRule to deeply clone from
-	 */
-	constructor(_value?: RecursivePartial<HttpRule.AsObject>);
-	get selector(): string;
-	set selector(value: string);
-	get get(): string;
-	set get(value: string);
-	get put(): string;
-	set put(value: string);
-	get post(): string;
-	set post(value: string);
-	get delete(): string;
-	set delete(value: string);
-	get patch(): string;
-	set patch(value: string);
-	get custom(): CustomHttpPattern | undefined;
-	set custom(value: CustomHttpPattern | undefined);
-	get body(): string;
-	set body(value: string);
-	get responseBody(): string;
-	set responseBody(value: string);
-	get additionalBindings(): HttpRule[] | undefined;
-	set additionalBindings(value: HttpRule[] | undefined);
-	get pattern(): HttpRule.PatternCase;
-	/**
-	 * Serialize message to binary data
-	 * @param instance message instance
-	 */
-	serializeBinary(): any;
-	/**
-	 * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
-	 */
-	toObject(): HttpRule.AsObject;
-	/**
-	 * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
-	 */
-	toJSON(): HttpRule.AsObject;
-	/**
-	 * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
-	 * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
-	 * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
-	 */
-	toProtobufJSON(options?: ToProtobufJSONOptions): HttpRule.AsProtobufJSON;
-}
-declare namespace HttpRule {
-	/**
-	 * Standard JavaScript object representation for HttpRule
-	 */
-	interface AsObject {
-		selector: string;
-		get: string;
-		put: string;
-		post: string;
-		delete: string;
-		patch: string;
-		custom?: CustomHttpPattern.AsObject;
-		body: string;
-		responseBody: string;
-		additionalBindings?: HttpRule.AsObject[];
-	}
-	/**
-	 * Protobuf JSON representation for HttpRule
-	 */
-	interface AsProtobufJSON {
-		selector: string;
-		get: string | null;
-		put: string | null;
-		post: string | null;
-		delete: string | null;
-		patch: string | null;
-		custom: CustomHttpPattern.AsProtobufJSON | null;
-		body: string;
-		responseBody: string;
-		additionalBindings: HttpRule.AsProtobufJSON[] | null;
-	}
-	enum PatternCase {
-		none = 0,
-		get = 1,
-		put = 2,
-		post = 3,
-		delete = 4,
-		patch = 5,
-		custom = 6
-	}
+	constructor(message: string);
 }
 /**
- * Message implementation for google.api.CustomHttpPattern
+ * Return the gRPC-web base URL for `config`: `https://host:port` by default, `http://host:port`
+ * when `useSecureChannel` is `false` (with a warning naming `host:port`). A bare IPv6 literal is
+ * bracketed (`https://[::1]:8443`); a bracketed host or a host that already carries a scheme is
+ * left alone.
+ *
+ * ```ts
+ * GrpcWebClientModule.forRoot({ settings: { host: buildGrpcWebHost({ host: "nlu.example.com", port: 443 }) } })
+ * ```
+ *
+ * @param config the endpoint settings.
+ * @returns the base URL to pass as the gRPC-web client's `host` setting.
+ * @throws GrpcWebEndpointError when a certificate / key field is set, the host is empty or
+ *   carries a port, the port is invalid, or an `http://` URL is combined with
+ *   `useSecureChannel: true`.
  */
-declare class CustomHttpPattern implements GrpcMessage {
-	static id: string;
-	/**
-	 * Deserialize binary data to message
-	 * @param instance message instance
-	 */
-	static deserializeBinary(bytes: ByteSource): CustomHttpPattern;
-	/**
-	 * Check all the properties and set default protobuf values if necessary
-	 * @param _instance message instance
-	 */
-	static refineValues(_instance: CustomHttpPattern): void;
-	/**
-	 * Deserializes / reads binary message into message instance using provided binary reader
-	 * @param _instance message instance
-	 * @param _reader binary reader instance
-	 */
-	static deserializeBinaryFromReader(_instance: CustomHttpPattern, _reader: BinaryReader): void;
-	/**
-	 * Serializes a message to binary format using provided binary reader
-	 * @param _instance message instance
-	 * @param _writer binary writer instance
-	 */
-	static serializeBinaryToWriter(_instance: CustomHttpPattern, _writer: BinaryWriter): void;
-	private _kind;
-	private _path;
-	/**
-	 * Message constructor. Initializes the properties and applies default Protobuf values if necessary
-	 * @param _value initial values object or instance of CustomHttpPattern to deeply clone from
-	 */
-	constructor(_value?: RecursivePartial<CustomHttpPattern.AsObject>);
-	get kind(): string;
-	set kind(value: string);
-	get path(): string;
-	set path(value: string);
-	/**
-	 * Serialize message to binary data
-	 * @param instance message instance
-	 */
-	serializeBinary(): any;
-	/**
-	 * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
-	 */
-	toObject(): CustomHttpPattern.AsObject;
-	/**
-	 * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
-	 */
-	toJSON(): CustomHttpPattern.AsObject;
-	/**
-	 * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
-	 * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
-	 * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
-	 */
-	toProtobufJSON(options?: ToProtobufJSONOptions): CustomHttpPattern.AsProtobufJSON;
-}
-declare namespace CustomHttpPattern {
-	/**
-	 * Standard JavaScript object representation for CustomHttpPattern
-	 */
-	interface AsObject {
-		kind: string;
-		path: string;
-	}
-	/**
-	 * Protobuf JSON representation for CustomHttpPattern
-	 */
-	interface AsProtobufJSON {
-		kind: string;
-		path: string;
-	}
-}
+declare function buildGrpcWebHost(config: GrpcWebEndpointConfig): string;
 
 export {
+	AUTHORIZATION_HEADER,
 	AgentSurveyRequest,
 	AgentSurveyResponse,
 	Answer,
+	AuthGrpcInterceptor,
+	BEARER_PREFIX,
+	BROWSER_UNSUPPORTED_TLS_FIELDS,
 	Choice,
 	CreateFHIRSurveyRequest,
 	CreateSurveyRequest,
@@ -2672,14 +3197,20 @@ export {
 	GetAllSurveyAnswersRequest,
 	GetSurveyAnswersRequest,
 	GetSurveyRequest,
+	GrpcWebEndpointError,
 	Http,
 	HttpRule,
+	KEYCLOAK_TOKEN_PROVIDER_CONFIG,
+	KeycloakTokenError,
+	KeycloakTokenProvider,
 	ListSurveysRequest,
 	ListSurveysResponse,
+	MIN_REFRESH_DELAY_IN_S,
 	MultipleChoiceQuestion,
 	MultipleParameterQuestion,
 	OpenQuestion,
 	Question,
+	REFRESH_SKEW_IN_S,
 	ScaleQuestion,
 	SingleChoiceQuestion,
 	SingleParameterQuestion,
@@ -2689,5 +3220,13 @@ export {
 	SurveyFHIRAnswersResponse,
 	SurveyInfo,
 	SurveysClient,
-	UpdateSurveyRequest
+	TOKEN_PROVIDER,
+	UpdateSurveyRequest,
+	authHttpInterceptor,
+	buildBearerValue,
+	buildGrpcWebHost,
+	provideOndewoSurveyAuth,
+	resolveBearerValue,
+	resolveToken
 };
+export type { GrpcWebEndpointConfig, KeycloakTokenProviderConfig, TokenProvider, TokenResult };

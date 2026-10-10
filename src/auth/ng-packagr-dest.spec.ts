@@ -42,12 +42,12 @@ function resolveNgPackagrDest(): string {
         "submodule has to be checked out for this guard to read the destination ng-packagr really deletes."
     );
   }
-  const config: NgPackageConfig = JSON.parse(readFileSync(configPath, "utf8")) as NgPackageConfig;
+  const config: NgPackageConfig = JSON.parse(String(readFileSync(configPath, "utf8"))) as NgPackageConfig;
   const dest: string | undefined = config.dest;
   if (dest === undefined || dest === "") {
     throw new Error(`${configPath} declares no "dest", so this guard cannot tell which directory is deleted.`);
   }
-  return resolve(LIBRARY_SOURCE_ROOT, dest);
+  return String(resolve(LIBRARY_SOURCE_ROOT, dest));
 }
 
 /** True when `candidate` is `parent` itself or lives underneath it. */
@@ -66,7 +66,7 @@ describe("hand-written auth sources vs the ng-packagr output directory", () => {
     expect(existsSync(barrel)).toBe(true);
 
     const dest: string = resolveNgPackagrDest();
-    expect(isInside(dest, __dirname)).toBe(false);
+    expect(isInside(dest, String(__dirname))).toBe(false);
     expect(isInside(dest, barrel)).toBe(false);
   });
 });
