@@ -19,6 +19,7 @@ exclude: >
     node_modules/.*|
     api/.*|
     fesm2022/.*|
+    types/.*|
     src/ondewo-survey-api/.*|
     ondewo-proto-compiler/.*|
     ondewo-.*-api/.*|
