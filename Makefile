@@ -14,7 +14,7 @@ export
 # 		Variables
 ########################################################
 
-ONDEWO_SURVEY_VERSION=2.0.3
+ONDEWO_SURVEY_VERSION=2.0.4
 SURVEY_API_GIT_BRANCH=tags/2.0.1
 ONDEWO_PROTO_COMPILER_GIT_BRANCH=tags/5.16.0
 ONDEWO_PROTO_COMPILER_DIR=ondewo-proto-compiler

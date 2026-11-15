@@ -2,6 +2,20 @@
 
 *****************
 
+## Release ONDEWO Survey Angular Client 2.0.4
+
+### Bug Fixes
+
+* The package can be installed in Angular 21 and Angular 22 applications. 2.0.3 declared `@angular/core` and `@angular/common` as `>=20.1.7 <21.0.0`, so npm refused it in any application newer than Angular 20. The peer range is now `>=20.0.0 <23.0.0`; nothing else in the public API changed.
+* The version is stamped into the root `package.json` and `package-lock.json` as well as `src/package.json`, so the committed manifests no longer lag a release behind. `tests/package-version.spec.ts` pins it.
+
+### Build
+
+* Generated with ondewo-proto-compiler [5.16.0](https://github.com/ondewo/ondewo-proto-compiler/releases/tag/5.16.0), built with ng-packagr 22. The typings are now published under `types/` (`types/ondewo-survey-client-angular.d.ts`, referenced by `typings` and the `exports` map) instead of a root `index.d.ts`; imports by package name are unaffected.
+* The release utils image uses Node 24.22.3.
+
+*****************
+
 ## Release ONDEWO Survey Angular Client 2.0.3
 
 ### Bug Fixes
