@@ -13,6 +13,7 @@
 
 * Generated with ondewo-proto-compiler [5.16.0](https://github.com/ondewo/ondewo-proto-compiler/releases/tag/5.16.0), built with ng-packagr 22. The typings are now published under `types/` (`types/ondewo-survey-client-angular.d.ts`, referenced by `typings` and the `exports` map) instead of a root `index.d.ts`; imports by package name are unaffected.
 * The release utils image uses Node 24.22.3.
+* Release automation: eslint ignores the `npm/` build output. ng-packagr 22 writes the typings to `npm/types/` instead of `npm/index.d.ts`, which `**/index.d.ts` no longer covered, so the release's pre-commit step failed on the generated declarations.
 
 *****************
 
