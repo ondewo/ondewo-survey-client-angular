@@ -1,6 +1,6 @@
 {
   "name": "@ondewo/survey-client-angular",
-  "version": "2.0.4",
+  "version": "2.1.0",
   "description": "ONDEWO Survey (SURVEY) Client library for Angular",
   "author": "ONDEWO GmbH <office@ondewo.com>",
   "homepage": "https://ondewo.com",
@@ -32,8 +32,10 @@
   "peerDependencies": {
     "@angular/common": ">=20.0.0 <23.0.0",
     "@angular/core": ">=20.0.0 <23.0.0",
-    "@ngx-grpc/common": ">=3.1.2",
-    "@ngx-grpc/core": ">=3.1.2"
+    "@ngx-grpc/common": "~3.1.2",
+    "@ngx-grpc/core": "~3.1.2",
+    "google-protobuf": "~3.21.4",
+    "grpc-web": "2.1.1"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^8.12.2",

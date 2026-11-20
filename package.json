@@ -1,6 +1,6 @@
 {
   "name": "@ondewo/survey-client-angular",
-  "version": "2.0.4",
+  "version": "2.1.0",
   "description": "ONDEWO Survey (SURVEY) Client library for Angular",
   "author": "ONDEWO GmbH <office@ondewo.com>",
   "homepage": "https://ondewo.com",
@@ -24,8 +24,10 @@
   "peerDependencies": {
     "@angular/common": ">=20.0.0 <23.0.0",
     "@angular/core": ">=20.0.0 <23.0.0",
-    "@ngx-grpc/common": ">=3.1.2",
-    "@ngx-grpc/core": ">=3.1.2"
+    "@ngx-grpc/common": "~3.1.2",
+    "@ngx-grpc/core": "~3.1.2",
+    "google-protobuf": "~3.21.4",
+    "grpc-web": "2.1.1"
   },
   "module": "fesm2022/ondewo-survey-client-angular.mjs",
   "typings": "types/ondewo-survey-client-angular.d.ts",
@@ -58,6 +60,8 @@
     "@typescript-eslint/typescript-estree": "^8.62.1",
     "eslint": "^10.6.0",
     "global": "^4.4.0",
+    "google-protobuf": "~3.21.4",
+    "grpc-web": "2.1.1",
     "husky": "^9.1.7",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
@@ -69,5 +73,8 @@
     "ts-jest": "^29.4.11",
     "typescript": "^6.0.3",
     "zone.js": "^0.16.2"
+  },
+  "overrides": {
+    "grpc-web": "$grpc-web"
   }
 }

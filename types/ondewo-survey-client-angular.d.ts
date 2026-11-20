@@ -1,3 +1,6 @@
+/**
+ * Generated bundle index. Do not edit.
+ */
 import { GrpcClientFactory, GrpcEvent, GrpcMessage, GrpcMetadata, GrpcRequest, RecursivePartial, ToProtobufJSONOptions } from "@ngx-grpc/common";
 import { BinaryReader, BinaryWriter, ByteSource } from "google-protobuf";
 import * as googleProtobuf006 from "@ngx-grpc/well-known-types";

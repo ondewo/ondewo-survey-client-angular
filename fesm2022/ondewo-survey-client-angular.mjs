@@ -551,7 +551,7 @@ var Survey = class Survey {
 					_reader.readMessage(_instance.surveyInfo, SurveyInfo.deserializeBinaryFromReader);
 					break;
 				case 9:
-					_reader.readPackableEnumInto(_instance.excludeSubflows = _instance.excludeSubflows || []);
+					(_instance.excludeSubflows = _instance.excludeSubflows || []).push(..._reader.readPackedEnum() || []);
 					break;
 				case 10:
 					_instance.status = _reader.readEnum();
@@ -2634,7 +2634,7 @@ var FHIRClient = class FHIRClient {
 	static {
 		this.ɵfac = i0.ɵɵngDeclareFactory({
 			minVersion: "12.0.0",
-			version: "22.2.6",
+			version: "22.3.0",
 			ngImport: i0,
 			type: FHIRClient,
 			deps: [
@@ -2651,7 +2651,7 @@ var FHIRClient = class FHIRClient {
 	static {
 		this.ɵprov = i0.ɵɵngDeclareInjectable({
 			minVersion: "12.0.0",
-			version: "22.2.6",
+			version: "22.3.0",
 			ngImport: i0,
 			type: FHIRClient,
 			providedIn: "any"
@@ -2660,7 +2660,7 @@ var FHIRClient = class FHIRClient {
 };
 i0.ɵɵngDeclareClassMetadata({
 	minVersion: "12.0.0",
-	version: "22.2.6",
+	version: "22.3.0",
 	ngImport: i0,
 	type: FHIRClient,
 	decorators: [{
@@ -2836,7 +2836,7 @@ var SurveysClient = class SurveysClient {
 	static {
 		this.ɵfac = i0.ɵɵngDeclareFactory({
 			minVersion: "12.0.0",
-			version: "22.2.6",
+			version: "22.3.0",
 			ngImport: i0,
 			type: SurveysClient,
 			deps: [
@@ -2853,7 +2853,7 @@ var SurveysClient = class SurveysClient {
 	static {
 		this.ɵprov = i0.ɵɵngDeclareInjectable({
 			minVersion: "12.0.0",
-			version: "22.2.6",
+			version: "22.3.0",
 			ngImport: i0,
 			type: SurveysClient,
 			providedIn: "any"
@@ -2862,7 +2862,7 @@ var SurveysClient = class SurveysClient {
 };
 i0.ɵɵngDeclareClassMetadata({
 	minVersion: "12.0.0",
-	version: "22.2.6",
+	version: "22.3.0",
 	ngImport: i0,
 	type: SurveysClient,
 	decorators: [{
@@ -3006,7 +3006,7 @@ var KeycloakTokenProvider = class KeycloakTokenProvider {
 	static {
 		this.ɵfac = i0.ɵɵngDeclareFactory({
 			minVersion: "12.0.0",
-			version: "22.2.6",
+			version: "22.3.0",
 			ngImport: i0,
 			type: KeycloakTokenProvider,
 			deps: [{ token: i1.HttpClient }, {
@@ -3019,7 +3019,7 @@ var KeycloakTokenProvider = class KeycloakTokenProvider {
 	static {
 		this.ɵprov = i0.ɵɵngDeclareInjectable({
 			minVersion: "12.0.0",
-			version: "22.2.6",
+			version: "22.3.0",
 			ngImport: i0,
 			type: KeycloakTokenProvider
 		});
@@ -3027,7 +3027,7 @@ var KeycloakTokenProvider = class KeycloakTokenProvider {
 };
 i0.ɵɵngDeclareClassMetadata({
 	minVersion: "12.0.0",
-	version: "22.2.6",
+	version: "22.3.0",
 	ngImport: i0,
 	type: KeycloakTokenProvider,
 	decorators: [{ type: Injectable }],
@@ -3091,7 +3091,7 @@ var AuthGrpcInterceptor = class AuthGrpcInterceptor {
 	static {
 		this.ɵfac = i0.ɵɵngDeclareFactory({
 			minVersion: "12.0.0",
-			version: "22.2.6",
+			version: "22.3.0",
 			ngImport: i0,
 			type: AuthGrpcInterceptor,
 			deps: [{ token: TOKEN_PROVIDER }],
@@ -3101,7 +3101,7 @@ var AuthGrpcInterceptor = class AuthGrpcInterceptor {
 	static {
 		this.ɵprov = i0.ɵɵngDeclareInjectable({
 			minVersion: "12.0.0",
-			version: "22.2.6",
+			version: "22.3.0",
 			ngImport: i0,
 			type: AuthGrpcInterceptor
 		});
@@ -3109,7 +3109,7 @@ var AuthGrpcInterceptor = class AuthGrpcInterceptor {
 };
 i0.ɵɵngDeclareClassMetadata({
 	minVersion: "12.0.0",
-	version: "22.2.6",
+	version: "22.3.0",
 	ngImport: i0,
 	type: AuthGrpcInterceptor,
 	decorators: [{ type: Injectable }],

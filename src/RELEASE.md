@@ -2,6 +2,15 @@
 
 *****************
 
+## Release ONDEWO Survey Angular Client 2.1.0
+
+### Improvements
+
+* Tracking API Version [2.1.0](https://github.com/ondewo/ondewo-survey-api/releases/tag/2.1.0) ( [Documentation](https://ondewo.github.io/ondewo-survey-api/) )
+* Generated with ondewo-proto-compiler 5.17.0. New runtime floors: `"grpc-web": "2.1.1"` as an exact dependency with `"overrides": { "grpc-web": "$grpc-web" }` (an application installing this package needs the same pair in its own package.json, because `@ngx-grpc/grpc-web-client` still declares `grpc-web ^1.2.1`), `@ngx-grpc/*` ~3.1.2, `google-protobuf` ~3.21.4
+
+*****************
+
 ## Release ONDEWO Survey Angular Client 2.0.4
 
 ### Bug Fixes

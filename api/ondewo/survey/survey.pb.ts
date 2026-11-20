@@ -93,8 +93,8 @@ export class Survey implements GrpcMessage {
           );
           break;
         case 9:
-          _reader.readPackableEnumInto(
-            (_instance.excludeSubflows = _instance.excludeSubflows || [])
+          (_instance.excludeSubflows = _instance.excludeSubflows || []).push(
+            ...(_reader.readPackedEnum() || [])
           );
           break;
         case 10:
