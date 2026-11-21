@@ -2,9 +2,9 @@ name: tests
 
 on:
   push:
+    # Every branch (master, release/**, feature/**, ticket branches), like the sibling SDKs.
     branches:
-      - master
-      - 'OND211-**'
+      - '**'
   pull_request:
     branches:
       - master
