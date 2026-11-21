@@ -2,6 +2,29 @@
 
 *****************
 
+## Release ONDEWO Survey Angular Client 2.1.1
+
+### New Features
+
+* [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) Offline-token start-up: the `refreshToken` option (`offlineToken` stays as a deprecated alias) starts the session with one `grant_type=refresh_token` exchange of a Keycloak *offline* token; a refused token is never answered with a password login, and no refresh path falls back to one.
+* [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) The framework-free `KeycloakTokenSession` carries the logic, and `KeycloakTokenProvider` is a thin dependency-injection adapter over it, with `configure()`, `whenReady()` and `ensureFreshToken({ force })`; a provider registered without a configuration stays idle instead of throwing. The shared login is keyed by a SHA-256 of the credentials per `HttpClient`. `KeycloakTokenError` stays as a deprecated alias of `KeycloakAuthenticationError` (the very same class).
+* [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) Tests: the cross-SDK Keycloak test catalogue as unit tests, at 100 % coverage.
+
+### Bug Fixes
+
+* [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) Keycloak token refresh: a failed refresh no longer ends the refresh. Every failure kind (a 5xx from a proxy, a DNS or connection failure, a restarting Keycloak, a dead offline session) is retried with full-jitter exponential backoff, 5 s doubling up to 300 s and measured from the moment the failure was recorded; the background loop and the lazy path share that backoff. A success resets the backoff.
+* [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) A token that is still valid keeps being served when its refresh fails inside the 30 s expiry leeway; only an EXPIRED token raises, and it raises `KeycloakAuthenticationError` whatever failed underneath (transport error, non-2xx status, a body that is not JSON or not a JSON object, a missing `access_token`, a non-numeric `expires_in`), with the original error kept as its cause. A malformed response changes no provider state. Concurrent callers share one in-flight refresh, so an outage costs one token request, not one per call.
+* [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) A token response without an `access_token` is reported by its field names only, never by its values (a token response is credential material), and a quoted Keycloak error body is cut at 500 characters.
+* [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) `getToken()` waits for a first login that is still running instead of answering `null`, so the first request issued right after bootstrap is no longer sent without a token.
+* [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) The type-aware eslint loads the typings under TypeScript 6 again, and the tests workflow runs on every branch push.
+
+### Improvements
+
+* [[OND236-120]](https://ondewo.atlassian.net/browse/OND236-120) The same Keycloak behaviour as every ONDEWO SDK (the python SDKs are the reference, ondewo-survey-client-python 2.1.1 ships the same fixes): the token request is bounded by a 10 s timeout, durations use a monotonic clock, the `tokenExpirationInS` window is armed on both start-up paths, each failed refresh logs one WARNING with the attempt number, the retry delay and how long the current token stays valid, and the first success afterwards one INFO. No credential appears in any log line, error or rendering of the configuration.
+* Tracking API Version [2.1.0](https://github.com/ondewo/ondewo-survey-api/releases/tag/2.1.0) ( [Documentation](https://ondewo.github.io/ondewo-survey-api/) ), generated with ondewo-proto-compiler 5.17.0: the generated code is unchanged from 2.1.0
+
+*****************
+
 ## Release ONDEWO Survey Angular Client 2.1.0
 
 ### Improvements
