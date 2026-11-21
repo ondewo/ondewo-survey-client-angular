@@ -1,12 +1,11 @@
 {
 	"compileOnSave": false,
 	"compilerOptions": {
-		"baseUrl": "./",
 		"outDir": "./dist/out-tsc",
 		"sourceMap": true,
 		"declaration": false,
 		"module": "ES2022",
-		"moduleResolution": "node",
+		"moduleResolution": "bundler",
 		"experimentalDecorators": true,
 		"skipLibCheck": false,
 		"target": "ES2022",
@@ -14,6 +13,7 @@
 		"resolveJsonModule": true,
 		"esModuleInterop": true,
 		"typeRoots": ["node_modules/@types"],
+		"types": ["jest", "node"],
 		"lib": ["ES2022", "dom"]
 	},
 	"angularCompilerOptions": {
